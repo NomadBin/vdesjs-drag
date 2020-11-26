@@ -1,0 +1,1 @@
+treee -L 4 -I "node_modules|.idea|objects|.git|dist"  -d > list.txt

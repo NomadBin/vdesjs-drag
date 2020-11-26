@@ -1,0 +1,31 @@
+
+{{#compare myItem.propValues.[0].value.chooseValue '==' 'single'}}
+formatDate{{myItem.id}}(date) {
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  },
+  onConfirm{{myItem.id}}(date) {
+    this.show{{myItem.id}} = false;
+    this.date{{myItem.id}} = this.formatDate{{myItem.id}}(date);
+  },
+{{/compare}}
+{{#compare myItem.propValues.[0].value.chooseValue '==' 'multiple'}}
+formatDate{{myItem.id}}(date) {
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  },
+  onConfirmMultiple{{myItem.id}}(date) {
+    this.show{{myItem.id}} = false;
+    this.date{{myItem.id}} = `选择了 ${date.length} 个日期`;
+  },
+{{/compare}}
+{{#compare myItem.propValues.[0].value.chooseValue '==' 'range'}}
+formatDate{{myItem.id}}(date) {
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  },
+  onConfirmRange{{myItem.id}}(date) {
+    const [start, end] = date;
+    this.show{{myItem.id}} = false;
+    this.date{{myItem.id}} = `${this.formatDate{{myItem.id}}(start)} - ${this.formatDate{{myItem.id}}(end)}`;
+  },
+{{/compare}}
+
+

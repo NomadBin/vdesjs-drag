@@ -1,0 +1,8 @@
+<van-swipe class="my-swipe" autoplay="3000" indicator-color="white">
+
+    {{#each myItem.propValues.[0].value.data}}
+    <van-swipe-item style="height: {{../myItem.propValues.[1].value.num}}{{../myItem.propValues.[1].value.unit}}">
+        <van-image src="{{url}}" fit="contain" />
+    </van-swipe-item>
+    {{/each}}
+</van-swipe>

@@ -1,0 +1,11 @@
+
+.myBounceOutRight {
+    transition: all 0.5s ease-in-out 0s; 
+    transform: translate(100%, 0px);
+}
+
+
+.myBackInRight {
+	transition: all 0.5s ease-in-out 0s; 
+    transform: translate(0px, 0px);
+}

@@ -1,0 +1,7 @@
+<van-cell title="显示分享面板" @click="showShare{{myItem.id}} = true" />
+    <van-share-sheet
+      v-model="showShare{{myItem.id}}"
+      title="立即分享给好友"
+      :options="data{{myItem.id}}.data"
+      @select="onSelect{{myItem.id}}"
+    />

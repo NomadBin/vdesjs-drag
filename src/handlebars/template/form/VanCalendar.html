@@ -1,0 +1,33 @@
+
+  {{#compare myItem.propValues.[0].value.chooseValue '==' 'single'}}
+  <van-cell title="选择单个日期" :value="date{{myItem.id}}" @click="show = true" />
+    <van-calendar
+      show-confirm="{{myItem.propValues.[1].value}}"
+      color="{{myItem.propValues.[2].value}}"
+      v-model="show{{myItem.id}}"
+      @confirm="onConfirm{{myItem.id}}"
+    />
+  {{/compare}}
+
+  {{#compare myItem.propValues.[0].value.chooseValue '==' 'multiple'}}
+  <van-cell title="选择多个日期" :value="date{{myItem.id}}" @click="show = true" />
+    <van-calendar
+      show-confirm="{{myItem.propValues.[1].value}}"
+      color="{{myItem.propValues.[2].value}}"
+      v-model="show{{myItem.id}}"
+      type="multiple"
+      @confirm="onConfirmMultiple{{myItem.id}}"
+    />
+  {{/compare}}
+
+  {{#compare myItem.propValues.[0].value.chooseValue '==' 'range'}}
+  <van-cell title="选择日期区间" :value="date{{myItem.id}}" @click="show = true" /> 
+    <van-calendar
+      show-confirm="{{myItem.propValues.[1].value}}"
+      color="{{myItem.propValues.[2].value}}"
+      v-model="show{{myItem.id}}"
+      type="range"
+      @confirm="onConfirmRange{{myItem.id}}"
+    />
+  {{/compare}}
+
