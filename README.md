@@ -12,7 +12,7 @@
   </a>
 </p>
 
-## 介绍 :loudspeaker::loudspeaker:
+## 介绍 :loudspeaker: :loudspeaker:
 
 > vdesjs是一款基于vue技术栈，可视化拖拽，代码生成工具。我们提供详细的文档来帮助您理解我们工具的实现原理，并且您可以方便的基于vdesjs来扩展您自己的代码生成组件。
 
