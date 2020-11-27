@@ -1,7 +1,7 @@
 {
   "name": "vdesjs",
   "version": "1.0.0",
-  "description": "基于vue的拖拽可视化组件，代码生成工具",
+  "description": "基于vue的可视化拖拽，代码生成工具。",
   "author": "china-bin",
   "keywords": [
     "h5 editor",
