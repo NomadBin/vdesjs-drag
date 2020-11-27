@@ -18,7 +18,7 @@
 
 <img src="./src/assets/showHow.gif" alt="演示动图" />
 
-## 技术选型 :computer::computer:
+## 技术选型 :computer: :computer:
 | 技术                                                             | 描述                                                                                                                           |
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | [Vue.Draggable](https://github.com/SortableJS/Vue.Draggable)     | 基于 Sortable.js 的 Vue 拖放组件                                                                                               |
@@ -68,13 +68,13 @@ vdesjs
 └── static
 </pre>
 
-## 扩展组件步骤 :electric_plug::electric_plug:
+## 扩展组件步骤 :electric_plug: :electric_plug:
 * 1.编写左侧组件json数据结构
 * 2.编写组件，引入组件。
 * 3.编写代码生成模板
 如需详细步骤请参阅 下方参考文档：[vdesjs扩展自己的组件](http)
 
-## 参考文档 :notebook::notebook:
+## 参考文档 :notebook: :notebook:
 * [vdesjs实现原理](http)
 * [vdesjs扩展自己的组件](http)
 
@@ -83,7 +83,7 @@ vdesjs
 项目会持续维护升级，如您在使用中与到任何bug，或者关于本项目有任何好的建议都可以联系作者。
 
 
-## 技术反馈交流群 :telephone_receiver::telephone_receiver:
+## 技术反馈交流群 :telephone_receiver: :telephone_receiver:
 
 
 
