@@ -72,7 +72,7 @@ vdesjs
 * 1.编写左侧组件json数据结构
 * 2.编写组件，引入组件。
 * 3.编写代码生成模板
-如需详细步骤请参阅 下方参考文档：[vdesjs扩展自己的组件](http)
+* 如需详细步骤请参阅 下方参考文档：[vdesjs扩展自己的组件](http)
 
 ## 参考文档 :notebook: :notebook:
 * [vdesjs实现原理](http)
