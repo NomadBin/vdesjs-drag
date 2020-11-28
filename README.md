@@ -4,7 +4,7 @@
 
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg" />
-  <a href="https://www.jianshu.com/u/4514d0e6249e" target="_blank">
+  <a href="https://www.jianshu.com/c/061d0ea33f2d" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
   <a href="#" target="_blank">
@@ -72,11 +72,11 @@ vdesjs
 * 1.编写左侧组件json数据结构
 * 2.编写组件，引入组件。
 * 3.编写代码生成模板
-* 如需详细步骤请参阅 下方参考文档：[vdesjs扩展自己的组件](http)
+* 如需详细步骤请参阅 下方参考文档：[vdesjs扩展自己的组件](https://www.jianshu.com/p/e22f7158b863)
 
 ## 参考文档 :notebook: :notebook:
-* [vdesjs实现原理](http)
-* [vdesjs扩展自己的组件](http)
+* [vdesjs实现原理](https://www.jianshu.com/p/8b28e71e3d12)
+* [vdesjs扩展自己的组件](https://www.jianshu.com/p/e22f7158b863)
 
 
 ## 持续升级
@@ -84,7 +84,9 @@ vdesjs
 
 
 ## 技术反馈交流群 :telephone_receiver: :telephone_receiver:
+<img src="./src/assets/qqConcat.JPG" alt="1125390832" />
 
+* qq群号: 1125390832
 
 
 ## Build Setup
