@@ -104,3 +104,15 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
+## 已完成功能
+1. 清空画布
+2. 生成vue代码
+3. h5端vant组件可拖拽
+4. 生成JSON代码
+   
+## 加入计划功能 (欢迎补充提交建议)
+1. 扩展pc响应式布局组件
+
+## 开源地址
+* [码云](https://gitee.com/china-bin/vdesjs)
+* [github](https://github.com/china-bin/vdesjs)

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tabs :tab-position="tabPosition">
+    <el-tabs tab-position="left">
       <el-tab-pane>
         <span slot="label"><i class="el-icon-s-grid"></i></span>
         <h5>基础组件</h5>
@@ -141,7 +141,6 @@ export default {
   },
   data() {
     return {
-      tabPosition: "left",
       basicCompoents: [
         {
           name: "按钮",
