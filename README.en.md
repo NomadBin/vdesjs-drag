@@ -19,15 +19,15 @@
 <img src="./src/assets/showHow.gif" alt="show animation" />
 
 ## Technical Selection :computer: :computer:
-| Technology | Description |
-| ------------------------------------------------- --------------- | ---------------------------------- -------------------------------------------------- ------------------------------------------ |
-| [Vue.Draggable](https://github.com/SortableJS/Vue.Draggable) | Vue drag and drop component based on Sortable.js |
-| vuex | State management tool (a simple understanding is to maintain vue's public variables for global use) |
-| [clipboard.js](https://github.com/zenorocha/clipboard.js) | A plugin to copy text to the clipboard |
-| [element-ui](https://element.eleme.io/#/en-US) | Desktop UI framework based on Vue.js 2.0 |
-| [vant](https://vant-contrib.gitee.io/vant/) | Youzan front-end team open source mobile terminal component library (we select some vant components and use them as drag components on the left of vdesjs) |
-| [handlebars](https://github.com/handlebars-lang/handlebars.js) | js template engine (the code generation template of the drag-and-drop component on the left of vdesjs select handlebars as the template engine. If you want to write your own template, you can Refer to the handlerbars grammar for writing) |
-| [vue-codemirror](https://github.com/surmon-china/vue-codemirror) | Code editor (use it as an editor for vdesjs code display) |
+| technology | describes |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+ | [Vue Draggable](https://github.com/SortableJS/Vue.Draggable)| based on Sortable.js Vue drag component
+| vuex | state management tool (understood simply to maintain a common variable in vue for global use) |
+| [clipboard. Js](https://github.com/zenorocha/clipboard.js)| plug-in   will text copied to the clipboard
+ | [element - UI](https://element.eleme.cn/#/zh-CN)  | based on Vue.js 2.0 desktop client UI framework
+| [vant](https://vant-contrib.gitee.io/vant/)| has praised the front-end team the mobile end of the open source component library (we will choose some vant components, as vdesjs left drag and drop components) |
+| [handlebars](https://github.com/handlebars-lang/handlebars.js) | js template engine (vdesjs left drag component code generation templates choice handlebars as a template engine. If you want to write your own build templates, refer to the handlerbars syntax for writing) |
+[vue - codemirror](https://github.com/surmon-china/vue-codemirror)  |  code editor (with its display as vdesjs code editor) |
 
 ## Project directory structure
 <pre>
