@@ -29,10 +29,10 @@
     </el-col>
     <el-col :span="3">
       <div class="contentLink">
-        <el-link href="https://github.com/" target="_blank" type="primary"
+        <el-link href="https://gitee.com/china-bin/vdesjs" target="_blank" type="primary"
           >码云</el-link
         >
-        <el-link href="https://github.com/" target="_blank" type="primary"
+        <el-link href="https://github.com/china-bin/vdesjs" target="_blank" type="primary"
           >Github</el-link
         >
       </div>
