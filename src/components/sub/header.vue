@@ -21,10 +21,10 @@
     </el-col>
     <el-col :span="5">
       <div class="device">
-        <!-- <el-select size="mini">
-          <el-option>手机</el-option>
-          <el-option>pc</el-option>
-        </el-select> -->
+        <el-select size="mini" v-model="deviceMode" @change="selectDevice">
+          <el-option value="h5">h5</el-option>
+          <el-option value="pc">pc响应式</el-option>
+        </el-select>
       </div>
     </el-col>
     <el-col :span="3">
@@ -77,6 +77,7 @@ import handlebars from "@/handlebars";
 export default {
   data() {
     return {
+      deviceMode: "h5",
       activeName: "vueCode",
       curVueCode: "",
       cmOptions: {
@@ -99,6 +100,11 @@ export default {
     codemirror,
   },
   methods: {
+    selectDevice(val) {
+      console.log(val)
+      this.$store.commit("selectDevice", val)
+
+    },
     deleteAll() {
       this.$confirm("确定清除画布?", "提示", {
         confirmButtonText: "确定",

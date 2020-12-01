@@ -13,6 +13,9 @@ import 'vant/lib/index.css';
 import VueCodeMirror from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 
+import $ from 'jquery'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min'
 
 
 Vue.config.productionTip = false

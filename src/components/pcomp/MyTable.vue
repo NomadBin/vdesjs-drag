@@ -23,7 +23,7 @@
       <div class="content">
         <div v-for="(item, i) in tableStructs" :key="i">
           <el-row v-if="item.type == 'text'">
-            <el-col class="label" span="6">
+            <el-col class="Mylabel" span="6">
               <div>{{ item.label }}:</div>
             </el-col>
             <el-col class="control" span="14">
@@ -35,7 +35,7 @@
           </el-row>
 
           <el-row v-if="item.type == 'imageStore'">
-            <el-col class="label" span="6">
+            <el-col class="Mylabel" span="6">
               <div>{{ item.label }}:</div>
             </el-col>
             <el-col span="7">
@@ -159,7 +159,7 @@ export default {
 .content {
   padding: 10px;
 }
-.label {
+.Mylabel {
   text-align: right;
   padding-right: 20px;
 }

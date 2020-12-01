@@ -6,11 +6,13 @@
       </el-header>
       <el-container>
         <el-aside>
-          <left-panel></left-panel>
+          <left-panel v-if="mode == 'h5'"></left-panel>
+          <pc-left-panel v-if="mode == 'pc'"></pc-left-panel>
         </el-aside>
         <el-container>
           <el-main>
-            <phone-frame></phone-frame>
+            <phone-frame v-if="mode == 'h5'"></phone-frame>
+            <pc-frame v-if="mode == 'pc'"></pc-frame>
           </el-main>
           <el-footer></el-footer>
         </el-container>
@@ -30,6 +32,8 @@ import THeader from "@/components/sub/header.vue";
 import LeftPanel from "@/components/sub/LeftPanel.vue";
 import PhoneFrame from "@/components/sub/PhoneFrame.vue";
 import RightPanel from "@/components/sub/RightPanel.vue";
+import PcFrame from '../components/sub/pcFrame.vue';
+import PcLeftPanel from '../components/sub/PcLeftPanel.vue';
 
 export default {
   components: {
@@ -37,6 +41,8 @@ export default {
     LeftPanel,
     PhoneFrame,
     RightPanel,
+    PcFrame,
+    PcLeftPanel,
   },
   name: "editor",
   data() {
@@ -53,6 +59,9 @@ export default {
     foldClass() {
       return this.$store.state.rightPanelClass.foldClass;
     },
+    mode() {
+      return this.$store.state.mode;
+    }
   },
   methods: {
     fold: function() {

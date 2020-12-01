@@ -69,7 +69,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 $phoneWidth: 375px;
 $phoneHeight: 667px;
 

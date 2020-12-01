@@ -18,6 +18,7 @@
               ><el-input-number
                 v-model="item.value"
                 label="描述文字"
+                size="mini"
               ></el-input-number
             ></el-col>
           </el-row>
@@ -208,6 +209,7 @@ export default {
   width: 300px;
   height: calc(100vh - 60px);
   box-shadow: -2px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  overflow-y: scroll;
 }
 .rightPanelItems {
   padding: 20px;
@@ -229,7 +231,7 @@ export default {
   cursor: pointer;
 }
 .bootomDelete {
-  position: absolute;
+  position: relative;
   bottom: 0px;
   width: 300px;
   text-align: center;

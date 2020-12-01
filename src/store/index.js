@@ -19,7 +19,9 @@ const store = new Vuex.Store({
             animateClass: "",
             iconClass: "el-icon-arrow-right",
             foldClass: "rightFold"
-        }
+        },
+        // 当前模式 h5、pc
+        mode: "h5"
     },
     getters: {
         // 当前选择的元素
@@ -87,6 +89,10 @@ const store = new Vuex.Store({
         //globalId自增
         globalIdInc(state) {
             state.globalId = state.globalId + 1
+        },
+        // 切换设备
+        selectDevice(state, payload) {
+            state.mode = payload
         }
     }
 })
