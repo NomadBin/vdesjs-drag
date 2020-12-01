@@ -1,10 +1,10 @@
 <template>
   <div class="pc-s">
-    <div>
+    <!-- <div>
       <img :src="phoneIcon" alt="手机" class="icon" />
       <img :src="surfaceIcon" alt="平板" class="icon" />
       <img :src="pcIcon" alt="电脑" class="icon" />
-    </div>
+    </div> -->
     <div class="pc">
       <div class="pc-top">
         <el-row>
@@ -30,6 +30,7 @@
   </div>
 </template>
 <script>
+
 import draggable from "vuedraggable";
 import basicsMixin from "@/common/js/pc/importBasics";
 
@@ -75,7 +76,10 @@ export default {
   },
 };
 </script>
+
+
 <style lang="scss" scoped>
+@import 'bootstrap/dist/css/bootstrap.min.css';
 $pcWidth: 100%;
 $pcHeight: 100%;
 .icon {

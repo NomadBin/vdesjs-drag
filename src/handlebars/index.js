@@ -22,8 +22,8 @@ let VanGrid = require("./template/nav/VanGrid.html")
 
 //bottom
 let bottomScript = require("./template/bottomScript.html")
-let VanCalendarMethod =require("./template/methods/Vancalendar.html")
-let VanShareSheetMethod =require("./template/methods/VanShareSheet.html")
+let VanCalendarMethod = require("./template/methods/Vancalendar.html")
+let VanShareSheetMethod = require("./template/methods/VanShareSheet.html")
 
 
 let compoentTexts = {
@@ -109,7 +109,7 @@ let obj = {
         }
         allCodeText = allCodeText + "</div>" + "\r\n"
         allCodeText = allCodeText + "</template>" + "\r\n"
-        
+
 
 
         // 获取vue代码底部script标签代码
@@ -130,24 +130,49 @@ let obj = {
         // let template = Handlebars.compile(VanButton);
         // console.log(template({}))
     },
-    
+
+    // 遍历json 找到isModeal为true(获取data下的内容)
     getBottomScriptVars(obj) {
         let varsObj = {
 
         };
         for (var i = 0; i < obj.length; i++) {
             if (obj[i].componentName == "VanLayout") {
+                for (var j = 0; j < obj[i].cols.length; j++) {
+                    var list = obj[i].cols[j].list;
+                    for (var k = 0; k < list.length; k++) {
+                        var propValues = list[k].propValues
+                        for (var l = 0; l < propValues.length; l++) {
+                            if (propValues[l].isModel == true) {
+                                console.log(propValues[l].key + obj[i].id + "为isModel")
+                                if (this.isObject(propValues[l].value)) {
+                                    //为对象需要用json格式化
+                                    var str = JSON.stringify(propValues[l].value);
+                                    varsObj[propValues[l].key + obj[i].id] = str
+                                } else if (this.isBoolean(propValues[l].value)) {
+                                    var str = propValues[l].value
+                                    varsObj[propValues[l].key + obj[i].id] = str
 
+                                } else {
+                                    var str = "\"" + propValues[l].value + "\""
+                                    varsObj[propValues[l].key + obj[i].id] = str
+                                }
+
+                            }
+                        }
+
+                    }
+                }
             } else {
                 var propValues = obj[i].propValues
                 for (var j = 0; j < propValues.length; j++) {
                     if (propValues[j].isModel == true) {
                         console.log(propValues[j].key + obj[i].id + "为isModel")
-                        if(this.isObject(propValues[j].value)) {
+                        if (this.isObject(propValues[j].value)) {
                             //为对象需要用json格式化
                             var str = JSON.stringify(propValues[j].value);
                             varsObj[propValues[j].key + obj[i].id] = str
-                        }  else if (this.isBoolean(propValues[j].value)) {
+                        } else if (this.isBoolean(propValues[j].value)) {
                             var str = propValues[j].value
                             varsObj[propValues[j].key + obj[i].id] = str
 
@@ -155,7 +180,7 @@ let obj = {
                             var str = "\"" + propValues[j].value + "\""
                             varsObj[propValues[j].key + obj[i].id] = str
                         }
-                        
+
                     }
                 }
             }
@@ -164,16 +189,32 @@ let obj = {
         return varsObj;
     },
 
+    // 遍历json，找到methods模板并传入json编译成最终的methods代码。
     getBottomScriptMethods(obj) {
-        let methodsObj =  {
+        let methodsObj = {
 
         }
         for (var i = 0; i < obj.length; i++) {
             if (obj[i].componentName == "VanLayout") {
+                for (var j = 0; j < obj[i].cols.length; j++) {
+                    var list = obj[i].cols[j].list;
+                    for (var k = 0; k < list.length; k++) {
+                        var componentName = list[k].componentName
+                        if (compentMethods[componentName] != null) {
+                            console.log(componentName + "有方法")
+                            var template = Handlebars.compile(compentMethods[componentName])
+                            var tempateText = template({
+                                myItem: list[k]
+                            })
+                            methodsObj[componentName + list[k].id] = tempateText
+                        }
+
+                    }
+                }
 
             } else {
                 var componentName = obj[i].componentName
-                if(compentMethods[componentName] != null) {
+                if (compentMethods[componentName] != null) {
                     console.log(componentName + "有方法")
                     var template = Handlebars.compile(compentMethods[componentName])
                     var tempateText = template({
@@ -188,6 +229,7 @@ let obj = {
 
     },
 
+    // 根据每个组件的模板文件，传入json，编译成所需的组件代码。
     generateVueCodeFromObjToText(obj) {
         var compoentName = obj.componentName;
         var compoentText = compoentTexts[compoentName];

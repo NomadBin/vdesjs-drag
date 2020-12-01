@@ -48,7 +48,16 @@ export default {
               label: "导航栏背景颜色",
               key: "navbarBg",
               type: "color",
-              value: "#fff",
+              value: "#eee",
+            },
+            {
+              label: "导航栏高度",
+              key: "navbarHeight",
+              type: "numUnit",
+              value: {
+                num: 5,
+                unit: "rem",
+              },
             },
             {
               label: "导航项颜色",
@@ -70,6 +79,12 @@ export default {
                 "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
             },
             {
+              label: "logo图片大小",
+              key: "logoSize",
+              type: "num",
+              value: "25"
+            },
+            {
               label: "logo右间距",
               key: "logoRightSpace",
               type: "numUnit",
@@ -84,6 +99,15 @@ export default {
               type: "numUnit",
               value: {
                 num: 1,
+                unit: "rem",
+              },
+            },
+            {
+              label: "导航项顶部间距",
+              key: "navItemTopSpace",
+              type: "numUnit",
+              value: {
+                num: 0,
                 unit: "rem",
               },
             },

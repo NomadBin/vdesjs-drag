@@ -10,6 +10,11 @@
           <pc-left-panel v-if="mode == 'pc'"></pc-left-panel>
         </el-aside>
         <el-container>
+          <el-header height="30px">
+            <tool-header v-if="mode == 'h5'"></tool-header>
+            <pc-tool-header v-if="mode == 'pc'"></pc-tool-header>
+            <!-- <div style="line-height:30px">工具头部</div> -->
+          </el-header>
           <el-main>
             <phone-frame v-if="mode == 'h5'"></phone-frame>
             <pc-frame v-if="mode == 'pc'"></pc-frame>
@@ -34,6 +39,8 @@ import PhoneFrame from "@/components/sub/PhoneFrame.vue";
 import RightPanel from "@/components/sub/RightPanel.vue";
 import PcFrame from '../components/sub/pcFrame.vue';
 import PcLeftPanel from '../components/sub/PcLeftPanel.vue';
+import ToolHeader from '../components/sub/ToolHeader.vue';
+import PcToolHeader from '../components/sub/PcToolHeader.vue';
 
 export default {
   components: {
@@ -43,6 +50,8 @@ export default {
     RightPanel,
     PcFrame,
     PcLeftPanel,
+    ToolHeader,
+    PcToolHeader,
   },
   name: "editor",
   data() {

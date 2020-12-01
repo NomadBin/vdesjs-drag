@@ -4,6 +4,7 @@
     ref="var"
     :style="{
       '--navbarBg': myItem.propValues[navbarBgIndex].value,
+      '--navbarHeigth': myItem.propValues[navbarHeigthIndex].value.num + myItem.propValues[navbarHeigthIndex].value.unit,
       '--itemBg': myItem.propValues[itemBgIndex].value,
       '--itemHoverBg': myItem.propValues[itemHoverBgIndex].value,
       '--logoRightSpace':
@@ -12,6 +13,9 @@
       '--navItemSpace':
         myItem.propValues[navItemSpaceIndex].value.num +
         myItem.propValues[navItemSpaceIndex].value.unit,
+        '--navItemTopSpace':
+        myItem.propValues[navItemTopSpaceIndex].value.num +
+        myItem.propValues[navItemTopSpaceIndex].value.unit,
       '--fontSize': myItem.propValues[fontSizeIndex].value + 'px',
     }"
   >
@@ -35,7 +39,7 @@
             <img
               :src="myItem.propValues[logoIndex].value"
               alt=""
-              style="height: 25px"
+              :style="{'height': myItem.propValues[logoSizeIndex].value + 'px'}"
             />
           </a>
         </div>
@@ -53,6 +57,9 @@
   </div>
 </template>
 <script>
+
+
+
 export default {
   props: {
     myItem: {},
@@ -61,36 +68,48 @@ export default {
   data() {
     return {
       navbarBgIndex: 0,
-      itemBgIndex: 1,
-      itemHoverBgIndex: 2,
-      logoIndex: 3,
-      logoRightSpaceIndex: 4,
-      navItemSpaceIndex: 5,
-      fontSizeIndex: 6,
-      dataIndex: 7,
+      navbarHeigthIndex: 1,
+      itemBgIndex: 2,
+      itemHoverBgIndex: 3,
+      logoIndex: 4,
+      logoSizeIndex: 5,
+      logoRightSpaceIndex: 6,
+      navItemSpaceIndex: 7,
+      navItemTopSpaceIndex: 8,
+      fontSizeIndex: 9,
+      dataIndex: 10,
     };
   },
 };
 </script>
+
+
 <style scoped>
+@import 'bootstrap/dist/css/bootstrap.min.css';
 .var {
   --navbarBg: lightgray;
+  --navbarHeigth: 5rem;
   --itemBg: black;
   --itemHoverBg: black;
   --logoRightSpace: 6rem;
   --navItemSpace: 1rem;
+  --navItemTopSpace: 0rem;
   --fontSize: 16px;
 }
 
 .navbar-my {
   background-color: var(--navbarBg);
-  height: 5rem;
+  
+}
+.navbar-my .navbar-nav {
+    height: var(--navbarHeigth);
 }
 .navbar > .container .navbar-brand {
   margin-right: var(--logoRightSpace);
 }
 .navbar-my .navbar-nav > li {
   margin-right: var(--navItemSpace);
+  margin-top: var(--navItemTopSpace);
 }
 
 .navbar-my .navbar-nav > li > a {

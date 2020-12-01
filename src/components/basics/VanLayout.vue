@@ -20,9 +20,14 @@
 </template>
 <script>
 import draggable from "vuedraggable";
-import basics from "@/common/js/importBasics";
+import basicsMixin from "@/common/js/importBasics";
+import formMixin from "@/common/js/importForm";
+import feebackMixin from "@/common/js/importFeeback";
+import showMixin from "@/common/js/importShow";
+import navMixin from "@/common/js/importNav";
+import businessMixin from "@/common/js/importBusiness";
 export default {
-  mixins: [basics],
+  mixins: [basicsMixin, formMixin, feebackMixin, showMixin, navMixin, businessMixin],
   computed: {
     cols: function() {
       return this.$store.state.list[this.listIndex].cols;
