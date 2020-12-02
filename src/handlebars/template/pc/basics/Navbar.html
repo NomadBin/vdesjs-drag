@@ -1,0 +1,23 @@
+<div class="navbar navbar-my navbar-static-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="{{myItem.propValues.[4].value}}" alt="" style="height: {{myItem.propValues.[5].value}}px" />
+            </a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                {{#each myItem.propValues.[10].value.data}}
+                <li><a href="{{url}}">{{name}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>

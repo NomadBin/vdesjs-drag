@@ -24,7 +24,7 @@
               <el-image
                 style="width: 100px; height: 100px"
                 :src="img.url"
-                fit="cover"
+                fit="contain"
               >
               </el-image>
               <span>{{ img.name }}</span>
@@ -36,7 +36,7 @@
 
       <span slot="footer" class="dialog-footer">
         <span class="newGroup">新建分组</span>
-        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="cancel">取 消</el-button>
         <el-button type="primary" @click="chooseImage">确 定</el-button>
       </span>
     </el-dialog>
@@ -78,6 +78,16 @@ export default {
             },
           ],
         },
+        {
+          name: "logo",
+          imgs: [
+            {
+              name: "aaa.png",
+              url:
+                "https://gitee.com/static/images/logo-black.svg?t=158106664",
+            },
+          ],
+        },
       ],
       checkImgs: [],
     };
@@ -101,6 +111,10 @@ export default {
       this.$emit("complete", imgs);
       this.checkImgs = [];
     },
+    cancel: function() {
+      this.dialogVisible = false;
+      this.checkImgs = [];
+    }
   },
 };
 </script>

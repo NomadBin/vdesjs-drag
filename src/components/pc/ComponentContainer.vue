@@ -35,6 +35,7 @@ export default {
 </script>
 <style scoped>
 .box {
+  width: 30px;
   height: 30px;
   background-color: lightgray;
 }

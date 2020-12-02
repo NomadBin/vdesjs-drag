@@ -55,8 +55,8 @@ export default {
               key: "navbarHeight",
               type: "numUnit",
               value: {
-                num: 5,
-                unit: "rem",
+                num: 75,
+                unit: "px",
               },
             },
             {
@@ -90,7 +90,7 @@ export default {
               type: "numUnit",
               value: {
                 num: 6,
-                unit: "rem",
+                unit: "px",
               },
             },
             {
@@ -99,7 +99,7 @@ export default {
               type: "numUnit",
               value: {
                 num: 1,
-                unit: "rem",
+                unit: "px",
               },
             },
             {
@@ -108,7 +108,7 @@ export default {
               type: "numUnit",
               value: {
                 num: 0,
-                unit: "rem",
+                unit: "px",
               },
             },
             {

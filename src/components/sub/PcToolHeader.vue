@@ -28,12 +28,10 @@
 
     <el-dialog title="" :visible.sync="codeDialogVisible">
       <el-tabs v-model="activeName">
-        <el-tab-pane label="html代码" name="htmlCode"
-          >
-           <codemirror :value="curVueCode" :options="cmOptions" class="code">
+        <el-tab-pane label="html代码" name="htmlCode">
+          <codemirror :value="curHtmlCode" :options="cmOptions" class="code">
           </codemirror>
-          </el-tab-pane
-        >
+        </el-tab-pane>
       </el-tabs>
       <span slot="footer" class="dialog-footer">
         <el-button @click="codeDialogVisible = false">取 消</el-button>
@@ -49,13 +47,12 @@ import Clipboard from "clipboard";
 import { codemirror } from "vue-codemirror";
 import "codemirror/theme/ambiance-mobile.css"; // 这里引入的是主题样式，根据设置的theme的主题引入，一定要引入！！
 require("codemirror/mode/javascript/javascript"); // 这里引入的模式的js，根据设置的mode引入，一定要引入！！
-import handlebars from "@/handlebars";
+import handlebars from "@/handlebars/pcIndex.js";
 export default {
   data() {
     return {
-      
-      activeName: "vueCode",
-      curVueCode: "",
+      activeName: "htmlCode",
+      curHtmlCode: "ffff",
       cmOptions: {
         value: "",
         mode: "text/javascript",
@@ -97,7 +94,7 @@ export default {
     },
     generateCode() {
       this.codeDialogVisible = true;
-      this.curVueCode = handlebars.generateVueCode(this.$store.state.list);
+      this.curHtmlCode = handlebars.generateHtmlCode(this.$store.state.list);
     },
     copyJson() {
       console.log("复制代码");
@@ -132,7 +129,7 @@ export default {
         let that = this;
         let clipboard = new Clipboard(".copyCode", {
           text: function () {
-            return that.curVueCode;
+            return that.curHtmlCode;
           },
         });
         clipboard.on("success", (e) => {

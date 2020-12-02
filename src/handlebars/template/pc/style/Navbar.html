@@ -1,0 +1,25 @@
+  
+  .navbar-my {
+    background-color: {{myItem.propValues.[0].value}};
+    
+  }
+  .navbar-my .navbar-nav {
+      height: {{myItem.propValues.[1].value.num}}{{myItem.propValues.[1].value.unit}};
+  }
+  .navbar .navbar-brand {
+    margin-right: {{myItem.propValues.[6].value.num}}{{myItem.propValues.[6].value.unit}};
+  }
+  .navbar-my .navbar-nav > li {
+    margin-right: {{myItem.propValues.[7].value.num}}{{myItem.propValues.[7].value.unit}};
+    margin-top: {{myItem.propValues.[8].value.num}}{{myItem.propValues.[8].value.unit}};
+  }
+  
+  .navbar-my .navbar-nav > li > a {
+    color: {{myItem.propValues.[2].value}};
+    font-size: {{myItem.propValues.[9].value}};
+  }
+  .navbar-my .navbar-nav > li > a:hover,
+  .navbar-my .navbar-nav > li > a:focus {
+    color: {{myItem.propValues.[3].value}};
+    background-color: {{myItem.propValues.[0].value}};
+  }

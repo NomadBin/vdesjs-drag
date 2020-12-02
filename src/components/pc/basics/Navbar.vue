@@ -20,7 +20,7 @@
     }"
   >
     <div class="navbar navbar-my navbar-static-top">
-      <div class="container">
+      <div class="container-fluid">
         <div class="navbar-header">
           <button
             type="button"
@@ -104,7 +104,7 @@ export default {
 .navbar-my .navbar-nav {
     height: var(--navbarHeigth);
 }
-.navbar > .container .navbar-brand {
+.navbar .navbar-brand {
   margin-right: var(--logoRightSpace);
 }
 .navbar-my .navbar-nav > li {

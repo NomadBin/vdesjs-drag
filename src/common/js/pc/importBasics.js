@@ -1,6 +1,6 @@
 
 import Navbar from"@/components/pc/basics/Navbar.vue"
-import NavbarLogo from "@/assets/h5/basics/按钮.png"
+import NavbarLogo from "@/assets/pc/basics/导航栏.png"
 
 
 let basics = {
