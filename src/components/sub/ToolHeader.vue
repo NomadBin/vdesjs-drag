@@ -166,11 +166,21 @@ export default {
     },
 
     preview() {
-      this.$notify({
-        title: "提示",
-        message: "功能正在开发中，敬请期待",
-        duration: 2000,
+     
+      let routeData = this.$router.resolve({
+        path: "/phonePreview",
+        query: { id:  1 },
       });
+      
+      localStorage.setItem(1, JSON.stringify(this.$store.state.list))
+
+      window.open(routeData.href, "_blank");
+
+      // this.$notify({
+      //   title: "提示",
+      //   message: "功能正在开发中，敬请期待",
+      //   duration: 2000,
+      // });
     },
   },
 };
