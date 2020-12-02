@@ -1,6 +1,6 @@
 
-import VanSku from"@/components/business/VanSku.vue"
-import VanSkuLogo from "@/assets/business/商品规格.png"
+import VanSku from"@/components/h5/business/VanSku.vue"
+import VanSkuLogo from "@/assets/h5/business/商品规格.png"
 
 
 

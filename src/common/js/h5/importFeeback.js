@@ -1,6 +1,6 @@
 
-import VanShareSheet from"@/components/feeback/VanShareSheet.vue"
-import VanShareSheetLogo from "@/assets/feeback/分享面板.png"
+import VanShareSheet from"@/components/h5/feeback/VanShareSheet.vue"
+import VanShareSheetLogo from "@/assets/h5/feeback/分享面板.png"
 
 
 

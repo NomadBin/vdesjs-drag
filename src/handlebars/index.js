@@ -1,29 +1,29 @@
 const Handlebars = require("handlebars");
 //basic
-let VanButton = require("./template/basic/VanButton.html")
-let VanCell = require("./template/basic/VanCell.html")
-let VanIcon = require("./template/basic/VanIcon.html")
-let VanImage = require("./template/basic/VanImage.html")
+let VanButton = require("./template/h5/basic/VanButton.html")
+let VanCell = require("./template/h5/basic/VanCell.html")
+let VanIcon = require("./template/h5/basic/VanIcon.html")
+let VanImage = require("./template/h5/basic/VanImage.html")
 
 //form
-let VanCheckbox = require("./template/form/Vancheckbox.html")
-let VanCalendar = require("./template/form/VanCalendar.html")
-let VanField = require("./template/form/VanField.html")
+let VanCheckbox = require("./template/h5/form/Vancheckbox.html")
+let VanCalendar = require("./template/h5/form/VanCalendar.html")
+let VanField = require("./template/h5/form/VanField.html")
 
 //feeback
-let VanShareSheet = require("./template/feeback/VanShareSheet.html")
+let VanShareSheet = require("./template/h5/feeback/VanShareSheet.html")
 
 //show
-let VanNoticebar = require("./template/show/VanNoticebar.html")
-let VanSwiper = require("./template/show/VanSwiper.html")
+let VanNoticebar = require("./template/h5/show/VanNoticebar.html")
+let VanSwiper = require("./template/h5/show/VanSwiper.html")
 
 //nav
-let VanGrid = require("./template/nav/VanGrid.html")
+let VanGrid = require("./template/h5/nav/VanGrid.html")
 
 //bottom
-let bottomScript = require("./template/bottomScript.html")
-let VanCalendarMethod = require("./template/methods/Vancalendar.html")
-let VanShareSheetMethod = require("./template/methods/VanShareSheet.html")
+let bottomScript = require("./template/h5/bottomScript.html")
+let VanCalendarMethod = require("./template/h5/methods/Vancalendar.html")
+let VanShareSheetMethod = require("./template/h5/methods/VanShareSheet.html")
 
 
 let compoentTexts = {

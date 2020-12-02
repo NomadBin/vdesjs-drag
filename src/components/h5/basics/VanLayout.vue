@@ -20,12 +20,12 @@
 </template>
 <script>
 import draggable from "vuedraggable";
-import basicsMixin from "@/common/js/importBasics";
-import formMixin from "@/common/js/importForm";
-import feebackMixin from "@/common/js/importFeeback";
-import showMixin from "@/common/js/importShow";
-import navMixin from "@/common/js/importNav";
-import businessMixin from "@/common/js/importBusiness";
+import basicsMixin from "@/common/js/h5/importBasics";
+import formMixin from "@/common/js/h5/importForm";
+import feebackMixin from "@/common/js/h5/importFeeback";
+import showMixin from "@/common/js/h5/importShow";
+import navMixin from "@/common/js/h5/importNav";
+import businessMixin from "@/common/js/h5/importBusiness";
 export default {
   mixins: [basicsMixin, formMixin, feebackMixin, showMixin, navMixin, businessMixin],
   computed: {

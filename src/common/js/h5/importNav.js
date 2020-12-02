@@ -1,6 +1,6 @@
 
-import VanGrid from"@/components/nav/VanGrid.vue"
-import VanGridLogo from "@/assets/nav/宫格.png"
+import VanGrid from"@/components/h5/nav/VanGrid.vue"
+import VanGridLogo from "@/assets/h5/nav/宫格.png"
 
 
 

@@ -132,7 +132,7 @@
 </template>
 <script>
 import draggable from "vuedraggable";
-import ComponentContainer from "../ComponentContainer.vue";
+import ComponentContainer from "@/components/h5/ComponentContainer.vue";
 
 export default {
   components: {

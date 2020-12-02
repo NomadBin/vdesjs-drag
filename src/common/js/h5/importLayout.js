@@ -1,5 +1,5 @@
-import VanLayout from "@/components/basics/VanLayout.vue";
-import VanLayoutLogo from "@/assets/basics/layout布局.png"
+import VanLayout from "@/components/h5/basics/VanLayout.vue";
+import VanLayoutLogo from "@/assets/h5/basics/layout布局.png"
 
 
 
