@@ -1,7 +1,11 @@
 <template>
   <div class="ImageStore">
     <span class="blueFont" @click="dialogVisible = true">图片库</span>
-    <el-dialog title="选择图片" :visible.sync="dialogVisible"  :append-to-body="true">
+    <el-dialog
+      title="选择图片"
+      :visible.sync="dialogVisible"
+      :append-to-body="true"
+    >
       <el-checkbox-group v-model="checkImgs" :max="1">
         <el-tabs tab-position="left">
           <el-tab-pane
@@ -35,10 +39,55 @@
       {{ checkImgs }}
 
       <span slot="footer" class="dialog-footer">
-        <span class="newGroup">新建分组</span>
+        <span class="newGroup" @click="addGroup">新建分组</span>
         <el-button @click="cancel">取 消</el-button>
         <el-button type="primary" @click="chooseImage">确 定</el-button>
       </span>
+
+      <el-dialog
+        title="新建分组"
+        :visible.sync="addGroupStatus"
+        :append-to-body="true"
+      >
+        <el-form
+          ref="addGroupForm"
+          :model="addGroupForm"
+          label-width="80px"
+          :rules="rule"
+        >
+          <el-form-item label="分组名称" prop="name">
+            <el-input
+              v-model="addGroupForm.name"
+              placeholder="请输入分组名称"
+              prop
+            ></el-input>
+          </el-form-item>
+          <el-button @click="addImg" class="addImgButton">添加图片</el-button>
+          <el-form-item label="图片链接">
+            <el-card v-for="(v, i) in imgNum" :key="i">
+              <div slot="header" class="clearfix addGroup_button">
+                <el-button size="mini" @click="deleteImg(i)">删除</el-button>
+              </div>
+              <div class="addGroupCard">
+                <el-form-item label="图片名称">
+                  <el-input v-model="imgNum[i].name" placeholder="图片名字" />
+                </el-form-item>
+                <el-form-item label="图片地址">
+                  <el-input
+                    v-model="imgNum[i].url"
+                    placeholder="图片链接"
+                    prop="url"
+                  />
+                </el-form-item>
+              </div>
+            </el-card>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="addGroupCancel">取 消</el-button>
+          <el-button type="primary" @click="addGroupConfirm">确 定</el-button>
+        </span>
+      </el-dialog>
     </el-dialog>
   </div>
 </template>
@@ -83,13 +132,22 @@ export default {
           imgs: [
             {
               name: "aaa.png",
-              url:
-                "https://gitee.com/static/images/logo-black.svg?t=158106664",
+              url: "https://gitee.com/static/images/logo-black.svg?t=158106664",
             },
           ],
         },
       ],
       checkImgs: [],
+      //Add Group Dialog Status
+      addGroupStatus: false,
+      //Add Group Form
+      addGroupForm: {},
+      imgNum: [],
+      rule: {
+        name: [
+          { required: true, message: "请输入分组名称", trigger: "blur" }
+        ]
+      }
     };
   },
   methods: {
@@ -111,10 +169,62 @@ export default {
       this.$emit("complete", imgs);
       this.checkImgs = [];
     },
-    cancel: function() {
+    cancel: function () {
       this.dialogVisible = false;
       this.checkImgs = [];
-    }
+    },
+    /**
+     * @description: Add Group Button(span)
+     */
+    addGroup() {
+      this.addGroupStatus = true;
+      this.addGroupForm = {
+        name: undefined,
+        imgs: [],
+      };
+    },
+    /**
+     * @description: Add Group Imgs
+     */
+    addImg() {
+      const obj = {
+        name: undefined,
+        url: undefined,
+      };
+      this.imgNum.push(obj);
+    },
+    /**
+     * @description: Delete Current Item
+     * @param {*} index
+     */
+    deleteImg(index) {
+      // this.addGroupForm.imgs = this.addGroupForm.imgs.splice(index, 1);
+      console.log(this.imgNum.splice(index, 1));
+    },
+    /**
+     * @description: Add Group Cancel
+     */
+    addGroupCancel() {
+      this.addGroupStatus = false;
+      this.resetAddGroupForm();
+    },
+    /**
+     * @description: Confirm Add Group Info
+     */
+    addGroupConfirm() {
+      console.log(this.imgNum);
+      this.addGroupForm.imgs = this.imgNum;
+      this.imgList.push(this.addGroupForm);
+      this.resetAddGroupForm();
+      this.addGroupStatus = false;
+    },
+    /**
+     * @description: Add Group Form Reset
+     */
+    resetAddGroupForm() {
+      this.addGroupForm = {};
+      this.imgNum = [];
+    },
   },
 };
 </script>
@@ -147,5 +257,18 @@ export default {
   width: 120px;
   padding: 10px;
   float: left;
+}
+.addGroup_button {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.addGroupCard {
+  height: 100px;
+  display: flex;
+  align-content: space-around;
+  flex-wrap: wrap;
+}
+.addImgButton {
+  margin-bottom: 15px;
 }
 </style>
