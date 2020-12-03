@@ -5,7 +5,7 @@
         <t-header></t-header>
       </el-header>
       <el-container>
-        <el-aside>
+        <el-aside class="leftAside">
           <left-panel v-if="mode == 'h5'"></left-panel>
           <pc-left-panel v-if="mode == 'pc'"></pc-left-panel>
         </el-aside>
@@ -21,12 +21,20 @@
           </el-main>
           <el-footer></el-footer>
         </el-container>
-        <div >
-          <right-panel :class="animateClass"></right-panel>
-          <div @click="fold" :class="foldClass">
-            <i :class="iconClass"/>
+        <el-aside class="rightAside">
+          <div v-if="mode == 'h5'">
+            <right-panel :class="animateClass"></right-panel>
+            <div @click="fold" :class="foldClass">
+              <i :class="iconClass" />
+            </div>
           </div>
-        </div>
+          <div v-if="mode == 'pc'">
+            <pc-right-panel :class="animateClass"></pc-right-panel>
+            <div @click="fold" :class="foldClass">
+              <i :class="iconClass" />
+            </div>
+          </div>
+        </el-aside>
       </el-container>
     </el-container>
   </div>
@@ -37,10 +45,11 @@ import THeader from "@/components/sub/header.vue";
 import LeftPanel from "@/components/sub/LeftPanel.vue";
 import PhoneFrame from "@/components/sub/PhoneFrame.vue";
 import RightPanel from "@/components/sub/RightPanel.vue";
-import PcFrame from '../components/sub/pcFrame.vue';
-import PcLeftPanel from '../components/sub/PcLeftPanel.vue';
-import ToolHeader from '../components/sub/ToolHeader.vue';
-import PcToolHeader from '../components/sub/PcToolHeader.vue';
+import PcFrame from "../components/sub/pcFrame.vue";
+import PcLeftPanel from "../components/sub/PcLeftPanel.vue";
+import ToolHeader from "../components/sub/ToolHeader.vue";
+import PcToolHeader from "../components/sub/PcToolHeader.vue";
+import PcRightPanel from '../components/sub/PcRightPanel.vue';
 
 export default {
   components: {
@@ -52,11 +61,11 @@ export default {
     PcLeftPanel,
     ToolHeader,
     PcToolHeader,
+    PcRightPanel,
   },
   name: "editor",
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     animateClass() {
@@ -70,27 +79,34 @@ export default {
     },
     mode() {
       return this.$store.state.mode;
-    }
+    },
   },
   methods: {
-    fold: function() {
-      this.$store.commit("rightPanelFold")
-    }
+    fold: function () {
+      this.$store.commit("rightPanelFold");
+    },
   },
-  created: function() {
-  }
+  created: function () {},
 };
 </script>
 
 <style>
-#app,body {
+#app,
+body {
   overflow: hidden;
 }
 * {
   margin: 0;
   -webkit-tap-highlight-color: transparent;
 }
-
+.leftAside {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+.rightAside {
+  background-color: #f8f8f8;
+  overflow: hidden;
+}
 .rightFold {
   background-color: white;
   height: 80px;
@@ -117,13 +133,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-   cursor: pointer;
+  cursor: pointer;
   transition: all 0.5s ease-in-out 0s;
 }
-.leftFold:hover{
+.leftFold:hover {
   color: blue;
 }
-
 
 .el-header {
   background-color: white;
@@ -133,13 +148,11 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
 }
 .el-aside {
-  background-color: white;
   color: #333;
   text-align: center;
   height: calc(100vh - 60px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
 }
 .editor {
-  background-color: #f8f8f8 ;
+  background-color: #f8f8f8;
 }
 </style>

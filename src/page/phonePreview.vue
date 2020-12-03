@@ -59,7 +59,7 @@ export default {
       return this.$store.state.rightPanelClass.animateClass;
     },
     time() {
-      return this.dateFormat("HH:SS", new Date());
+      return this.dateFormat("HH:MM", new Date());
     },
   },
   data() {
