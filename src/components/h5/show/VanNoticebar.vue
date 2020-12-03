@@ -3,6 +3,7 @@
     <van-notice-bar
       left-icon="volume-o"
       :text="myItem.propValues[titleIndex].value"
+      :color="myItem.propValues[colorIndex].value"
     />
   </div>
 </template>
@@ -15,6 +16,7 @@ export default {
   data() {
     return {
       titleIndex: 0,
+      colorIndex: 1,
     };
   },
 };
