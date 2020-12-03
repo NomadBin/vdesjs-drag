@@ -23,10 +23,10 @@
       <div class="content">
         <div v-for="(item, i) in tableStructs" :key="i">
           <el-row v-if="item.type == 'text'">
-            <el-col class="Mylabel" span="6">
+            <el-col class="Mylabel" :span="6">
               <div>{{ item.label }}:</div>
             </el-col>
-            <el-col class="control" span="14">
+            <el-col class="control" :span="14">
               <el-input
                 v-model="tableDatas[currentSelectIndex][item.key]"
                 placeholder="请输入内容"
@@ -35,17 +35,17 @@
           </el-row>
 
           <el-row v-if="item.type == 'imageStore'">
-            <el-col class="Mylabel" span="6">
+            <el-col class="Mylabel" :span="6">
               <div>{{ item.label }}:</div>
             </el-col>
-            <el-col span="7">
+            <el-col :span="7">
               <el-image
                 style="width: 100px; height: 100px"
                 :src="tableDatas[currentSelectIndex][item.key]"
                 fit="fill"
               ></el-image>
             </el-col>
-            <el-col class="control" span="7">
+            <el-col class="control" :span="7">
               <image-store
                 @complete="completeChoseImageStore($event, i, item.key)"
               ></image-store>
@@ -112,23 +112,19 @@ export default {
       this.tableDatas[this.currentSelectIndex][key] = obj[0].url;
     },
     addItem() {
-      var obj = {
-
-      }
-      for(var i = 0; i < this.tableStructs.length; i++) {
+      var obj = {};
+      for (var i = 0; i < this.tableStructs.length; i++) {
         var struct = this.tableStructs[i];
         if (i == 0) {
           //赋值默认名称
           obj[struct.key] = "默认名称";
-
         } else {
-          obj[struct.key] = ""
+          obj[struct.key] = "";
         }
-
       }
-      console.log(JSON.stringify(obj))
-      this.tableDatas.push(obj)
-    }
+      console.log(JSON.stringify(obj));
+      this.tableDatas.push(obj);
+    },
   },
 };
 </script>
