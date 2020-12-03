@@ -41,6 +41,10 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
+        // 初始化组件数据
+        initList(state, payload) {
+            state.list = payload
+        },
         //切换当前选择元素下标
         swithIndex(state, payload) {
             state.currentSelectListIndex = payload

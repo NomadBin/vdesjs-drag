@@ -36,6 +36,9 @@ export default {
     animateClass() {
       return this.$store.state.rightPanelClass.animateClass;
     },
+    cols: function() {
+      return this.$store.state.list[this.listIndex].cols;
+    },
   },
   components: {
     draggable,
@@ -47,9 +50,6 @@ export default {
     listIndex: {
       type: Number,
       default: 0,
-    },
-    cols: {
-      type: Object,
     },
   },
   methods: {
