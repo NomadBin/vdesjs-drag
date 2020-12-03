@@ -1,7 +1,7 @@
 <template>
   <div class="ImageStore">
     <span class="blueFont" @click="dialogVisible = true">图片库</span>
-    <el-dialog title="选择图片" :visible.sync="dialogVisible"  append-to-body="true">
+    <el-dialog title="选择图片" :visible.sync="dialogVisible"  :append-to-body="true">
       <el-checkbox-group v-model="checkImgs" :max="1">
         <el-tabs tab-position="left">
           <el-tab-pane
