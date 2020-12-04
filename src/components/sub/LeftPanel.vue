@@ -346,6 +346,12 @@ export default {
               type: "color",
               value: "",
             },
+            {
+              label: "数据绑定",
+              key: "data",
+              isModel: true,
+              value: ""
+            },
           ],
         },
         {
@@ -460,7 +466,7 @@ export default {
               key: "color",
               type: "color",
               value: "#656262",
-            }
+            },
           ],
         },
         {
