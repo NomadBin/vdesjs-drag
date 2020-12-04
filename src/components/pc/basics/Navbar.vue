@@ -90,7 +90,7 @@ export default {
   --navbarBg: lightgray;
   --navbarHeigth: 5rem;
   --itemBg: black;
-  --itemHoverBg: black;
+  --itemHoverBg: blue;
   --logoRightSpace: 6rem;
   --navItemSpace: 1rem;
   --navItemTopSpace: 0rem;
@@ -103,6 +103,9 @@ export default {
 }
 .navbar-my .navbar-nav {
     height: var(--navbarHeigth);
+}
+.navbar-my .navbar-toggle .icon-bar {
+  background-color: var(--itemBg);
 }
 .navbar .navbar-brand {
   margin-right: var(--logoRightSpace);

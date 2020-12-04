@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import editor from '@/page/editor'
 import phonePreview from '@/page/phonePreview'
+import pcPreview from '@/page/pcPreview'
 import test from '@/page/test'
 
 Vue.use(Router)
@@ -18,6 +19,12 @@ export default new Router({
       name: 'phonePreview',
       component: phonePreview
     },
+    {
+      path: '/pcPreview',
+      name: 'pcPreview',
+      component: pcPreview
+    },
+
     {
       path: '/test',
       name: 'test',

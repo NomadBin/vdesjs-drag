@@ -142,6 +142,27 @@ export default {
             }
           ],
         },
+        {
+          name: "图文",
+          id: "唯一值",
+          componentName: "ImageText",
+          propValues: [
+            {
+              label: "模板",
+              key: "template",
+              type: "template",
+              value: [
+                {
+                  // 预览图
+                  previewImg: "",
+                  // 根据这个字段判断模板类型
+                  key: "",
+                  name: "名称"
+                }
+              ]
+            }
+          ]
+        }
       ],
     };
   },
