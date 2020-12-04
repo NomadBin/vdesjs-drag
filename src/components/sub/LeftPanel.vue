@@ -455,6 +455,12 @@ export default {
               value: "默认显示文本",
               type: "text",
             },
+            {
+              label: "文本颜色",
+              key: "color",
+              type: "color",
+              value: "#656262",
+            }
           ],
         },
         {

@@ -137,10 +137,9 @@
     </div>
 
     <!-- 实时获取当前是否有数据，来决定右侧面板所显示的页面 -->
-    <div style="display:none">
+    <div style="display: none">
       {{ currentData }}
     </div>
-
   </div>
 </template>
 <script>
@@ -164,6 +163,7 @@ export default {
       let data = this.$store.getters.currentData;
       if (typeof data == "undefined") {
         this.flag = false;
+        return { propValues: [] };
       } else {
         this.flag = true;
       }
@@ -199,7 +199,7 @@ export default {
     },
   },
   created: function () {
-    console.log(this.currentData)
+    console.log(this.currentData);
   },
 };
 </script>
