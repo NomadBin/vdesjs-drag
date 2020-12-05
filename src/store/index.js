@@ -38,6 +38,12 @@ const store = new Vuex.Store({
                 data = state.list[state.currentSelectListIndex];
             }
             return data;
+        },
+        currentMode: state => {
+          return state.mode
+        },
+        currentList: (state,getters) => {
+          return state.list.filter(v => v.mode === getters.currentMode)
         }
     },
     mutations: {

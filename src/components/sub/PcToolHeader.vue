@@ -48,7 +48,11 @@ import { codemirror } from "vue-codemirror";
 import "codemirror/theme/ambiance-mobile.css"; // 这里引入的是主题样式，根据设置的theme的主题引入，一定要引入！！
 require("codemirror/mode/javascript/javascript"); // 这里引入的模式的js，根据设置的mode引入，一定要引入！！
 import handlebars from "@/handlebars/pcIndex.js";
+
+import curList from "@/mixins/curList";
+
 export default {
+  mixins: [curList],
   data() {
     return {
       activeName: "htmlCode",
@@ -65,7 +69,7 @@ export default {
   },
   computed: {
     curJsonCode() {
-      return JSON.stringify(this.$store.state.list, null, "\t");
+      return JSON.stringify(this.curList, null, "\t");
     },
   },
 
@@ -94,7 +98,8 @@ export default {
     },
     generateCode() {
       this.codeDialogVisible = true;
-      this.curHtmlCode = handlebars.generateHtmlCode(this.$store.state.list);
+      console.log(this.$store.state.list);
+      this.curHtmlCode = handlebars.generateHtmlCode(this.curList);
     },
     copyJson() {
       console.log("复制代码");
@@ -154,15 +159,14 @@ export default {
     },
 
     preview() {
-       let routeData = this.$router.resolve({
+      let routeData = this.$router.resolve({
         path: "/pcPreview",
-        query: { id:  2 },
+        query: { id: 2 },
       });
-      
-      localStorage.setItem(2, JSON.stringify(this.$store.state.list))
+
+      localStorage.setItem(2, JSON.stringify(this.curList));
 
       window.open(routeData.href, "_blank");
-
     },
   },
 };

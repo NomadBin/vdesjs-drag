@@ -8,12 +8,16 @@
     <div class="pc">
       <div class="pc-top">
         <el-row>
-          <el-col :span="3"> <div class="circle"></div><div class="circle"></div><div class="circle"></div></el-col>
+          <el-col :span="3">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div
+          ></el-col>
           <el-col :span="15"> <div class="browser-address"></div></el-col>
         </el-row>
       </div>
       <draggable :list="list" group="components" class="draggableDiv">
-        <div v-for="(item, i) in list" :key="i" class="content">
+        <div v-for="(item, i) in curList" :key="i" class="content">
           <div v-if="item.componentName == 'VanLayout'">
             <van-layout :listIndex="i"></van-layout>
           </div>
@@ -30,19 +34,16 @@
   </div>
 </template>
 <script>
-
 import draggable from "vuedraggable";
 import basicsMixin from "@/common/js/pc/importBasics";
+import curList from "@/mixins/curList";
 
 import phoneIcon from "@/assets/icon/手机.png";
 import surfaceIcon from "@/assets/icon/平板.png";
 import pcIcon from "@/assets/icon/电脑.png";
 
 export default {
-  mixins: [
-    basicsMixin,
-   
-  ],
+  mixins: [basicsMixin, curList],
   components: {
     draggable,
   },
@@ -79,7 +80,7 @@ export default {
 
 
 <style lang="scss" scoped>
-@import 'bootstrap/dist/css/bootstrap.min.css';
+@import "bootstrap/dist/css/bootstrap.min.css";
 $pcWidth: 100%;
 $pcHeight: 100%;
 .icon {
@@ -88,12 +89,12 @@ $pcHeight: 100%;
   cursor: pointer;
 }
 .circle {
-      background: #cacedb;
-    width: 12px;
-    height: 12px;
-    border-radius: 6px;
-    margin: 0 4px;
-    float: left;
+  background: #cacedb;
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  margin: 0 4px;
+  float: left;
 }
 .browser-address {
   height: 20px;
