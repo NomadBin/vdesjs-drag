@@ -134,7 +134,10 @@
 import draggable from "vuedraggable";
 import ComponentContainer from "@/components/h5/ComponentContainer.vue";
 
+import curList from "@/mixins/curList";
+
 export default {
+  mixins: [curList],
   components: {
     draggable,
     ComponentContainer,
@@ -350,7 +353,7 @@ export default {
               label: "数据绑定",
               key: "data",
               isModel: true,
-              value: ""
+              value: "",
             },
           ],
         },
@@ -589,6 +592,8 @@ export default {
       this.$store.commit("globalIdInc");
       newObj.id = this.globalId;
       console.log(JSON.stringify(cloneObj));
+      newObj.mode = this.cMode;
+      console.log(this.$store.state.list);
       return newObj;
     },
   },

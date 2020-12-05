@@ -8,9 +8,9 @@
         class="draggableDiv"
       >
         <div
-          v-for="(item, i) in list"
+          v-for="(item, i) in curList"
           :key="i"
-          
+
           class="content"
         >
         <div v-if="item.componentName == 'VanLayout'">
@@ -37,8 +37,11 @@ import feebackMixin from "@/common/js/h5/importFeeback";
 import showMixin from "@/common/js/h5/importShow";
 import navMixin from "@/common/js/h5/importNav";
 import businessMixin from "@/common/js/h5/importBusiness";
+import curList from "@/mixins/curList";
+
+
 export default {
-  mixins: [basicsMixin, layoutMixin, formMixin, feebackMixin, showMixin, navMixin, businessMixin],
+  mixins: [basicsMixin, layoutMixin, formMixin, feebackMixin, showMixin, navMixin, businessMixin,curList],
   components: {
     draggable
   },
@@ -74,10 +77,10 @@ $phoneWidth: 375px;
 $phoneHeight: 667px;
 
 .draggableDiv {
-  position: absolute; 
-  top: 25px; 
-  bottom: 0; 
-  left: 0; 
+  position: absolute;
+  top: 25px;
+  bottom: 0;
+  left: 0;
   right: 0;
   // display:flex;
   // flex-wrap: wrap;
