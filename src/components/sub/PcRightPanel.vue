@@ -191,10 +191,15 @@ export default {
       let data = this.$store.getters.currentData;
       if (typeof data == "undefined") {
         this.flag = false;
-        return { propValues: [], templates: [] };
+        return { propValues: [], templates: {data:[]} };
       } else {
         this.flag = true;
+        if (typeof data.templates  == "undefined") {
+          data['templates'] = {data:[]}
+        }
+
       }
+      
       return data;
     },
   },

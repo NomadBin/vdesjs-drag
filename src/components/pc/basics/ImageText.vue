@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <div
+     class="var"
+     :style="{
+       '--boxBg': myItem.propValues[boxBgIndex].value,
+
+     }"
+  >
     <ul class="container-fluid imageText" v-if="myItem.templates.chooseKey == 'sxpl'">
       <li v-for="(item, i) in myItem.propValues[dataIndex].value.data" :key="i" class="col-xs-12 sm_item">
         <div class="box">
@@ -58,6 +64,7 @@ export default {
   data() {
     return {
       dataIndex: 0,
+      boxBgIndex: 1,
     }
   }
 
@@ -65,6 +72,10 @@ export default {
 </script>
 <style scoped>
 @import "bootstrap/dist/css/bootstrap.min.css";
+.var {
+  --boxBg: lightgray;
+}
+
 .imageText {
   display: flex;
   flex-wrap: wrap;
@@ -91,14 +102,17 @@ export default {
 @media (min-width: 768px) {
   .sm_item {
     width: 33.3%;
+    
   }
 }
 .box {
-  background-color: lightgray;
+  background-color: var(--boxBg);
+  margin-bottom: 5px;
 }
 .box2 {
   display: flex;
-  background-color: lightgray;
+  background-color: var(--boxBg);
+  margin-bottom: 5px;
 }
 .img2 {
 }

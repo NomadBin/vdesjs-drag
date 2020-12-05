@@ -179,6 +179,12 @@ export default {
                 ],
               },
             },
+            {
+              label: "图文项背景",
+              key: "boxBg",
+              type: "color",
+              value: "#fff"
+            }
           ],
           templates: {
             chooseKey: "sxpl",
