@@ -184,6 +184,12 @@ export default {
               key: "boxBg",
               type: "color",
               value: "#fff"
+            },
+            {
+              label: "列数选择",
+              key: "colNum",
+              type: "num",
+              value: "3"
             }
           ],
           templates: {

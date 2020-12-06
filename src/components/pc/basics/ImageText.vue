@@ -3,7 +3,7 @@
      class="var"
      :style="{
        '--boxBg': myItem.propValues[boxBgIndex].value,
-
+        '--smItemWidth': smItemWidth,
      }"
   >
     <ul class="container-fluid imageText" v-if="myItem.templates.chooseKey == 'sxpl'">
@@ -65,6 +65,12 @@ export default {
     return {
       dataIndex: 0,
       boxBgIndex: 1,
+      colNumIndex: 2,
+    }
+  },
+  computed: {
+    smItemWidth() {
+      return 100 / this.myItem.propValues[this.colNumIndex].value + "%";
     }
   }
 
@@ -74,6 +80,7 @@ export default {
 @import "bootstrap/dist/css/bootstrap.min.css";
 .var {
   --boxBg: lightgray;
+  --smItemWidth: 33.3%;
 }
 
 .imageText {
@@ -101,7 +108,7 @@ export default {
 }
 @media (min-width: 768px) {
   .sm_item {
-    width: 33.3%;
+    width: var(--smItemWidth);
     
   }
 }
