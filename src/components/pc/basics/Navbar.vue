@@ -1,7 +1,6 @@
 <template>
   <div
     class="var"
-    ref="var"
     :style="{
       '--navbarBg': myItem.propValues[navbarBgIndex].value,
       '--navbarHeigth': myItem.propValues[navbarHeigthIndex].value.num + myItem.propValues[navbarHeigthIndex].value.unit,

@@ -144,12 +144,22 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="模板" name="template">
-        <div v-for="(item, i) in currentData.propValues" :key="i">
-           <div v-if="item.type == 'template'">
-              包含模板
-           </div>
-
-        </div>
+        <ul class="tplList">
+          <li v-for="(item, i) in currentData.templates.data" :key="i">
+            <div class="box">
+              <img :src="item.previewImg" alt="" class="previewImg" />
+              <el-button v-if="item.key == currentData.templates.chooseKey" class="usingRight" type="primary" round
+                >正在使用</el-button
+              >
+              <div class="mask">
+                <el-button @click="useTpl(i)" round>使用</el-button>
+              </div>
+            </div>
+            <div class="name">
+              {{ item.name }}
+            </div>
+          </li>
+        </ul>
       </el-tab-pane>
     </el-tabs>
 
@@ -181,14 +191,22 @@ export default {
       let data = this.$store.getters.currentData;
       if (typeof data == "undefined") {
         this.flag = false;
-        return { propValues: [] };
+        return { propValues: [], templates: {data:[]} };
       } else {
         this.flag = true;
+        if (typeof data.templates  == "undefined") {
+          data['templates'] = {data:[]}
+        }
+
       }
+
       return data;
     },
   },
   methods: {
+    useTpl: function(i) {
+      this.currentData.templates.chooseKey = this.currentData.templates.data[i].key
+    },
     addCols: function () {
       this.$store.commit("layoutAddCols");
     },
@@ -222,6 +240,45 @@ export default {
 };
 </script>
 <style scoped>
+.tplList > li {
+  margin-bottom: 20px;
+}
+.tplList > li > .box {
+  position: relative;
+  overflow: hidden;
+  width: 230px;
+  height: 70px;
+}
+.tplList > li > .name {
+  width: 230px;
+}
+.usingRight {
+  position: absolute;
+  top: 10px;
+  padding: 9px 25px;
+  right: -25px;
+  font-size: 12px;
+}
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+  opacity: 0;
+}
+.mask:hover {
+  opacity: 1;
+}
+.previewImg {
+  width: 230px;
+  height: 70px;
+}
 .rightPanel {
   background-color: white;
   width: 300px;

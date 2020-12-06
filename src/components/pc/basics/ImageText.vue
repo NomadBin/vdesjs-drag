@@ -1,62 +1,54 @@
 <template>
-  <div>
-    <ul class="container-fluid imageText">
-      <li class="col-xs-12 sm_item">
-        <div>
+  <div
+     class="var"
+     :style="{
+       '--boxBg': myItem.propValues[boxBgIndex].value,
+
+     }"
+  >
+    <ul class="container-fluid imageText" v-if="myItem.templates.chooseKey == 'sxpl'">
+      <li v-for="(item, i) in myItem.propValues[dataIndex].value.data" :key="i" class="col-xs-12 sm_item">
+        <div class="box">
           <div class="img">
             <div class="img-wrapper">
               <img
-                src="http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75"
+              style="width:120px;height:120px"
+                :src="item.imageUrl"
                 alt=""
               />
             </div>
           </div>
           <div class="text">
             <div class="title">
-              <h4>这是标题</h4>
+              <h4>{{item.name}}</h4>
             </div>
             <div class="desc">
-              <p>这是描述文本</p>
+              <p>{{item.desc}}</p>
             </div>
           </div>
         </div>
       </li>
-      <li class="col-xs-12 sm_item">
-        <div>
-          <div class="img">
+    </ul>
+    <ul class="container-fluid imageText" v-if="myItem.templates.chooseKey == 'zypl'">
+      <li v-for="(item, i) in myItem.propValues[dataIndex].value.data" :key="i" class="col-xs-12 sm_item">
+        <div class="box2">
+          <div class="img2">
             <div class="img-wrapper">
               <img
-                src="http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75"
+               style="width:120px;height:120px"
+                :src="item.imageUrl"
                 alt=""
               />
             </div>
           </div>
-          <div class="text">
+          <div class="text2">
             <div class="title">
-              <h4>这是标题</h4>
+              <h4>{{item.name}}</h4>
             </div>
             <div class="desc">
-              <p>这是描述文本</p>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li class="col-xs-12 sm_item">
-        <div>
-          <div class="img">
-            <div class="img-wrapper">
-              <img
-                src="http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75"
-                alt=""
-              />
-            </div>
-          </div>
-          <div class="text">
-            <div class="title">
-              <h4>这是标题</h4>
-            </div>
-            <div class="desc">
-              <p>这是描述文本</p>
+              <p>
+                {{item.desc}}
+              </p>
             </div>
           </div>
         </div>
@@ -65,10 +57,25 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: {
+    myItem: {},
+  },
+  data() {
+    return {
+      dataIndex: 0,
+      boxBgIndex: 1,
+    }
+  }
+
+};
 </script>
 <style scoped>
 @import "bootstrap/dist/css/bootstrap.min.css";
+.var {
+  --boxBg: lightgray;
+}
+
 .imageText {
   display: flex;
   flex-wrap: wrap;
@@ -90,10 +97,28 @@ export default {};
   justify-content: center;
   font-size: 16px;
   color: rgba(143, 149, 170, 1);
+  padding: 5px;
 }
 @media (min-width: 768px) {
   .sm_item {
     width: 33.3%;
+    
   }
+}
+.box {
+  background-color: var(--boxBg);
+  margin-bottom: 5px;
+}
+.box2 {
+  display: flex;
+  background-color: var(--boxBg);
+  margin-bottom: 5px;
+}
+.img2 {
+}
+.text2 {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

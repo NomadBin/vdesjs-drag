@@ -172,20 +172,77 @@ export default {
           componentName: "ImageText",
           propValues: [
             {
-              label: "模板",
-              key: "template",
-              type: "template",
-              value: [
-                {
-                  // 预览图
-                  previewImg: "",
-                  // 根据这个字段判断模板类型
-                  key: "",
-                  name: "名称",
-                },
-              ],
+              label: "数据列表",
+              key: "data",
+              type: "table",
+              value: {
+                struct: [
+                  {
+                    label: "标题",
+                    key: "name",
+                    type: "text",
+                  },
+                  {
+                    label: "描述",
+                    key: "desc",
+                    type: "text",
+                  },
+                  {
+                    label: "图片",
+                    key: "imageUrl",
+                    type: "imageStore",
+                  },
+                ],
+                data: [
+                  {
+                    name: "标题1",
+                    desc: "这是描述",
+                    imageUrl:
+                      "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75",
+                  },
+                  {
+                    name: "标题2",
+                    desc: "这是描述",
+                    imageUrl:
+                      "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75",
+                  },
+                  {
+                    name: "标题3",
+                    desc: "这是描述",
+                    imageUrl:
+                      "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75",
+                  },
+                ],
+              },
+            },
+            {
+              label: "图文项背景",
+              key: "boxBg",
+              type: "color",
+              value: "#fff",
             },
           ],
+          templates: {
+            chooseKey: "sxpl",
+            data: [
+              {
+                // 预览图
+                previewImg:
+                  "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
+                // 根据这个字段判断模板类型
+                key: "sxpl",
+                name: "上下排列",
+              },
+              {
+                // 预览图
+                previewImg:
+                  "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
+                // 根据这个字段判断模板类型
+                key: "zypl",
+                name: "左右排列",
+              },
+            ],
+          },
         },
       ],
       mediaComponents: [
