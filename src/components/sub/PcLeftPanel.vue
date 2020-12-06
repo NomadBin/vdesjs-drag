@@ -22,6 +22,27 @@
           </component-container>
         </draggable>
       </el-tab-pane>
+      <el-tab-pane>
+        <span slot="label"><i class="el-icon-s-grid"></i></span>
+        <h5>多媒体组件</h5>
+        <draggable
+          class="Component"
+          :list="mediaComponents"
+          :clone="cloneCompoents"
+          :options="{
+            sort: false,
+          }"
+          :group="{ name: 'components', pull: 'clone', put: false }"
+        >
+          <component-container
+            v-for="(item, i) in mediaComponents"
+            :key="i"
+            :componentName="item.componentName"
+            :name="item.name"
+          >
+          </component-container>
+        </draggable>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -173,9 +194,24 @@ export default {
                   },
                 ],
                 data: [
-                  { name: "标题1", desc: "这是描述", imageUrl: "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75" },
-                  { name: "标题2", desc: "这是描述", imageUrl: "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75" },
-                  { name: "标题3", desc: "这是描述", imageUrl: "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75" },
+                  {
+                    name: "标题1",
+                    desc: "这是描述",
+                    imageUrl:
+                      "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75",
+                  },
+                  {
+                    name: "标题2",
+                    desc: "这是描述",
+                    imageUrl:
+                      "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75",
+                  },
+                  {
+                    name: "标题3",
+                    desc: "这是描述",
+                    imageUrl:
+                      "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75",
+                  },
                 ],
               },
             },
@@ -197,20 +233,114 @@ export default {
             data: [
               {
                 // 预览图
-                previewImg: "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
+                previewImg:
+                  "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
                 // 根据这个字段判断模板类型
                 key: "sxpl",
                 name: "上下排列",
               },
               {
                 // 预览图
-                previewImg: "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
+                previewImg:
+                  "https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg",
                 // 根据这个字段判断模板类型
                 key: "zypl",
                 name: "左右排列",
               },
             ],
           },
+        },
+      ],
+      mediaComponents: [
+        {
+          name: "轮播图",
+          id: "唯一值",
+          componentName: "Swiper",
+          jsCode: true,
+          propValues: [
+            {
+              label: "数据列表",
+              key: "data",
+              type: "table",
+              value: {
+                // 数据结构 (结构中第一个元素为该table组件列表中显示的名称)
+                struct: [
+                  {
+                    label: "名称",
+                    key: "name",
+                    type: "text",
+                  },
+                  {
+                    label: "图片链接",
+                    key: "url",
+                    type: "imageStore",
+                  },
+                ],
+                //数据
+                data: [
+                  {
+                    name: "test1",
+                    url:
+                      "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
+                  },
+                  {
+                    name: "test2",
+                    url:
+                      "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
+                  },
+                  {
+                    name: "test3",
+                    url:
+                      "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
+                  },
+                ],
+              },
+            },
+            {
+              label: "轮播图容器高度",
+              key: "swiperHeight",
+              type: "numUnit",
+              value: {
+                num: 40,
+                unit: "rem",
+              },
+            },
+            {
+              label: "轮播图容器宽度",
+              key: "swiperWidth",
+              type: "numUnit",
+              value: {
+                num: 100,
+                unit: "%",
+              },
+            },
+            {
+              label: "轮播图切换效果",
+              key: "effect",
+              type: "select",
+              value: {
+                chooseValue: "fade",
+                data: [
+                  {
+                    value: "fade",
+                    label: "fade",
+                  },
+                  {
+                    value: "cube",
+                    label: "cube",
+                  },
+                  {
+                    value: "coverflow",
+                    label: "coverflow",
+                  },
+                  {
+                    value: "flip",
+                    label: "flip",
+                  },
+                ],
+              },
+            },
+          ],
         },
       ],
     };

@@ -1,0 +1,10 @@
+<div class="swiper{{myItem.id}}-container">
+  <div class="swiper-wrapper">
+    {{#each myItem.propValues.[0].value.data}}
+    <div class="swiper-slide" style="background-image:url('{{url}}')"></div>
+    {{/each}}
+  </div>
+  <div class="swiper{{myItem.id}}-pagination swiper-pagination"></div>
+  <div class="swiper{{myItem.id}}-button-prev swiper-button-prev"></div>
+  <div class="swiper{{myItem.id}}-button-next swiper-button-next"></div>
+</div>

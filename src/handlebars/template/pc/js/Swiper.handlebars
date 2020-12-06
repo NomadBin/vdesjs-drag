@@ -1,0 +1,14 @@
+<script>
+  var swiper{{ myItem.id }} = new Swiper('.swiper{{myItem.id}}-container', {
+    spaceBetween: 30,
+    effect: '{{ myItem.propValues.[3].value.chooseValue }}',
+    pagination: {
+    el: '.swiper{{myItem.id}}-pagination',
+    clickable: true,
+  },
+    navigation: {
+    nextEl: '.swiper{{myItem.id}}-button-next',
+    prevEl: '.swiper{{myItem.id}}-button-prev',
+  },
+  });
+</script>
