@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div
+  class="var"
+  :style="{
+       '--paginationSize': myItem.propValues[paginationSizeIndex].value + 'px',
+     }"
+  >
     <transition name="el-fade-in">
       <swiper
         v-if="u"
@@ -9,7 +14,7 @@
         :style="style"
       >
         <swiper-slide
-          v-for="(v, i) in myItem['propValues'][getDataIndex]['value']['data']"
+          v-for="(v, i) in myItem['propValues'][dataIndex]['value']['data']"
           :key="i"
         >
           <img
@@ -45,23 +50,12 @@ export default {
   data() {
     return {
       u: true,
-      cc: {
-        effect: "cube",
-        spaceBetween: 30,
-        centeredSlides: true,
-        autoplay: {
-          delay: 2500,
-          disableOnInteraction: false,
-        },
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      },
+      dataIndex: 0,
+      heightIndex: 1,
+      widthIndex: 2,
+      effectIndex: 3,
+      paginationSizeIndex: 4,
+
     };
   },
   methods: {
@@ -73,33 +67,19 @@ export default {
     },
   },
   computed: {
-    getDataIndex() {
-      return 0;
-    },
-    getHeightIndex() {
-      return 1;
-    },
-    getWidthIndex() {
-      return 2;
-    },
     style() {
       return {
         height:
-          this.myItem.propValues[this.getHeightIndex].value.num +
-          this.myItem.propValues[this.getHeightIndex].value.unit,
+          this.myItem.propValues[this.heightIndex].value.num +
+          this.myItem.propValues[this.heightIndex].value.unit,
         width:
-          this.myItem.propValues[this.getWidthIndex].value.num +
-          this.myItem.propValues[this.getWidthIndex].value.unit,
+          this.myItem.propValues[this.widthIndex].value.num +
+          this.myItem.propValues[this.widthIndex].value.unit,
       };
-    },
-    getEffectIndex() {
-      return 3;
     },
     getEffectType() {
       this.forceUpdate();
-      return this.myItem.propValues[this.getEffectIndex]["value"][
-        "chooseValue"
-      ];
+      return this.myItem.propValues[this.effectIndex]["value"]["chooseValue"];
     },
     swiperOptions() {
       return {
@@ -109,10 +89,12 @@ export default {
         autoplay: {
           delay: 2500,
           disableOnInteraction: false,
+          
         },
         pagination: {
           el: ".swiper-pagination",
           clickable: true,
+          // type: "fraction"
         },
         navigation: {
           nextEl: ".swiper-button-next",
@@ -125,4 +107,11 @@ export default {
 </script>
 
 <style>
+.var {
+  --paginationSize: 20px
+}
+.swiper-pagination-bullet {
+  width:  var(--paginationSize);
+  height: var(--paginationSize);
+}
 </style>

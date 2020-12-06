@@ -340,6 +340,13 @@ export default {
                 ],
               },
             },
+            {
+              label: "轮播点大小",
+              key: "paginationSize",
+              type: "num",
+              value: "15"
+
+            }
           ],
         },
       ],
