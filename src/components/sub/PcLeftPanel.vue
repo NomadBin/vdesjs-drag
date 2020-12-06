@@ -22,6 +22,27 @@
           </component-container>
         </draggable>
       </el-tab-pane>
+      <el-tab-pane>
+        <span slot="label"><i class="el-icon-s-grid"></i></span>
+        <h5>多媒体组件</h5>
+        <draggable
+          class="Component"
+          :list="mediaComponents"
+          :clone="cloneCompoents"
+          :options="{
+            sort: false,
+          }"
+          :group="{ name: 'components', pull: 'clone', put: false }"
+        >
+          <component-container
+            v-for="(item, i) in mediaComponents"
+            :key="i"
+            :componentName="item.componentName"
+            :name="item.name"
+          >
+          </component-container>
+        </draggable>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -30,7 +51,6 @@ import draggable from "vuedraggable";
 import ComponentContainer from "@/components/pc/ComponentContainer.vue";
 
 import curList from "@/mixins/curList";
-
 
 export default {
   mixins: [curList],
@@ -86,7 +106,7 @@ export default {
               label: "logo图片大小",
               key: "logoSize",
               type: "num",
-              value: "25"
+              value: "25",
             },
             {
               label: "logo右间距",
@@ -119,7 +139,7 @@ export default {
               label: "字体大小",
               key: "fontSize",
               type: "num",
-              value: "16"
+              value: "16",
             },
             {
               label: "数据列表",
@@ -139,11 +159,11 @@ export default {
                   },
                 ],
                 data: [
-                  {name: '导航项1', url: 'http://www.baidu.com'},
-                  {name: '导航项2', url: 'http://www.baidu.com'},
-                ]
-              }
-            }
+                  { name: "导航项1", url: "http://www.baidu.com" },
+                  { name: "导航项2", url: "http://www.baidu.com" },
+                ],
+              },
+            },
           ],
         },
         {
@@ -161,12 +181,104 @@ export default {
                   previewImg: "",
                   // 根据这个字段判断模板类型
                   key: "",
-                  name: "名称"
-                }
-              ]
-            }
-          ]
-        }
+                  name: "名称",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      mediaComponents: [
+        {
+          name: "轮播图",
+          id: "唯一值",
+          componentName: "Swiper",
+          jsCode: true,
+          propValues: [
+            {
+              label: "数据列表",
+              key: "data",
+              type: "table",
+              value: {
+                // 数据结构 (结构中第一个元素为该table组件列表中显示的名称)
+                struct: [
+                  {
+                    label: "名称",
+                    key: "name",
+                    type: "text",
+                  },
+                  {
+                    label: "图片链接",
+                    key: "url",
+                    type: "imageStore",
+                  },
+                ],
+                //数据
+                data: [
+                  {
+                    name: "test1",
+                    url:
+                      "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
+                  },
+                  {
+                    name: "test2",
+                    url:
+                      "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
+                  },
+                  {
+                    name: "test3",
+                    url:
+                      "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
+                  },
+                ],
+              },
+            },
+            {
+              label: "轮播图容器高度",
+              key: "swiperHeight",
+              type: "numUnit",
+              value: {
+                num: 40,
+                unit: "rem",
+              },
+            },
+            {
+              label: "轮播图容器宽度",
+              key: "swiperWidth",
+              type: "numUnit",
+              value: {
+                num: 100,
+                unit: "%",
+              },
+            },
+            {
+              label: "轮播图切换效果",
+              key: "effect",
+              type: "select",
+              value: {
+                chooseValue: "fade",
+                data: [
+                  {
+                    value: "fade",
+                    label: "fade",
+                  },
+                  {
+                    value: "cube",
+                    label: "cube",
+                  },
+                  {
+                    value: "coverflow",
+                    label: "coverflow",
+                  },
+                  {
+                    value: "flip",
+                    label: "flip",
+                  },
+                ],
+              },
+            },
+          ],
+        },
       ],
     };
   },
@@ -182,7 +294,7 @@ export default {
       let newObj = JSON.parse(JSON.stringify(cloneObj));
       this.$store.commit("globalIdInc");
       newObj.id = this.globalId;
-      newObj.mode = this.cMode
+      newObj.mode = this.cMode;
       console.log(JSON.stringify(cloneObj));
       return newObj;
     },

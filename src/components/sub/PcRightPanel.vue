@@ -145,7 +145,7 @@
       </el-tab-pane>
       <el-tab-pane label="模板" name="template">
         <div v-for="(item, i) in currentData.propValues" :key="i">
-           <div v-if="item.type == 'template'"> 
+           <div v-if="item.type == 'template'">
               包含模板
            </div>
 
