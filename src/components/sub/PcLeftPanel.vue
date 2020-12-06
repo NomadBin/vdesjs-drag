@@ -219,8 +219,14 @@ export default {
               label: "图文项背景",
               key: "boxBg",
               type: "color",
-              value: "#fff",
+              value: "#fff"
             },
+            {
+              label: "列数选择",
+              key: "colNum",
+              type: "num",
+              value: "3"
+            }
           ],
           templates: {
             chooseKey: "sxpl",
