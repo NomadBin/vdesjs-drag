@@ -28,7 +28,7 @@ let componentJsCode = {
 };
 
 Handlebars.registerHelper("hasCss", function(data) {
-  return data.css;
+  return data.css ? true : false;
 });
 
 // 注册条件表达式 helper
@@ -125,10 +125,12 @@ let obj = {
               myItem: obj[i]
             });
           } else {
+            console.log(88);
             var template = Handlebars.compile(compoentStyle[componentName]);
             var tempateText = template({
-              myItem: obj
+              myItem: obj[i]
             });
+            console.log(tempateText, 8, obj);
           }
 
           stylesObj[componentName + obj[i].id] = tempateText;
@@ -160,19 +162,16 @@ let obj = {
     return templateShowText;
   },
   getJsCode(data) {
-    console.log(data, "jsCode");
     if (data.jsCode === true) {
       let this$1 =
         componentJsCode[data.componentName] ||
-        console.error("没有对应带代码模板");
-      console.log(this$1, "helppppp");
+        console.error("There is no corresponding JS code template");
       let templateJsCode = this$1({
         myItem: data
       });
-      console.log(templateJsCode, "pp");
       return [templateJsCode, jsCND[data.componentName]];
     } else {
-      return;
+      return [, {}];
     }
   },
   isObject(data) {
