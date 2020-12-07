@@ -125,6 +125,7 @@ let obj = {
               myItem: obj[i]
             });
           } else {
+            console.log(88);
             var template = Handlebars.compile(compoentStyle[componentName]);
             var tempateText = template({
               myItem: obj[i]
