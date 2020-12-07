@@ -289,6 +289,7 @@ export const feebackCompoents = [
     componentName: "VanShareSheet",
     mStyle: {},
     mClass: [],
+    description: "双击可进行预览",
     propValues: [
       {
         label: "数据列表",

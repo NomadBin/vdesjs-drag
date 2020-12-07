@@ -2,6 +2,13 @@
   <div class="rightPanel">
     <!-- 位置：<el-input-number  size="mini" v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number> -->
     <div class="rightPanelItems" v-if="flag">
+      <el-row
+        ><span
+          class="rightPanel-rightPanelIitems__span"
+          v-if="currentData.description"
+          >{{ currentData.description }}</span
+        ></el-row
+      >
       <div v-for="(item, i) in currentData.propValues" :key="i">
         <div v-if="item.type == 'text'">
           <el-row>
@@ -236,5 +243,8 @@ export default {
   bottom: 0px;
   width: 300px;
   text-align: center;
+}
+.rightPanel-rightPanelIitems__span {
+  margin: 0 20px 0 20px;
 }
 </style>

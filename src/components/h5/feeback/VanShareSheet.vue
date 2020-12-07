@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-cell title="显示分享面板" @click="showShare = true" />
+    <van-cell title="显示分享面板" @dblclick.native="showShare = true" />
     <van-share-sheet
       v-model="showShare"
       title="立即分享给好友"
