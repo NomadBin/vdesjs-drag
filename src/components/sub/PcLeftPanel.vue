@@ -250,6 +250,29 @@ export default {
             ],
           },
         },
+        {
+           name: "板块",
+          id: "唯一值",
+          componentName: "Plate",
+          mStyle: {},
+          mClass: [],
+          propValues: [
+            {
+              label: "内边距",
+              key: "padding",
+              type: "distance",
+              // 上右下左
+              value: [5,5,5,5]
+            }
+          ],
+          
+          // 板块中的组件存放
+          cols: [
+            {
+              list: []
+            },
+          ],
+        }
       ],
       mediaComponents: [
         {

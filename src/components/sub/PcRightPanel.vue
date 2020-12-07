@@ -133,6 +133,15 @@
                 </el-col>
               </el-row>
             </div>
+            <div v-if="item.type == 'distance'">
+              <el-row>
+                <el-col :span="10">{{ item.label }}:</el-col>
+                <el-col :span="12">
+                  <distance :propIndex="i"></distance>
+                  <!-- <my-table :propIndex="i"></my-table> -->
+                </el-col>
+              </el-row>
+            </div>
           </div>
           <div class="bootomDelete" @click="removeThis">
             <el-button type="danger" round>删除</el-button>
@@ -148,7 +157,11 @@
           <li v-for="(item, i) in currentData.templates.data" :key="i">
             <div class="box">
               <img :src="item.previewImg" alt="" class="previewImg" />
-              <el-button v-if="item.key == currentData.templates.chooseKey" class="usingRight" type="primary" round
+              <el-button
+                v-if="item.key == currentData.templates.chooseKey"
+                class="usingRight"
+                type="primary"
+                round
                 >正在使用</el-button
               >
               <div class="mask">
@@ -164,12 +177,13 @@
     </el-tabs>
 
     <!-- 实时获取当前是否有数据，来决定右侧面板所显示的页面 -->
-    <div style="display: none">
+    <div>
       {{ currentData }}
     </div>
   </div>
 </template>
 <script>
+import Distance from '../pcomp/Distance.vue';
 import IconList from "../pcomp/IconList.vue";
 import ImageStore from "../pcomp/ImageStore.vue";
 import MyTable from "../pcomp/MyTable.vue";
@@ -178,6 +192,7 @@ export default {
     IconList,
     ImageStore,
     MyTable,
+    Distance,
   },
   data() {
     return {
@@ -191,21 +206,22 @@ export default {
       let data = this.$store.getters.currentData;
       if (typeof data == "undefined") {
         this.flag = false;
-        return { propValues: [], templates: {data:[]} };
+        return { propValues: [], templates: { data: [] } };
       } else {
         this.flag = true;
-        if (typeof data.templates  == "undefined") {
-          data['templates'] = {data:[]}
+        if (typeof data.templates == "undefined") {
+          data["templates"] = { data: [] };
         }
-
       }
 
       return data;
     },
   },
   methods: {
-    useTpl: function(i) {
-      this.currentData.templates.chooseKey = this.currentData.templates.data[i].key
+    useTpl: function (i) {
+      this.currentData.templates.chooseKey = this.currentData.templates.data[
+        i
+      ].key;
     },
     addCols: function () {
       this.$store.commit("layoutAddCols");
