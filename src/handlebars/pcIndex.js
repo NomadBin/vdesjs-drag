@@ -125,7 +125,6 @@ let obj = {
               myItem: obj[i]
             });
           } else {
-            console.log(88);
             var template = Handlebars.compile(compoentStyle[componentName]);
             var tempateText = template({
               myItem: obj[i]
@@ -146,7 +145,6 @@ let obj = {
     var compoentName = obj.componentName;
     var compoentText = compoentTexts[compoentName];
     //
-    console.log(1);
     if (this.isFunction(compoentText)) {
       var templateShowText = compoentText({
         myItem: obj
