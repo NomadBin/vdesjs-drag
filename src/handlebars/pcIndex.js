@@ -129,7 +129,6 @@ let obj = {
             var tempateText = template({
               myItem: obj[i]
             });
-            console.log(tempateText, 8, obj);
           }
 
           stylesObj[componentName + obj[i].id] = tempateText;
