@@ -6,9 +6,15 @@
       '--padding-right': myItem.propValues[paddingIndex].value[1] + 'px',
       '--padding-bottom': myItem.propValues[paddingIndex].value[2] + 'px',
       '--padding-left': myItem.propValues[paddingIndex].value[3] + 'px',
+      '--height':
+        myItem.propValues[heightIndex].value.num +
+        myItem.propValues[heightIndex].value.unit,
+      '--bgImage': 'url(' + myItem.propValues[bgImageIndex].value + ')',
     }"
     @click="switchIndex"
   >
+    <div class="topSelect" @click="switchIndex"></div>
+
     <draggable :list="list" group="components" class="plate">
       <component
         v-for="(item, i) in list"
@@ -37,6 +43,8 @@ export default {
   data() {
     return {
       paddingIndex: 0,
+      heightIndex: 1,
+      bgImageIndex: 2,
     };
   },
   computed: {
@@ -79,19 +87,36 @@ export default {
 </script>
 <style scoped>
 .var {
-  --padding-top: 0;
-  --padding-right: 0;
-  --padding-bottom: 0;
-  --padding-left: 0;
+  --padding-top: 0px;
+  --padding-right: 0px;
+  --padding-bottom: 0px;
+  --padding-left: 0px;
+  --height: 500px;
+  --bgImage: "";
 }
 
 .plate {
-  width: 100%;
-  height: 500px;
-  background-color: lightgreen;
+  max-width: calc(100% - 1px);
+
   padding-top: var(--padding-top);
   padding-right: var(--padding-right);
   padding-bottom: var(--padding-bottom);
   padding-left: var(--padding-left);
+
+  background-color: lightgrey;
+  height: 400px;
+  height: var(--height);
+  background-image: var(--bgImage);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.topSelect{
+  width: 100%;
+  height: 8px;
+  background-color: lightblue;
+  transition: all 0.5s ease-in-out 0s; 
+}
+.topSelect:hover {
+  background-color: blue;
 }
 </style>

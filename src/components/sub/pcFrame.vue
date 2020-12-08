@@ -116,6 +116,7 @@ $pcHeight: 100%;
   bottom: 0;
   left: 0;
   right: 0;
+  
   // display:flex;
   // flex-wrap: wrap;
   // align-items: flex-start;
@@ -125,17 +126,18 @@ $pcHeight: 100%;
   width: $pcWidth;
   height: $pcHeight;
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
+  // margin-left: auto;
+  // margin-right: auto;
   overflow: hidden;
 }
 .pc {
   width: $pcWidth;
+  // max-width: calc(100% - 140px);
   height: $pcHeight;
   background-color: white;
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
+  // margin-left: auto;
+  // margin-right: auto;
   overflow-x: hidden;
 }
 .hoverborder {

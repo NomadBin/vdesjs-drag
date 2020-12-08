@@ -73,7 +73,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .van-col {
   border: 1px solid lightgray;
 }

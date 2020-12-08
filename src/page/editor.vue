@@ -15,7 +15,7 @@
             <pc-tool-header v-if="mode == 'pc'"></pc-tool-header>
             <!-- <div style="line-height:30px">工具头部</div> -->
           </el-header>
-          <el-main>
+          <el-main class="mainFrame">
             <phone-frame v-if="mode == 'h5'"></phone-frame>
             <pc-frame v-if="mode == 'pc'"></pc-frame>
           </el-main>
@@ -154,5 +154,8 @@ body {
 }
 .editor {
   background-color: #f8f8f8;
+}
+.mainFrame{
+  overflow: hidden;
 }
 </style>

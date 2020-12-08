@@ -219,14 +219,14 @@ export default {
               label: "图文项背景",
               key: "boxBg",
               type: "color",
-              value: "#fff"
+              value: "#fff",
             },
             {
               label: "列数选择",
               key: "colNum",
               type: "num",
-              value: "3"
-            }
+              value: "3",
+            },
           ],
           templates: {
             chooseKey: "sxpl",
@@ -251,7 +251,7 @@ export default {
           },
         },
         {
-           name: "板块",
+          name: "板块",
           id: "唯一值",
           componentName: "Plate",
           mStyle: {},
@@ -262,17 +262,32 @@ export default {
               key: "padding",
               type: "distance",
               // 上右下左
-              value: [5,5,5,5]
-            }
+              value: [5, 5, 5, 5],
+            },
+            {
+              label: "高度",
+              key: "height",
+              type: "numUnit",
+              value: {
+                num: 500,
+                unit: "px",
+              },
+            },
+            {
+              label: "背景图片",
+              key: "bgImage",
+              type: "imageStore",
+              value: "",
+            },
           ],
-          
+
           // 板块中的组件存放
           cols: [
             {
-              list: []
+              list: [],
             },
           ],
-        }
+        },
       ],
       mediaComponents: [
         {
@@ -367,9 +382,8 @@ export default {
               label: "轮播点大小",
               key: "paginationSize",
               type: "num",
-              value: "15"
-
-            }
+              value: "15",
+            },
           ],
         },
       ],
