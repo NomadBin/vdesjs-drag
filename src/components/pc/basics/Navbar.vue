@@ -97,6 +97,7 @@ export default {
 }
 
 .navbar-my {
+  margin-bottom: 0px;
   background-color: var(--navbarBg);
   
 }

@@ -13,16 +13,15 @@
     }"
     @click="switchIndex"
   >
-    <div class="topSelect" @click="switchIndex"></div>
-
     <draggable :list="list" group="components" class="plate">
       <component
-      class="hoverborder" 
+        
         v-for="(item, i) in list"
         :key="i"
         :is="item.componentName"
         :myItem="item"
         @click.native.stop="swithChildIndex(0, i)"
+               
       ></component>
     </draggable>
   </div>
@@ -111,19 +110,14 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
 }
-.topSelect{
+.topSelect {
   width: 100%;
   height: 8px;
   background-color: lightblue;
-  transition: all 0.5s ease-in-out 0s; 
+  transition: all 0.5s ease-in-out 0s;
 }
 .topSelect:hover {
   background-color: blue;
 }
-.hoverborder {
-  border: 1px solid transparent;
-}
-.hoverborder:hover {
-  border: 1px solid blue;
-}
+
 </style>

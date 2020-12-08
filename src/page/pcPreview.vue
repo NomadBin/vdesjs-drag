@@ -10,6 +10,10 @@
         <div v-if="item.componentName == 'VanLayout'">
           <van-layout :listIndex="i"></van-layout>
         </div>
+        <div v-if="item.componentName == 'Plate'">
+          <plate :listIndex="i"></plate>
+        </div>
+
         <component
           @click.native="switchIndex(i)"
           v-else
@@ -23,6 +27,7 @@
 <script>
 import draggable from "vuedraggable";
 import basicsMixin from "@/common/js/pc/importBasics";
+import Plate from "@/preview/Plate.vue"
 
 import phoneIcon from "@/assets/icon/手机.png";
 import surfaceIcon from "@/assets/icon/平板.png";
@@ -32,6 +37,7 @@ export default {
   mixins: [basicsMixin],
   components: {
     draggable,
+    Plate
   },
   computed: {
     list() {
@@ -132,6 +138,6 @@ $pcHeight: 100%;
   border: 1px solid blue;
 }
 .content {
-  padding: 1px;
+  // padding: 1px;
 }
 </style>

@@ -147,6 +147,6 @@ $pcHeight: 100%;
   border: 1px solid blue;
 }
 .content {
-  padding: 1px;
+  // padding: 1px;
 }
 </style>
