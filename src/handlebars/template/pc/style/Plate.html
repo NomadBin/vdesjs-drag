@@ -1,0 +1,15 @@
+.plate{{myItem.id}} {
+    max-width: calc(100%);
+  
+    padding-top: {{myItem.propValues.[0].value.[0]}}px;
+    padding-right: {{myItem.propValues.[0].value.[1]}}px;
+    padding-bottom: {{myItem.propValues.[0].value.[2]}}px;
+    padding-left: {{myItem.propValues.[0].value.[3]}}px;
+  
+    background-color: lightgrey;
+    height: 400px;
+    height: {{myItem.propValues.[1].value.num}}{{myItem.propValues.[1].value.unit}};
+    background-image: url({{myItem.propValues.[2].value}});
+    background-repeat: no-repeat;
+    background-size: cover;
+  }

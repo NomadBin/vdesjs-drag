@@ -7,6 +7,8 @@ let NavbarStyle = require("./template/pc/style/Navbar.html");
 let Swiper = require("./template/pc/media/Swiper.handlebars");
 let SwipperStyle = require("./template/pc/style/Swiper.handlebars");
 let SwiperJsCode = require("./template/pc/js/Swiper.handlebars");
+let PlateStyle = require("./template/pc/style/Plate.html");
+
 //bottom
 let htmIndx = require("./template/pc/index.html");
 
@@ -20,7 +22,8 @@ let compoentTexts = {
 
 let compoentStyle = {
   Navbar: NavbarStyle,
-  Swiper: SwipperStyle
+  Swiper: SwipperStyle,
+  Plate: PlateStyle
 };
 
 let componentJsCode = {
@@ -82,15 +85,30 @@ Handlebars.registerHelper("compare", function (left, operator, right, options) {
 });
 
 let obj = {
-  jsCodeList: [],
-  jsCDN: [],
-  styles: [],
+  jsCodeList: {},
+  jsCDN: {},
+  styles: {},
 
   generateHtmlCode(obj) {
     var templatesText = [];
-
     for (var i = 0; i < obj.length; i++) {
       if (obj[i].componentName == "Layout") {
+      } else if (obj[i].componentName == "Plate") {
+        var platHtml = "<div class=\"plate" + obj[i].id + "\" >"
+        this.styles[i] = this.getStyle(obj[i])
+        for (var j = 0; j < obj[i].cols[0].list.length; j++) {
+          var objItem = obj[i].cols[0].list[j];
+
+          var templateText = this.generateHtmlCodeFromObjToText(objItem);
+          platHtml = platHtml + templateText;
+
+          [this.jsCodeList[i + "-" + j], this.jsCDN[i + "-" + j]] = this.getJsCode(objItem);
+          this.styles[i + "-" + j] = this.getStyle(objItem);
+
+        }
+        platHtml = platHtml + "</div>";
+        templatesText[i] = platHtml;
+
       } else {
         var templateText = this.generateHtmlCodeFromObjToText(obj[i]);
         [this.jsCodeList[i], this.jsCDN[i]] = this.getJsCode(obj[i]);
@@ -99,6 +117,8 @@ let obj = {
         this.styles[i] = this.getStyle(obj[i]);
       }
     }
+    console.log(JSON.stringify(this.styles))
+
 
     // 整合最终代码
     var template = Handlebars.compile(htmIndx);
