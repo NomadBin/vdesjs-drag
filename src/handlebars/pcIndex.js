@@ -27,41 +27,41 @@ let componentJsCode = {
   Swiper: SwiperJsCode
 };
 
-Handlebars.registerHelper("hasCss", function(data) {
+Handlebars.registerHelper("hasCss", function (data) {
   return data.css ? true : false;
 });
 
 // 注册条件表达式 helper
-Handlebars.registerHelper("compare", function(left, operator, right, options) {
+Handlebars.registerHelper("compare", function (left, operator, right, options) {
   if (arguments.length < 3) {
     throw new Error('Handlerbars Helper "compare" needs 2 parameters');
   }
   var operators = {
-    "==": function(l, r) {
+    "==": function (l, r) {
       return l == r;
     },
-    "===": function(l, r) {
+    "===": function (l, r) {
       return l === r;
     },
-    "!=": function(l, r) {
+    "!=": function (l, r) {
       return l != r;
     },
-    "!==": function(l, r) {
+    "!==": function (l, r) {
       return l !== r;
     },
-    "<": function(l, r) {
+    "<": function (l, r) {
       return l < r;
     },
-    ">": function(l, r) {
+    ">": function (l, r) {
       return l > r;
     },
-    "<=": function(l, r) {
+    "<=": function (l, r) {
       return l <= r;
     },
-    ">=": function(l, r) {
+    ">=": function (l, r) {
       return l >= r;
     },
-    typeof: function(l, r) {
+    typeof: function (l, r) {
       return typeof l == r;
     }
   };
@@ -84,6 +84,7 @@ Handlebars.registerHelper("compare", function(left, operator, right, options) {
 let obj = {
   jsCodeList: [],
   jsCDN: [],
+  styles: [],
 
   generateHtmlCode(obj) {
     var templatesText = [];
@@ -94,15 +95,16 @@ let obj = {
         var templateText = this.generateHtmlCodeFromObjToText(obj[i]);
         [this.jsCodeList[i], this.jsCDN[i]] = this.getJsCode(obj[i]);
         templatesText[i] = templateText;
+
+        this.styles[i] = this.getStyle(obj[i]);
       }
     }
 
     // 整合最终代码
     var template = Handlebars.compile(htmIndx);
-    var styles = this.getStyles(obj);
 
     let index = template({
-      styles: styles,
+      styles: this.styles,
       templatesText: templatesText,
       jsCode: this.jsCodeList,
       jsCND: this.jsCDN
@@ -112,31 +114,23 @@ let obj = {
     return index;
   },
 
-  // 遍历json，找到style模板并传入json编译成最终的style代码。
-  getStyles(obj) {
-    let stylesObj = {};
-    for (var i = 0; i < obj.length; i++) {
-      if (obj[i].componentName == "Layout") {
+  // 根据组件的style模板传入json，编译style代码
+  getStyle(obj) {
+    var tempateText = '';
+    var componentName = obj.componentName;
+    if (compoentStyle[componentName] != null) {
+      if (this.isFunction(compoentStyle[componentName])) {
+        tempateText = compoentStyle[componentName]({
+          myItem: obj
+        });
       } else {
-        var componentName = obj[i].componentName;
-        if (compoentStyle[componentName] != null) {
-          if (this.isFunction(compoentStyle[componentName])) {
-            var tempateText = compoentStyle[componentName]({
-              myItem: obj[i]
-            });
-          } else {
-            var template = Handlebars.compile(compoentStyle[componentName]);
-            var tempateText = template({
-              myItem: obj[i]
-            });
-          }
-
-          stylesObj[componentName + obj[i].id] = tempateText;
-        }
+        var template = Handlebars.compile(compoentStyle[componentName]);
+        tempateText = template({
+          myItem: obj
+        });
       }
     }
-    console.log("stylesObj:" + JSON.stringify(stylesObj));
-    return stylesObj;
+    return tempateText;
   },
 
   // 根据每个组件的模板文件，传入json，编译成所需的组件代码。
