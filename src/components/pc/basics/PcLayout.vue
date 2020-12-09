@@ -1,19 +1,15 @@
 <template>
-  <div class="layout">
+  <div>
     <div class="topSelect" @click="switchIndex"></div>
     <van-row>
-      <van-col
-        v-for="(col, colIndex) in myItem.cols"
-        :key="colIndex"
-        :span="col.span"
-      >
+      <van-col v-for="(col, colIndex) in cols" :key="colIndex" :span="col.span">
         <draggable :list="col.list" group="components" class="colDraggable">
           <component
             v-for="(item, colDataIndex) in col.list"
             :key="colDataIndex"
             :is="item.componentName"
             :myItem="item"
-            @click.native="swithChildIndex(colIndex, colDataIndex)"
+            @click.native="swithChildIndex(item)"
           ></component>
         </draggable>
       </van-col>
@@ -22,35 +18,24 @@
 </template>
 <script>
 import draggable from "vuedraggable";
-import basicsMixin from "@/common/js/h5/importBasics";
-import formMixin from "@/common/js/h5/importForm";
-import feebackMixin from "@/common/js/h5/importFeeback";
-import showMixin from "@/common/js/h5/importShow";
-import navMixin from "@/common/js/h5/importNav";
-import businessMixin from "@/common/js/h5/importBusiness";
+import basicsMixin from "@/common/js/pc/importBasics";
 export default {
-  mixins: [
-    basicsMixin,
-    formMixin,
-    feebackMixin,
-    showMixin,
-    navMixin,
-    businessMixin,
-  ],
-  computed: {
-    animateClass() {
-      return this.$store.state.rightPanelClass.animateClass;
-    },
-  },
+  // name: "PcLayout",
+  mixins: [basicsMixin],
   components: {
     draggable,
   },
-  data() {
-    return {};
-  },
   props: {
+    cols: {
+      type: Array,
+    },
     myItem: {
       type: Object,
+    }
+  },
+  computed: {
+    animateClass() {
+      return this.$store.state.rightPanelClass.animateClass;
     },
   },
   methods: {
@@ -60,7 +45,7 @@ export default {
         this.$store.commit("rightPanelFold");
       }
 
-      this.$store.commit("updateMyItem", this.myItem);
+       this.$store.commit("updateMyItem", this.myItem);
     },
     swithChildIndex: function (myItem) {
       if (this.animateClass == "myBounceOutRight") {
@@ -70,6 +55,9 @@ export default {
 
       this.$store.commit("updateMyItem", myItem);
     },
+  },
+  mounted: function () {
+    console.log("hello world");
   },
 };
 </script>

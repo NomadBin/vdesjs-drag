@@ -9,6 +9,9 @@ const store = new Vuex.Store({
     state: {
         //拖动到界面的组件数据
         list: [],
+
+        // 当前选择的对象（利用了浅拷贝原理）
+        myItem:{},
         //全局id
         globalId: 0,
         currentSelectListIndex: 0,
@@ -26,18 +29,19 @@ const store = new Vuex.Store({
     getters: {
         // 当前选择的元素
         currentData: state => {
-            let data = null;
-            if (
-                state.currentColIndex != -1 &&
-                state.list[state.currentSelectListIndex].cols != null
-            ) {
-                // 选择的是布局下的元素
-                data = state.list[state.currentSelectListIndex].cols[state.currentColIndex]
-                    .list[state.currentColDataIndex];
-            } else {
-                data = state.list[state.currentSelectListIndex];
-            }
-            return data;
+            // let data = null;
+            // if (
+            //     state.currentColIndex != -1 &&
+            //     state.list[state.currentSelectListIndex].cols != null
+            // ) {
+            //     // 选择的是布局下的元素
+            //     data = state.list[state.currentSelectListIndex].cols[state.currentColIndex]
+            //         .list[state.currentColDataIndex];
+            // } else {
+            //     data = state.list[state.currentSelectListIndex];
+            // }
+            // return data;
+            return state.myItem;
         },
         currentMode: state => {
           return state.mode
@@ -50,6 +54,10 @@ const store = new Vuex.Store({
         // 初始化组件数据
         initList(state, payload) {
             state.list = payload
+        },
+
+        updateMyItem(state, payload) {
+            state.myItem = payload
         },
         //切换当前选择元素下标
         swithIndex(state, payload) {

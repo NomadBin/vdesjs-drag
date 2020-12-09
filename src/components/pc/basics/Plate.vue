@@ -15,31 +15,44 @@
   >
     <div class="topSelect" @click="switchIndex"></div>
 
-    <draggable :list="list" group="components" class="plate">
-      <component
-      class="hoverborder" 
-        v-for="(item, i) in list"
-        :key="i"
-        :is="item.componentName"
-        :myItem="item"
-        @click.native.stop="swithChildIndex(0, i)"
-      ></component>
+    <draggable :list="myItem.cols[0].list" group="components" class="plate">
+      <div v-for="(item, i) in myItem.cols[0].list" :key="i">
+        <pc-layout
+          v-if="item.componentName == 'PcLayout'"
+          :listIndex="listIndex"
+          :cols="item.cols"
+          :myItem="item"
+        ></pc-layout>
+
+        <component
+          v-else
+          class="hoverborder"
+          :is="item.componentName"
+          :myItem="item"
+          @click.native.stop="swithChildIndex(item)"
+        ></component>
+      </div>
     </draggable>
   </div>
 </template>
 <script>
 import draggable from "vuedraggable";
 import basicsMixin from "@/common/js/pc/importBasics";
+import PcLayout from "@/components/pc/basics/PcLayout.vue";
 export default {
   mixins: [basicsMixin],
   components: {
     draggable,
+    PcLayout,
   },
   props: {
     listIndex: {
       type: Number,
       default: 0,
     },
+    myItem: {
+      type: Object,
+    }
   },
   data() {
     return {
@@ -49,12 +62,12 @@ export default {
     };
   },
   computed: {
-    myItem: function () {
-      return this.$store.state.list[this.listIndex];
-    },
-    list: function () {
-      return this.$store.state.list[this.listIndex].cols[0].list;
-    },
+    // myItem: function () {
+    //   return this.$store.state.list[this.listIndex];
+    // },
+    // list: function () {
+    //   return this.$store.state.list[this.listIndex].cols[0].list;
+    // },
   },
   methods: {
     switchIndex: function () {
@@ -64,20 +77,14 @@ export default {
         this.$store.commit("rightPanelFold");
       }
 
-      this.$store.commit("swithIndex", this.listIndex);
+      this.$store.commit("updateMyItem", this.myItem);
     },
-    swithChildIndex: function (colIndex, colDataIndex) {
-      console.log(this.listIndex + "," + colIndex + "," + colDataIndex);
+    swithChildIndex: function (myItem) {
       if (this.animateClass == "myBounceOutRight") {
         // 右边面板由收缩状态变为展开状态
         this.$store.commit("rightPanelFold");
       }
-
-      this.$store.commit("swithChildIndex", {
-        listIndex: this.listIndex,
-        colIndex: colIndex,
-        colDataIndex: colDataIndex,
-      });
+      this.$store.commit("updateMyItem", myItem);
     },
   },
 
@@ -104,18 +111,18 @@ export default {
   padding-bottom: var(--padding-bottom);
   padding-left: var(--padding-left);
 
-  background-color: lightgrey;
+  background-color: peachpuff;
   height: 400px;
   height: var(--height);
   background-image: var(--bgImage);
   background-repeat: no-repeat;
   background-size: cover;
 }
-.topSelect{
+.topSelect {
   width: 100%;
   height: 8px;
   background-color: lightblue;
-  transition: all 0.5s ease-in-out 0s; 
+  transition: all 0.5s ease-in-out 0s;
 }
 .topSelect:hover {
   background-color: blue;

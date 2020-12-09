@@ -14,10 +14,10 @@
           class="content"
         >
         <div v-if="item.componentName == 'VanLayout'">
-            <van-layout  :listIndex="i"></van-layout>
+            <van-layout  :listIndex="i" :myItem="item"></van-layout>
         </div>
         <component
-        @click.native="switchIndex(i)"
+        @click.native="switchIndex(item)"
          v-else
           class="hoverborder"
           :is="item.componentName"
@@ -57,13 +57,13 @@ export default {
     return {};
   },
   methods: {
-    switchIndex: function (index) {
+    switchIndex: function (myItem) {
       if (this.animateClass == "myBounceOutRight") {
         // 右边面板由收缩状态变为展开状态
         this.$store.commit("rightPanelFold");
       }
 
-      this.$store.commit("swithIndex", index);
+      this.$store.commit("updateMyItem", myItem);
     },
     test: function () {
       console.log("PhoneFrame test")

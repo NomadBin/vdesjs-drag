@@ -288,6 +288,35 @@ export default {
             },
           ],
         },
+        {
+          name: "布局",
+          id: "唯一值",
+          componentName: "PcLayout",
+          mStyle: {},
+          mClass: [],
+          propValues: [
+            {
+              label: "列配置项",
+              key: "col",
+              value: "正真的值在cols中",
+              type: "col",
+            },
+          ],
+          cols: [
+            {
+              span: 8,
+              list: [],
+            },
+            {
+              span: 8,
+              list: [],
+            },
+            {
+              span: 8,
+              list: [],
+            },
+          ],
+        },
       ],
       mediaComponents: [
         {

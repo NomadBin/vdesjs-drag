@@ -18,15 +18,14 @@
       </div>
       <draggable :list="list" group="components" class="draggableDiv">
         <div v-for="(item, i) in curList" :key="i" class="content">
-          <div v-if="item.componentName == 'VanLayout'">
-            <van-layout :listIndex="i"></van-layout>
+          <div v-if="item.componentName == 'PcLayout'">
+            <pc-layout  :cols="item.cols" :myItem="item"></pc-layout>
           </div>
-          <div v-if="item.componentName == 'Plate'">
-            <plate :listIndex="i"></plate>
+          <div v-else-if="item.componentName == 'Plate'">
+            <plate  :myItem="item"></plate>
           </div>
-
           <component
-            @click.native="switchIndex(i)"
+            @click.native="switchIndex(item)"
             v-else
             class="hoverborder"
             :is="item.componentName"
@@ -69,13 +68,13 @@ export default {
     };
   },
   methods: {
-    switchIndex: function (index) {
+    switchIndex: function (myItem) {
       if (this.animateClass == "myBounceOutRight") {
         // 右边面板由收缩状态变为展开状态
         this.$store.commit("rightPanelFold");
       }
+      this.$store.commit("updateMyItem", myItem);
 
-      this.$store.commit("swithIndex", index);
     },
     test: function () {
       console.log("pcFrame test");
