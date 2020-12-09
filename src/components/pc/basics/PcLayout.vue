@@ -2,15 +2,24 @@
   <div>
     <div class="topSelect" @click="switchIndex"></div>
     <van-row>
-      <van-col v-for="(col, colIndex) in cols" :key="colIndex" :span="col.span">
+      <van-col
+        v-for="(col, colIndex) in myItem.cols"
+        :key="colIndex"
+        :span="col.span"
+      >
         <draggable :list="col.list" group="components" class="colDraggable">
-          <component
-            v-for="(item, colDataIndex) in col.list"
-            :key="colDataIndex"
-            :is="item.componentName"
-            :myItem="item"
-            @click.native="swithChildIndex(item)"
-          ></component>
+          <div v-for="(item, colDataIndex) in col.list" :key="colDataIndex">
+            <pc-layout
+              v-if="item.componentName == 'PcLayout'"
+              :myItem="item"
+            ></pc-layout>
+            <component
+              v-else
+              :is="item.componentName"
+              :myItem="item"
+              @click.native="swithChildIndex(item)"
+            ></component>
+          </div>
         </draggable>
       </van-col>
     </van-row>
@@ -20,18 +29,15 @@
 import draggable from "vuedraggable";
 import basicsMixin from "@/common/js/pc/importBasics";
 export default {
-  // name: "PcLayout",
+  name: "PcLayout",
   mixins: [basicsMixin],
   components: {
     draggable,
   },
   props: {
-    cols: {
-      type: Array,
-    },
     myItem: {
       type: Object,
-    }
+    },
   },
   computed: {
     animateClass() {
@@ -45,7 +51,7 @@ export default {
         this.$store.commit("rightPanelFold");
       }
 
-       this.$store.commit("updateMyItem", this.myItem);
+      this.$store.commit("updateMyItem", this.myItem);
     },
     swithChildIndex: function (myItem) {
       if (this.animateClass == "myBounceOutRight") {

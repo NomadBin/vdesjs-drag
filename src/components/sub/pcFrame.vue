@@ -19,7 +19,7 @@
       <draggable :list="list" group="components" class="draggableDiv">
         <div v-for="(item, i) in curList" :key="i" class="content">
           <div v-if="item.componentName == 'PcLayout'">
-            <pc-layout  :cols="item.cols" :myItem="item"></pc-layout>
+            <pc-layout :myItem="item"></pc-layout>
           </div>
           <div v-else-if="item.componentName == 'Plate'">
             <plate  :myItem="item"></plate>
