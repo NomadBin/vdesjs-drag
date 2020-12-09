@@ -11,7 +11,9 @@ const store = new Vuex.Store({
         list: [],
 
         // 当前选择的对象（利用了浅拷贝原理）
-        myItem:{},
+        myItem:{
+        
+        },
         //全局id
         globalId: 0,
         currentSelectListIndex: 0,
@@ -58,6 +60,31 @@ const store = new Vuex.Store({
 
         updateMyItem(state, payload) {
             state.myItem = payload
+        },
+        deleteMyItem(state) {
+            // for(let key in state.myItem) {
+            //     delete state.myItem[key]
+            // }
+            function deleteItem(list) {
+                for(var i=0; i< list.length; i++) {
+                    if(list[i].id == state.myItem.id) {
+                        list.splice(i, 1)
+                        state.myItem = {};
+                        break;
+                    }
+                    if(list[i].componentName == "PcLayout") {
+                        for(var j=0; j < list[i].cols.length; j++) {
+                            deleteItem(list[i].cols[j].list)
+                        }
+                    }
+                    if(list[i].componentName == "Plate") {
+                        deleteItem(list[i].cols[0].list)
+                    }
+    
+                }
+            }
+            deleteItem(state.list)
+           
         },
         //切换当前选择元素下标
         swithIndex(state, payload) {

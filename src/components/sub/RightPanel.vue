@@ -185,20 +185,7 @@ export default {
       this.currentData.cols.splice(i, 1);
     },
     removeThis: function () {
-      if (
-        this.$store.state.currentColIndex != -1 &&
-        this.$store.state.list[this.$store.state.currentSelectListIndex].cols !=
-          null
-      ) {
-        this.$store.state.list[this.$store.state.currentSelectListIndex].cols[
-          this.$store.state.currentColIndex
-        ].list.splice(this.$store.state.currentColDataIndex, 1);
-      } else {
-        this.$store.state.list.splice(
-          this.$store.state.currentSelectListIndex,
-          1
-        );
-      }
+      this.$store.commit("deleteMyItem");
     },
     completeChoseImageStore: function (obj, i) {
       console.log(JSON.stringify(obj));
