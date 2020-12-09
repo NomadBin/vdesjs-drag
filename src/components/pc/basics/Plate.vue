@@ -19,9 +19,8 @@
       <div v-for="(item, i) in myItem.cols[0].list" :key="i">
         <pc-layout
           v-if="item.componentName == 'PcLayout'"
-          :listIndex="listIndex"
-          :cols="item.cols"
           :myItem="item"
+          @click.native.stop
         ></pc-layout>
 
         <component
