@@ -30,7 +30,8 @@
     "vue-codemirror": "^4.0.6",
     "vue-router": "^3.0.1",
     "vuedraggable": "^2.16.0",
-    "vuex": "^3.5.1"
+    "vuex": "^3.5.1",
+    "wangeditor": "^4.5.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

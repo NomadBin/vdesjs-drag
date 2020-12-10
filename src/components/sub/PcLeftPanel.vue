@@ -317,6 +317,17 @@ export default {
             },
           ],
         },
+        {
+          name: "富文本",
+          id: "唯一值",
+          componentName: "RichText",
+          mStyle: {},
+          mClass: [],
+          propValues: [
+            
+          ]
+
+        }
       ],
       mediaComponents: [
         {
