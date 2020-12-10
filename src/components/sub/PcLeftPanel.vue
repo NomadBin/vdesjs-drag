@@ -304,15 +304,15 @@ export default {
           ],
           cols: [
             {
-              span: 8,
+              span: 4,
               list: [],
             },
             {
-              span: 8,
+              span: 4,
               list: [],
             },
             {
-              span: 8,
+              span: 4,
               list: [],
             },
           ],

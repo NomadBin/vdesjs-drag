@@ -90,31 +90,71 @@ let obj = {
   styles: {},
 
   generateHtmlCode(obj) {
+    let that = this;
     var templatesText = [];
+    
+    //递归获取layout代码
+    function generateLayout(obj) {
+      var layoutHtml = "<div class=\"row\">";
+      for (var i = 0; i < obj.cols.length; i++) {
+        layoutHtml = layoutHtml + "<div class=\"col-sm-" + obj.cols[i].span + "\" >"
+
+        for (var j = 0; j < obj.cols[i].list.length; j++) {
+          var objItem = obj.cols[i].list[j];
+          if (objItem.componentName == 'PcLayout') {
+            layoutHtml = layoutHtml + generateLayout(objItem)
+
+          } else {
+            var templateText = that.generateHtmlCodeFromObjToText(objItem);
+            layoutHtml = layoutHtml + templateText;
+            [that.jsCodeList[objItem.id], that.jsCDN[objItem.id]] = that.getJsCode(objItem);
+            that.styles[i + "-" + j] = that.getStyle(objItem);
+          }
+        }
+
+        layoutHtml = layoutHtml + "</div>";
+      }
+      layoutHtml = layoutHtml + "</div>";
+      return layoutHtml;
+    }
+    
     for (var i = 0; i < obj.length; i++) {
-      if (obj[i].componentName == "Layout") {
+      if (obj[i].componentName == "PcLayout") {
+        var layoutHtml = generateLayout(obj[i])
+        layoutHtml = "<div class=\"container-fluid\">" + layoutHtml + "</div>"
+
+        console.log("layoutHtml:" + layoutHtml)
+        templatesText[i] = layoutHtml;
       } else if (obj[i].componentName == "Plate") {
         var platHtml = "<div class=\"plate" + obj[i].id + "\" >"
         this.styles[i] = this.getStyle(obj[i])
         for (var j = 0; j < obj[i].cols[0].list.length; j++) {
           var objItem = obj[i].cols[0].list[j];
+          if (objItem.componentName == 'PcLayout') {
+            var layoutHtml = generateLayout(obj[i])
+            layoutHtml = "<div class=\"container-fluid\">" + layoutHtml + "</div>"
+            platHtml = platHtml + layoutHtml;
 
-          var templateText = this.generateHtmlCodeFromObjToText(objItem);
-          platHtml = platHtml + templateText;
+          } else {
+            var templateText = this.generateHtmlCodeFromObjToText(objItem);
+            platHtml = platHtml + templateText;
 
-          [this.jsCodeList[i + "-" + j], this.jsCDN[i + "-" + j]] = this.getJsCode(objItem);
-          this.styles[i + "-" + j] = this.getStyle(objItem);
+            [this.jsCodeList[objItem.id], this.jsCDN[objItem.id]] = this.getJsCode(objItem);
+            this.styles[objItem.id] = this.getStyle(objItem);
+
+          }
+
 
         }
         platHtml = platHtml + "</div>";
         templatesText[i] = platHtml;
 
       } else {
+        var objItem = obj[i];
         var templateText = this.generateHtmlCodeFromObjToText(obj[i]);
-        [this.jsCodeList[i], this.jsCDN[i]] = this.getJsCode(obj[i]);
+        [this.jsCodeList[objItem.id], this.jsCDN[objItem.id]] = this.getJsCode(obj[i]);
         templatesText[i] = templateText;
-
-        this.styles[i] = this.getStyle(obj[i]);
+        this.styles[objItem.id] = this.getStyle(obj[i]);
       }
     }
     console.log(JSON.stringify(this.styles))

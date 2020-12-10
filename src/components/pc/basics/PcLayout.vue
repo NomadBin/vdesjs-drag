@@ -1,11 +1,13 @@
 <template>
   <div>
     <div class="topSelect" @click="switchIndex"></div>
-    <van-row>
-      <van-col
+    <div class="container-fluid">
+    <div class="row">
+      <div
         v-for="(col, colIndex) in myItem.cols"
         :key="colIndex"
-        :span="col.span"
+        class="van-col"
+        :class="'col-sm-' + col.span"
       >
         <draggable :list="col.list" group="components" class="colDraggable">
           <div v-for="(item, colDataIndex) in col.list" :key="colDataIndex">
@@ -21,8 +23,9 @@
             ></component>
           </div>
         </draggable>
-      </van-col>
-    </van-row>
+      </div>
+    </div>
+    </div>
   </div>
 </template>
 <script>
@@ -68,6 +71,7 @@ export default {
 };
 </script>
 <style scoped>
+@import 'bootstrap/dist/css/bootstrap.min.css';
 .van-col {
   border: 1px solid lightgray;
 }
