@@ -324,7 +324,12 @@ export default {
           mStyle: {},
           mClass: [],
           propValues: [
-            
+            {
+              label: "富文本中的html",
+              key: "htmlValue",
+              value: "<p>这是默认富文本</p>",
+              type: "hidden"
+            }
           ]
 
         }

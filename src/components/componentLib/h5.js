@@ -13,7 +13,7 @@
  *                     label:   // setting name
  *                     key:     // setting key
  *                     componentName:  // the component you create in h5
- *                     type:    // setting type ( iconList | color | imageStore ... )
+ *                     type:    // setting type ( iconList | color | imageStore | hidden | ... )
  *                     value:   // setting value (it can be object or string)
  *                     isModel: // v-model  ( True | False )
  *                  }
@@ -323,7 +323,7 @@ export const feebackCompoents = [
       {
         label: "隐藏标签",
         key: "showShare",
-        type: "null",
+        type: "hidden",
         value: false,
         isModel: true
       }

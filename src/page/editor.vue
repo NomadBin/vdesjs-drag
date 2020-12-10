@@ -94,10 +94,12 @@ export default {
 #app,
 body {
   overflow: hidden;
+  
 }
 * {
   margin: 0;
   -webkit-tap-highlight-color: transparent;
+  /* z-index: 0; */
 }
 .leftAside {
   background-color: white;

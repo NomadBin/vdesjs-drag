@@ -99,6 +99,7 @@ export default {
 .navbar-my {
   margin-bottom: 0px;
   background-color: var(--navbarBg);
+  z-index: 1;
   
 }
 .navbar-my .navbar-nav {

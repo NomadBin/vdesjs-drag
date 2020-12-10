@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="richText">
     <div ref="editor" @dblclick="dbEditor" class="text"></div>
 
     <div v-show="showToolBar" ref="toolbar" class="toolbar"></div>
@@ -9,11 +9,14 @@
 <script>
 import E from "wangeditor";
 export default {
+  props: {
+    myItem: {},
+  },
   data() {
     return {
       editor: null,
-      value: "<p>这是默认富文本</p>",
       showToolBar: false,
+      htmlValueIndex: 0,
     };
   },
   methods: {
@@ -58,19 +61,19 @@ export default {
     ];
     let that = this;
     this.editor.config.onchange = function (val) {
-      that.value = val;
+      that.myItem.propValues[that.htmlValueIndex].value = val;
       console.log(that.value);
     };
     // 取消自动 focus
     this.editor.config.focus = false;
 
     this.editor.create();
-    this.editor.txt.html(this.value);
+    this.editor.txt.html(this.myItem.propValues[this.htmlValueIndex].value);
   },
 };
 </script>
 <style>
-.toolbar_modal {
+.richText .toolbar_modal {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -78,5 +81,12 @@ export default {
   right: 0;
   text-align: center;
   z-index: 5;
+}
+.richText .toolbar {
+  background-color: #4b4a4a;
+  color: white;
+  font-weight: bolder;
+  position: absolute;
+  z-index: 7;
 }
 </style>
