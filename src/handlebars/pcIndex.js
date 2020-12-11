@@ -8,7 +8,7 @@ let Swiper = require("./template/pc/media/Swiper.handlebars");
 let SwipperStyle = require("./template/pc/style/Swiper.handlebars");
 let SwiperJsCode = require("./template/pc/js/Swiper.handlebars");
 let PlateStyle = require("./template/pc/style/Plate.html");
-
+let RichText = require("./template/pc/basics/RichText.html");
 //bottom
 let htmIndx = require("./template/pc/index.html");
 
@@ -17,7 +17,9 @@ let jsCDNList = require("./template/pc/jsCND");
 
 let compoentTexts = {
   Navbar: Navbar,
-  Swiper
+  Swiper: Swiper,
+  RichText: RichText,
+
 };
 
 let compoentStyle = {
