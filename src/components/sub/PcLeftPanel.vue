@@ -198,19 +198,19 @@ export default {
                     name: "标题1",
                     desc: "这是描述",
                     imageUrl:
-                      "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75",
+                      "https://gitee.com/static/images/logo-black.svg?t=158106664",
                   },
                   {
                     name: "标题2",
                     desc: "这是描述",
                     imageUrl:
-                      "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75",
+                      "https://gitee.com/static/images/logo-black.svg?t=158106664",
                   },
                   {
                     name: "标题3",
                     desc: "这是描述",
                     imageUrl:
-                      "http://p.cdn-static.cn/30303_15928097292549.png?imageView2/2/w/576/q/75",
+                      "https://gitee.com/static/images/logo-black.svg?t=158106664",
                   },
                 ],
               },
@@ -384,7 +384,7 @@ export default {
               key: "swiperHeight",
               type: "numUnit",
               value: {
-                num: 40,
+                num: 21,
                 unit: "rem",
               },
             },

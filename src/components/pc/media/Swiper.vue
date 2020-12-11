@@ -5,6 +5,8 @@
        '--paginationSize': myItem.propValues[paginationSizeIndex].value + 'px',
      }"
   >
+  <div class="topSelect" @click="switchIndex"></div>
+
     <transition name="el-fade-in">
       <swiper
         v-if="u"
@@ -65,6 +67,16 @@ export default {
         this.u = true;
       });
     },
+    switchIndex: function () {
+      console.log("switchIndex");
+      if (this.animateClass == "myBounceOutRight") {
+        // 右边面板由收缩状态变为展开状态
+        this.$store.commit("rightPanelFold");
+      }
+
+      this.$store.commit("updateMyItem", this.myItem);
+    },
+    
   },
   computed: {
     style() {
@@ -113,5 +125,14 @@ export default {
 .swiper-pagination-bullet {
   width:  var(--paginationSize);
   height: var(--paginationSize);
+}
+
+.topSelect {
+  width: 100%;
+  height: 8px;
+  background-color: lightblue;
+}
+.topSelect:hover {
+  background-color: blue;
 }
 </style>

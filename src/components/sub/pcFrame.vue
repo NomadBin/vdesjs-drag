@@ -138,6 +138,7 @@ $pcHeight: 100%;
   // margin-left: auto;
   // margin-right: auto;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 .hoverborder {
   border: 1px solid transparent;

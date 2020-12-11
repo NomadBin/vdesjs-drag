@@ -9,6 +9,8 @@ let SwipperStyle = require("./template/pc/style/Swiper.handlebars");
 let SwiperJsCode = require("./template/pc/js/Swiper.handlebars");
 let PlateStyle = require("./template/pc/style/Plate.html");
 let RichText = require("./template/pc/basics/RichText.html");
+let ImageText = require("./template/pc/basics/ImageText.html");
+
 //bottom
 let htmIndx = require("./template/pc/index.html");
 

@@ -32,6 +32,9 @@
         ></component>
       </div>
     </draggable>
+
+    <div style="height:15px">
+    </div>
   </div>
 </template>
 <script>
@@ -94,6 +97,8 @@ export default {
 </script>
 <style scoped>
 .var {
+  /* margin-bottom: 200px; */
+
   --padding-top: 0px;
   --padding-right: 0px;
   --padding-bottom: 0px;
@@ -111,7 +116,6 @@ export default {
   padding-left: var(--padding-left);
 
   background-color: peachpuff;
-  height: 400px;
   height: var(--height);
   background-image: var(--bgImage);
   background-repeat: no-repeat;
@@ -121,7 +125,6 @@ export default {
   width: 100%;
   height: 8px;
   background-color: lightblue;
-  transition: all 0.5s ease-in-out 0s;
 }
 .topSelect:hover {
   background-color: blue;

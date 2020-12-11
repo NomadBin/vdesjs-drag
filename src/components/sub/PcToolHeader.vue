@@ -29,7 +29,7 @@
     <el-dialog title="" :visible.sync="codeDialogVisible">
       <el-tabs v-model="activeName">
         <el-tab-pane label="html代码" name="htmlCode">
-          <codemirror :value="curHtmlCode" :options="cmOptions" class="code">
+          <codemirror style="text-align: left !important;" :value="curHtmlCode" :options="cmOptions" class="code">
           </codemirror>
         </el-tab-pane>
       </el-tabs>
@@ -43,10 +43,11 @@
   </el-row>
 </template>
 <script>
+var beautify_html = require("js-beautify").html;
 import Clipboard from "clipboard";
 import { codemirror } from "vue-codemirror";
 import "codemirror/theme/ambiance-mobile.css"; // 这里引入的是主题样式，根据设置的theme的主题引入，一定要引入！！
-require("codemirror/mode/javascript/javascript"); // 这里引入的模式的js，根据设置的mode引入，一定要引入！！
+import "codemirror/mode/htmlmixed/htmlmixed"; // 这里引入的模式的js，根据设置的mode引入，一定要引入！！
 import handlebars from "@/handlebars/pcIndex.js";
 
 import curList from "@/mixins/curList";
@@ -56,10 +57,10 @@ export default {
   data() {
     return {
       activeName: "htmlCode",
-      curHtmlCode: "ffff",
+      curHtmlCode: "",
       cmOptions: {
         value: "",
-        mode: "text/javascript",
+        mode: "htmlmixed",
         theme: "ambiance-mobile",
         lineNumbers: true,
       },
@@ -98,8 +99,11 @@ export default {
     },
     generateCode() {
       this.codeDialogVisible = true;
-      console.log(this.$store.state.list);
-      this.curHtmlCode = handlebars.generateHtmlCode(this.curList);
+      var curHtmlCode = handlebars.generateHtmlCode(this.curList);
+      console.log("代码1：" + curHtmlCode);
+      curHtmlCode = beautify_html(curHtmlCode);
+      this.curHtmlCode = curHtmlCode;
+      console.log("代码2：" + curHtmlCode);
     },
     copyJson() {
       console.log("复制代码");
@@ -169,15 +173,18 @@ export default {
       window.open(routeData.href, "_blank");
     },
   },
+  mounted() {
+    console.log(beautify_js("dasdf"));
+  },
 };
 </script>
 <style scoped>
-.CodeMirror {
+/* .CodeMirror {
   text-align: left !important;
-}
-.CodeMirror-line {
+} */
+/* .CodeMirror-line {
   height: 25px;
-}
+} */
 .el-link {
   margin-left: 10px;
   margin-right: 10px;

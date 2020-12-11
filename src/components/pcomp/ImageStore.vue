@@ -136,6 +136,31 @@ export default {
             },
           ],
         },
+        {
+          name: "高清素材",
+          imgs: [
+            {
+              name: "aaa.png",
+              url: "https://images.pexels.com/photos/2039613/pexels-photo-2039613.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            },
+            {
+              name: "aaa.png",
+              url: "https://images.pexels.com/photos/4650241/pexels-photo-4650241.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            },
+            {
+              name: "aaa.png",
+              url: "https://images.pexels.com/photos/1030859/pexels-photo-1030859.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            },
+            {
+              name: "aaa.png",
+              url: "https://images.pexels.com/photos/2524121/pexels-photo-2524121.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            },
+            {
+              name: "aaa.png",
+              url: "https://images.pexels.com/photos/3786092/pexels-photo-3786092.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            },
+          ],
+        },
       ],
       checkImgs: [],
       //Add Group Dialog Status
@@ -144,10 +169,8 @@ export default {
       addGroupForm: {},
       imgNum: [],
       rule: {
-        name: [
-          { required: true, message: "请输入分组名称", trigger: "blur" }
-        ]
-      }
+        name: [{ required: true, message: "请输入分组名称", trigger: "blur" }],
+      },
     };
   },
   props: {
