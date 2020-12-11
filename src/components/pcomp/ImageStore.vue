@@ -150,6 +150,12 @@ export default {
       }
     };
   },
+  props: {
+    // dialogVisible: {
+    //   type: Boolean,
+    //   default: false
+    // }
+  },
   methods: {
     check: function (event, value) {
       console.log(event + value);

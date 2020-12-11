@@ -84,6 +84,7 @@
               <el-row>
                 <el-col :span="10">{{ item.label }}:</el-col>
                 <el-col :span="14">
+                  
                   <image-store
                     @complete="completeChoseImageStore($event, i)"
                   ></image-store>

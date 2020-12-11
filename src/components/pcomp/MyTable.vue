@@ -90,6 +90,7 @@ export default {
       dialogVisible: false,
       // 当前选择编辑那一列
       currentSelectIndex: 0,
+      imageStoreDialogVisible: false,
     };
   },
   methods: {
