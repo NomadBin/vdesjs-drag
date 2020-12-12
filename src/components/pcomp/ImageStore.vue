@@ -262,9 +262,6 @@ export default {
   color: blue;
   text-decoration: underline;
 }
-.el-dialog {
-  /* width: 800px; */
-}
 .newGroup {
   float: left;
   color: blue;

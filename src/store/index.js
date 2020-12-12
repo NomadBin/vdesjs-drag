@@ -50,6 +50,7 @@ const store = new Vuex.Store({
         },
         currentList: (state,getters) => {
           return state.list.filter(v => v.mode === getters.currentMode)
+        // return state.list;
         }
     },
     mutations: {

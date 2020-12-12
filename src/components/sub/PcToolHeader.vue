@@ -1,5 +1,5 @@
 <template>
-  <el-row style="line-height: 30px">
+  <el-row class="pcToolHeader" style="line-height: 30px">
     <el-col :span="5"> &nbsp;</el-col>
     <el-col :span="14">
       <el-link @click="deleteAll"
@@ -16,7 +16,7 @@
     <el-col :span="5"> &nbsp;</el-col>
 
     <el-dialog title="" :visible.sync="jsonDialogVisible">
-      <codemirror :value="curJsonCode" :options="cmOptions" class="code">
+      <codemirror style="text-align: left !important" :value="curJsonCode" :options="cmOptions" class="code">
       </codemirror>
       <span slot="footer" class="dialog-footer">
         <el-button @click="jsonDialogVisible = false">取 消</el-button>
@@ -26,10 +26,10 @@
       </span>
     </el-dialog>
 
-    <el-dialog title="" :visible.sync="codeDialogVisible">
+    <el-dialog title="" :visible.sync="codeDialogVisible" >
       <el-tabs v-model="activeName">
         <el-tab-pane label="html代码" name="htmlCode">
-          <codemirror style="text-align: left !important;" :value="curHtmlCode" :options="cmOptions" class="code">
+          <codemirror style="text-align: left !important" :value="curHtmlCode" :options="cmOptions" class="code">
           </codemirror>
         </el-tab-pane>
       </el-tabs>
@@ -66,6 +66,7 @@ export default {
       },
       jsonDialogVisible: false,
       codeDialogVisible: false,
+      isFullScreen: true,
     };
   },
   computed: {
@@ -174,18 +175,17 @@ export default {
     },
   },
   mounted() {
-    console.log(beautify_js("dasdf"));
   },
 };
 </script>
-<style scoped>
-/* .CodeMirror {
-  text-align: left !important;
-} */
+<style>
+.pcToolHeader .CodeMirror {
+  height: 500px;
+}
 /* .CodeMirror-line {
   height: 25px;
 } */
-.el-link {
+.pcToolHeader .el-link {
   margin-left: 10px;
   margin-right: 10px;
 }

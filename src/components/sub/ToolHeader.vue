@@ -1,5 +1,5 @@
 <template>
-  <el-row style="line-height: 30px">
+  <el-row class="ToolHeader" style="line-height: 30px">
     <el-col :span="5"> &nbsp;</el-col>
     <el-col :span="14">
       <el-link @click="deleteAll"
@@ -191,14 +191,14 @@ export default {
   },
 };
 </script>
-<style scoped>
-/* .CodeMirror {
-  text-align: left !important;
+<style>
+.ToolHeader .CodeMirror {
+  height: 500px;
 }
-.CodeMirror-line {
+.ToolHeader .CodeMirror-line {
   height: 25px;
-} */
-.el-link {
+}
+.ToolHeader .el-link {
   margin-left: 10px;
   margin-right: 10px;
 }

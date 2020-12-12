@@ -8,9 +8,10 @@
 </template>
 <script>
 import basicsMixin from "@/common/js/pc/importBasics";
+import layoutMixin from "@/common/js/pc/importLayout";
 
 export default {
-  mixins: [basicsMixin],
+  mixins: [basicsMixin, layoutMixin],
   created: function () {
     console.log(JSON.stringify(this.name));
   },
