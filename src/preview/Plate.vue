@@ -15,24 +15,31 @@
   >
     <draggable :list="list" group="components" class="plate">
       <component
-        
         v-for="(item, i) in list"
         :key="i"
         :is="item.componentName"
         :myItem="item"
         @click.native.stop="swithChildIndex(0, i)"
-               
       ></component>
     </draggable>
   </div>
 </template>
 <script>
 import draggable from "vuedraggable";
-import basicsMixin from "@/common/js/pc/importBasics";
+import Navbar from "@/components/pc/basics/Navbar.vue";
+import ImageText from "@/components/pc/basics/ImageText.vue";
+import Swiper from "@/components/pc/media/Swiper.vue";
+import RichText from "@/preview/RichText.vue";
+import PcLayout from "@/preview/PcLayout.vue";
 export default {
-  mixins: [basicsMixin],
+  mixins: [],
   components: {
     draggable,
+    Navbar,
+    ImageText,
+    Swiper,
+    RichText,
+    PcLayout,
   },
   props: {
     listIndex: {
@@ -119,5 +126,4 @@ export default {
 .topSelect:hover {
   background-color: blue;
 }
-
 </style>

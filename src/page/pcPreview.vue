@@ -26,18 +26,27 @@
 </template>
 <script>
 import draggable from "vuedraggable";
-import basicsMixin from "@/common/js/pc/importBasics";
 import Plate from "@/preview/Plate.vue"
+import Navbar from "@/components/pc/basics/Navbar.vue";
+import ImageText from "@/components/pc/basics/ImageText.vue";
+import Swiper from "@/components/pc/media/Swiper.vue";
+import RichText from "@/preview/RichText.vue";
+import PcLayout from "@/preview/PcLayout.vue";
 
 import phoneIcon from "@/assets/icon/手机.png";
 import surfaceIcon from "@/assets/icon/平板.png";
 import pcIcon from "@/assets/icon/电脑.png";
 
 export default {
-  mixins: [basicsMixin],
+  mixins: [],
   components: {
     draggable,
-    Plate
+    Plate,
+    Navbar,
+    ImageText,
+    Swiper,
+    RichText,
+    PcLayout
   },
   computed: {
     list() {

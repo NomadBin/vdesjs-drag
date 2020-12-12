@@ -1,7 +1,6 @@
 <template>
   <div class="richText">
-    <div class="topSelect" @click="switchIndex"></div>
-    <div ref="editor" @dblclick="dbEditor" class="text"></div>
+    <div ref="editor"  class="text"></div>
     <el-dialog title="插入图片" :visible.sync="dialogImageVisible">
       <div class="content">
         <el-row>
