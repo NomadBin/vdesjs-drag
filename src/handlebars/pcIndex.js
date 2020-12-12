@@ -10,6 +10,7 @@ let SwiperJsCode = require("./template/pc/js/Swiper.handlebars");
 let PlateStyle = require("./template/pc/style/Plate.html");
 let RichText = require("./template/pc/basics/RichText.html");
 let ImageText = require("./template/pc/basics/ImageText.html");
+let ImageTextStyle = require("./template/pc/style/ImageText.html");
 
 //bottom
 let htmIndx = require("./template/pc/index.html");
@@ -21,13 +22,15 @@ let compoentTexts = {
   Navbar: Navbar,
   Swiper: Swiper,
   RichText: RichText,
+  ImageText: ImageText,
 
 };
 
 let compoentStyle = {
   Navbar: NavbarStyle,
   Swiper: SwipperStyle,
-  Plate: PlateStyle
+  Plate: PlateStyle,
+  ImageText: ImageTextStyle
 };
 
 let componentJsCode = {
@@ -37,7 +40,10 @@ let componentJsCode = {
 Handlebars.registerHelper("hasCss", function (data) {
   return data.css ? true : false;
 });
+Handlebars.registerHelper("divide", function(number1, number2) {
+  return number1 * 1.0 / number2;
 
+})
 // 注册条件表达式 helper
 Handlebars.registerHelper("compare", function (left, operator, right, options) {
   if (arguments.length < 3) {

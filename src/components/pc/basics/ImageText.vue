@@ -123,9 +123,4 @@ export default {
 }
 .img2 {
 }
-.text2 {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-}
 </style>

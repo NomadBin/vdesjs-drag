@@ -1,0 +1,61 @@
+.imageText{{myItem.id}} {
+display: flex;
+flex-wrap: wrap;
+}
+.imageText{{myItem.id}} li {
+    list-style: none;
+}
+
+.img-wrapper {
+display: flex;
+justify-content: center;
+padding: 12px;
+}
+
+.title h4 {
+display: flex;
+justify-content: center;
+font-size: 22px;
+font-weight: 700;
+padding: 5px;
+}
+
+.desc {
+display: flex;
+justify-content: center;
+font-size: 16px;
+color: rgba(143, 149, 170, 1);
+padding: 5px;
+}
+
+@media (min-width: 768px) {
+.sm_item {
+width: {{divide 100 myItem.propValues.[2].value}}%;
+
+}
+}
+
+{{#compare myItem.templates.chooseKey '==' 'sxpl'}}
+
+.imageText{{myItem.id}} .box {
+background-color: {{myItem.propValues.[1].value}};
+margin-bottom: 5px;
+}
+
+{{/compare}}
+
+{{#compare myItem.templates.chooseKey '==' 'zypl'}}
+
+.imageText{{myItem.id}} .box2 {
+display: flex;
+background-color: {{myItem.propValues.[1].value}};
+margin-bottom: 5px;
+}
+
+.imageText{{myItem.id}} .text2 {
+display: inline-flex;
+flex-direction: column;
+justify-content: center;
+}
+
+{{/compare}}
