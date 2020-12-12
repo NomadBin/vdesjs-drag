@@ -16,7 +16,7 @@
     <el-col :span="5"> &nbsp;</el-col>
 
     <el-dialog title="" :visible.sync="jsonDialogVisible">
-      <codemirror :value="curJsonCode" :options="cmOptions" class="code">
+      <codemirror style="text-align: left !important;" :value="curJsonCode" :options="cmOptions" class="code">
       </codemirror>
       <span slot="footer" class="dialog-footer">
         <el-button @click="jsonDialogVisible = false">取 消</el-button>
@@ -30,7 +30,7 @@
     <el-dialog title="" :visible.sync="codeDialogVisible">
       <el-tabs v-model="activeName">
         <el-tab-pane label="vue代码" name="vueCode">
-          <codemirror :value="curVueCode" :options="cmOptions" class="code">
+          <codemirror style="text-align: left !important;" :value="curVueCode" :options="cmOptions" class="code">
           </codemirror>
         </el-tab-pane>
         <el-tab-pane label="html代码" name="htmlCode"
@@ -54,6 +54,7 @@
   </el-row>
 </template>
 <script>
+var beautify_html = require("js-beautify").html;
 import Clipboard from "clipboard";
 import { codemirror } from "vue-codemirror";
 import "codemirror/theme/ambiance-mobile.css"; // 这里引入的是主题样式，根据设置的theme的主题引入，一定要引入！！
@@ -110,7 +111,9 @@ export default {
     },
     generateCode() {
       this.codeDialogVisible = true;
-      this.curVueCode = handlebars.generateVueCode(this.curList);
+      var curVueCode = handlebars.generateVueCode(this.curList);
+      curVueCode = beautify_html(curVueCode);
+      this.curVueCode = curVueCode
     },
     copyJson() {
       console.log("复制代码");
@@ -189,12 +192,12 @@ export default {
 };
 </script>
 <style scoped>
-.CodeMirror {
+/* .CodeMirror {
   text-align: left !important;
 }
 .CodeMirror-line {
   height: 25px;
-}
+} */
 .el-link {
   margin-left: 10px;
   margin-right: 10px;
