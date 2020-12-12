@@ -16,7 +16,12 @@
     <el-col :span="5"> &nbsp;</el-col>
 
     <el-dialog title="" :visible.sync="jsonDialogVisible">
-      <codemirror style="text-align: left !important" :value="curJsonCode" :options="cmOptions" class="code">
+      <codemirror
+        style="text-align: left !important"
+        :value="curJsonCode"
+        :options="cmOptions"
+        class="code"
+      >
       </codemirror>
       <span slot="footer" class="dialog-footer">
         <el-button @click="jsonDialogVisible = false">取 消</el-button>
@@ -26,10 +31,15 @@
       </span>
     </el-dialog>
 
-    <el-dialog title="" :visible.sync="codeDialogVisible" >
+    <el-dialog title="" :visible.sync="codeDialogVisible">
       <el-tabs v-model="activeName">
         <el-tab-pane label="html代码" name="htmlCode">
-          <codemirror style="text-align: left !important" :value="curHtmlCode" :options="cmOptions" class="code">
+          <codemirror
+            style="text-align: left !important"
+            :value="curHtmlCode"
+            :options="cmOptions"
+            class="code"
+          >
           </codemirror>
         </el-tab-pane>
       </el-tabs>
@@ -38,6 +48,10 @@
         <el-button type="primary" @click="copyCode" class="copyCode"
           >复制代码</el-button
         >
+        <el-input placeholder="输入要保存的名称" v-model="fileName" style="width: 180px">
+            <template slot="append">.html</template>
+        </el-input>
+         <el-button type="primary" @click="downloadHtmlCode">下载</el-button>
       </span>
     </el-dialog>
   </el-row>
@@ -49,6 +63,7 @@ import { codemirror } from "vue-codemirror";
 import "codemirror/theme/ambiance-mobile.css"; // 这里引入的是主题样式，根据设置的theme的主题引入，一定要引入！！
 import "codemirror/mode/htmlmixed/htmlmixed"; // 这里引入的模式的js，根据设置的mode引入，一定要引入！！
 import handlebars from "@/handlebars/pcIndex.js";
+import { saveAs } from "file-saver";
 
 import curList from "@/mixins/curList";
 
@@ -56,6 +71,7 @@ export default {
   mixins: [curList],
   data() {
     return {
+      fileName: "test",
       activeName: "htmlCode",
       curHtmlCode: "",
       cmOptions: {
@@ -101,10 +117,16 @@ export default {
     generateCode() {
       this.codeDialogVisible = true;
       var curHtmlCode = handlebars.generateHtmlCode(this.curList);
-      console.log("代码1：" + curHtmlCode);
       curHtmlCode = beautify_html(curHtmlCode);
       this.curHtmlCode = curHtmlCode;
-      console.log("代码2：" + curHtmlCode);
+
+      
+    },
+    downloadHtmlCode() {
+      var file = new File([this.curHtmlCode], this.fileName + ".html", {
+        type: "text/plain;charset=utf-8",
+      });
+      saveAs(file);
     },
     copyJson() {
       console.log("复制代码");
@@ -174,8 +196,7 @@ export default {
       window.open(routeData.href, "_blank");
     },
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 <style>
