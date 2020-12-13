@@ -3,7 +3,7 @@
 <h1 align="center">vdesjs</h1>
 
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.1-blue.svg" />
   <a href="https://www.jianshu.com/c/061d0ea33f2d" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -18,6 +18,7 @@
 
 <img src="./src/assets/showHow.gif" alt="演示动图" />
 
+
 ## 技术选型 :computer: :computer:
 | 技术                                                             | 描述                                                                                                                           |
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -28,55 +29,70 @@
 | [vant](https://vant-contrib.gitee.io/vant/)                      | 有赞前端团队开源的移动端组件库 (我们选择部分vant组件，将其作为vdesjs左侧拖拽组件)                                              |
 | [handlebars](https://github.com/handlebars-lang/handlebars.js)   | js模板引擎 (vdesjs左侧拖拽组件的代码生成模板选择handlebars作为模板引擎。如果想自己编写生成模板，可参照handlerbars语法进行编写) |
 | [vue-codemirror](https://github.com/surmon-china/vue-codemirror) | 代码编辑器(用其作为vdesjs代码显示的编辑器)                                                                                     |
-
+|[file-save.js](https://github.com/eligrey/FileSaver.js)| 将代码下载至本地 |
+|[js-beautify](https://github.com/beautify-web/js-beautify)| 对生成的代码进行格式美化 |
 ## 项目目录结构
-<pre>
+``` html
+
 vdesjs
 ├── build
 ├── config
+├── docs vuepress文档
+│   ├── cooperation
+│   └── guide
 ├── src
 │   ├── assets 资源存放目录
-│   │   ├── basics 基础组件资源
-│   │   ├── business 业务组件资源
-│   │   ├── feeback 反馈组件资源
-│   │   ├── form 表单组件资源
-│   │   ├── nav 导航组件资源
-│   │   └── show 展示组件资源
-│   ├── common 公共代码
+│   │   ├── h5 h5模式
+│   │   │   ├── basics 基础组件资源
+│   │   │   ├── business 业务组件资源
+│   │   │   ├── feeback 反馈组件资源
+│   │   │   ├── form 表单组件资源
+│   │   │   ├── nav 导航组件资源
+│   │   │   └── show 展示组件资源
+│   │   ├── icon
+│   │   └── pc pc模式
+│   │       └── basics
+│   ├── common
 │   │   ├── css 公共css
 │   │   └── js 公共js
+│   │       ├── h5
+│   │       └── pc
 │   ├── components 组件目录
-│   │   ├── basics 左侧拖拽面板中的基础组件
-│   │   ├── business 左侧拖拽面板中的业务组件
-│   │   ├── feeback 左侧拖拽面板中的反馈组件
-│   │   ├── form 左侧拖拽面板中的表单组件
-│   │   ├── nav 左侧拖拽面板中的导航组件
+│   │   ├── componentLib 左侧面板json数据存放
+│   │   ├── h5 h5模式组件
+│   │   │   ├── basics 左侧拖拽面板中的基础组件
+│   │   │   ├── business 左侧拖拽面板中的业务组件
+│   │   │   ├── feeback ...
+│   │   │   ├── form ...
+│   │   │   ├── nav ...
+│   │   │   └── show ...
+│   │   ├── pc pc模式组件
+│   │   │   ├── basics
+│   │   │   └── media
 │   │   ├── pcomp 右侧属性栏独立组件
-│   │   ├── show 左侧拖拽面板中的展示组件
 │   │   └── sub 实现vdesjs的子组件
 │   ├── handlebars 模板代码存放目录
+│   │   ├── helpers handlebars自定义helper
 │   │   └── template
-│   │       ├── basic 基础组件模板代码
-│   │       ├── feeback 反馈组件模板代码
-│   │       ├── form 表单组件模板代码
-│   │       ├── methods script标签下的methods方法模板代码
-│   │       ├── nav 导航组件模板代码
-│   │       └── show 展示组件模板代码
+│   │       ├── h5 h5模式模板
+│   │       └── pc pc模式模板
+│   ├── mixins 混入
 │   ├── page 路由页面
+│   ├── preview 用于预览模式的组件
 │   ├── router 路由配置
 │   └── store vuex配置
 └── static
-</pre>
+
+```
 
 ## 扩展组件步骤 :electric_plug: :electric_plug:
 * 1.编写左侧组件json数据结构
 * 2.编写组件，引入组件。
 * 3.编写代码生成模板
-* 如需详细步骤请参阅 下方参考文档：[vdesjs扩展自己的组件](https://www.jianshu.com/p/e22f7158b863)
+* 如需详细步骤请参阅vdesjs官网
 
 ## 参考文档 :notebook: :notebook:
-* [vdesjs实现原理](https://www.jianshu.com/p/8b28e71e3d12)
-* [vdesjs扩展自己的组件](https://www.jianshu.com/p/e22f7158b863)
+官方文档： http://china-bin.gitee.io/vdesjs/
 
 
 ## 持续升级
@@ -112,14 +128,14 @@ npm run build --report
 5. h5模式预览
 6. 完成扩展pc响应式布局组件
 7. 下载html文件至本地
-   
+8. 制作vdesjs官网与演示demo
+
 ## 加入计划功能 (欢迎补充提交建议)
-1. 制作vdesjs官网与演示demo
 
 
 ## 使用场景描述
 1. 假如我想基于vant组件开发移动端h5页面，但是我又不想一个个的写代码，那么就可以使用vdesjs从左侧拖拽组件并编辑属性。点击生成vue代码。这个代码就可以复制到我们的项目中。（这个生成代码应该是非常便于开发的，理论上跟我们手写的代码相差无几，如果这个生成的代码有问题，都可以根据handlebars模板语法去自己手动修改组件所对应的代码模板）
 
 ## 开源地址
-* [码云](https://gitee.com/china-bin/vdesjs)
+* [Gitee](https://gitee.com/china-bin/vdesjs)
 * [github](https://github.com/china-bin/vdesjs)
