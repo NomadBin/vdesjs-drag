@@ -29,6 +29,11 @@ module.exports = {
                     title: "扩展组件",
                     collapsable: true,
                     path: "extend",
+                },
+                {
+                    title: "目录结构",
+                    collapsable: true,
+                    path: "dir",
                 }
             ]
         }

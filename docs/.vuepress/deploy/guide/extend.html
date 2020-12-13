@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>编写左侧组件json数据结构 | vdesjs</title>
+    <meta name="generator" content="VuePress 1.7.1">
+    <link rel="icon" href="/vdesjslogo.png">
+    <meta name="description" content="基于vue的可视化拖拽，代码生成工具">
+    
+    <link rel="preload" href="/assets/css/0.styles.d804b69f.css" as="style"><link rel="preload" href="/assets/js/app.3899a33f.js" as="script"><link rel="preload" href="/assets/js/2.3b0dfc05.js" as="script"><link rel="preload" href="/assets/js/12.36aab5a9.js" as="script"><link rel="prefetch" href="/assets/js/10.e9e9dd68.js"><link rel="prefetch" href="/assets/js/11.1474aa90.js"><link rel="prefetch" href="/assets/js/3.36b071a8.js"><link rel="prefetch" href="/assets/js/4.4ba5730b.js"><link rel="prefetch" href="/assets/js/5.ac6fff4e.js"><link rel="prefetch" href="/assets/js/6.e9991fad.js"><link rel="prefetch" href="/assets/js/7.c3b55bd1.js"><link rel="prefetch" href="/assets/js/8.6c4d8354.js"><link rel="prefetch" href="/assets/js/9.139e64a1.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.d804b69f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">vdesjs</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/guide/sxyl.html" class="nav-link">
+  教程
+</a></div><div class="nav-item"><a href="/cooperation/" class="nav-link">
+  关于我们
+</a></div><div class="nav-item"><a href="https://github.com/china-bin/vdesjs" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="https://gitee.com/china-bin/vdesjs" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  主页
+</a></div><div class="nav-item"><a href="/guide/sxyl.html" class="nav-link">
+  教程
+</a></div><div class="nav-item"><a href="/cooperation/" class="nav-link">
+  关于我们
+</a></div><div class="nav-item"><a href="https://github.com/china-bin/vdesjs" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div><div class="nav-item"><a href="https://gitee.com/china-bin/vdesjs" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Gitee
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/guide/sxyl.html" class="sidebar-link">实现原理</a></li><li><a href="/guide/extend.html" aria-current="page" class="active sidebar-link">扩展组件</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/extend.html#编写左侧组件json数据结构" class="sidebar-link">编写左侧组件json数据结构</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/extend.html#propsvalues中的type类型" class="sidebar-link">propsValues中的type类型</a></li></ul></li><li class="sidebar-sub-header"><a href="/guide/extend.html#编写组件-引入组件。" class="sidebar-link">编写组件，引入组件。</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/extend.html#编写组件" class="sidebar-link">编写组件</a></li><li class="sidebar-sub-header"><a href="/guide/extend.html#引入组件" class="sidebar-link">引入组件</a></li></ul></li><li class="sidebar-sub-header"><a href="/guide/extend.html#扩展右侧属性面板类型" class="sidebar-link">扩展右侧属性面板类型</a></li><li class="sidebar-sub-header"><a href="/guide/extend.html#编写代码生成模板" class="sidebar-link">编写代码生成模板</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/extend.html#特殊情形" class="sidebar-link">特殊情形</a></li></ul></li></ul></li><li><a href="/guide/dir.html" class="sidebar-link">目录结构</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="编写左侧组件json数据结构"><a href="#编写左侧组件json数据结构" class="header-anchor">#</a> 编写左侧组件json数据结构</h2> <p>左侧拖拽组件中需要编写数据结构，前往commoents/sub/LeftPanel.vue的data中可以看到挂载的组件json结构，这里以基础组件的按钮json对象为例：</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code> basicCompoents<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          name<span class="token operator">:</span> <span class="token string">&quot;按钮&quot;</span><span class="token punctuation">,</span>
+          id<span class="token operator">:</span> <span class="token string">&quot;唯一值&quot;</span><span class="token punctuation">,</span>
+          componentName<span class="token operator">:</span> <span class="token string">&quot;VanButton&quot;</span><span class="token punctuation">,</span>
+          mStyle<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+          mClass<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          propValues<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">{</span>
+              label<span class="token operator">:</span> <span class="token string">&quot;标题&quot;</span><span class="token punctuation">,</span>
+              key<span class="token operator">:</span> <span class="token string">&quot;title&quot;</span><span class="token punctuation">,</span>
+              value<span class="token operator">:</span> <span class="token string">&quot;按钮&quot;</span><span class="token punctuation">,</span>
+              type<span class="token operator">:</span> <span class="token string">&quot;text&quot;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">{</span>
+              label<span class="token operator">:</span> <span class="token string">&quot;按钮类型&quot;</span><span class="token punctuation">,</span>
+              key<span class="token operator">:</span> <span class="token string">&quot;type&quot;</span><span class="token punctuation">,</span>
+              type<span class="token operator">:</span> <span class="token string">&quot;select&quot;</span><span class="token punctuation">,</span>
+              value<span class="token operator">:</span> <span class="token punctuation">{</span>
+                chooseValue<span class="token operator">:</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span>
+                data<span class="token operator">:</span> <span class="token punctuation">[</span>
+                  <span class="token punctuation">{</span>
+                    value<span class="token operator">:</span> <span class="token string">&quot;primary&quot;</span><span class="token punctuation">,</span>
+                    label<span class="token operator">:</span> <span class="token string">&quot;主要按钮&quot;</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">{</span>
+                    value<span class="token operator">:</span> <span class="token string">&quot;info&quot;</span><span class="token punctuation">,</span>
+                    label<span class="token operator">:</span> <span class="token string">&quot;信息按钮&quot;</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">{</span>
+                    value<span class="token operator">:</span> <span class="token string">&quot;default&quot;</span><span class="token punctuation">,</span>
+                    label<span class="token operator">:</span> <span class="token string">&quot;默认按钮&quot;</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">{</span>
+                    value<span class="token operator">:</span> <span class="token string">&quot;warning&quot;</span><span class="token punctuation">,</span>
+                    label<span class="token operator">:</span> <span class="token string">&quot;警告按钮&quot;</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">{</span>
+                    value<span class="token operator">:</span> <span class="token string">&quot;danger&quot;</span><span class="token punctuation">,</span>
+                    label<span class="token operator">:</span> <span class="token string">&quot;危险按钮&quot;</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">{</span>
+              label<span class="token operator">:</span> <span class="token string">&quot;按钮颜色&quot;</span><span class="token punctuation">,</span>
+              key<span class="token operator">:</span> <span class="token string">&quot;color&quot;</span><span class="token punctuation">,</span>
+              type<span class="token operator">:</span> <span class="token string">&quot;color&quot;</span><span class="token punctuation">,</span>
+              value<span class="token operator">:</span> <span class="token string">&quot;#656262&quot;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+</code></pre></div><p>上述代码解析</p> <ul><li>name 设置组件左侧面板中的展示名称</li> <li>componentName 设置组件的名称</li> <li>propValues 设置右侧面板的可以配置属性。每个项中的type属性决定右侧面板的类型。</li></ul> <h3 id="propsvalues中的type类型"><a href="#propsvalues中的type类型" class="header-anchor">#</a> propsValues中的type类型</h3> <table><thead><tr><th>类型</th> <th>描述</th></tr></thead> <tbody><tr><td>text</td> <td>文本框</td></tr> <tr><td>num</td> <td>数值框</td></tr> <tr><td>select</td> <td>选择框</td></tr> <tr><td>color</td> <td>颜色选择器</td></tr> <tr><td>col</td> <td>列配置项（为布局组件设置列的分配）</td></tr> <tr><td>iconList</td> <td>图标选择</td></tr> <tr><td>imageStore</td> <td>图片选择</td></tr> <tr><td>numUnit</td> <td>用于宽度或者高度的选择，含有px、百分比、rem单位选择</td></tr> <tr><td>switch</td> <td>开关切换</td></tr> <tr><td>table</td> <td>数据列表（用户多资源列表配置）</td></tr> <tr><td>hidden</td> <td>不想右侧面板进行配置，但是代码生成需要</td></tr></tbody></table> <h2 id="编写组件-引入组件。"><a href="#编写组件-引入组件。" class="header-anchor">#</a> 编写组件，引入组件。</h2> <h3 id="编写组件"><a href="#编写组件" class="header-anchor">#</a> 编写组件</h3> <p>组件的代码可以放入components中，这里按分类放入，比如基础组件放入 compoents/basics 下。这里以按钮组件为例，其代码如下:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token operator">&lt;</span>template<span class="token operator">&gt;</span>
+  <span class="token operator">&lt;</span>van<span class="token operator">-</span>button
+    <span class="token operator">:</span>type<span class="token operator">=</span><span class="token string">&quot;myItem.propValues[typeIndex].value.chooseValue&quot;</span>
+    <span class="token operator">:</span>color<span class="token operator">=</span><span class="token string">&quot;myItem.propValues[colorIndex].value&quot;</span>
+    <span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token punctuation">{</span> myItem<span class="token punctuation">.</span>propValues<span class="token punctuation">[</span>titleIndex<span class="token punctuation">]</span><span class="token punctuation">.</span>value <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>van<span class="token operator">-</span>button
+  <span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>script<span class="token operator">&gt;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span>
+    myItem<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      titleIndex<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      typeIndex<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      colorIndex<span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>style<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">&gt;</span>
+</code></pre></div><p>上述代码注意： 其中myItem是由父组件传入的对应其组件的json对象。</p> <h3 id="引入组件"><a href="#引入组件" class="header-anchor">#</a> 引入组件</h3> <p>在common/js下有improt*.js的文件，如为基础组件则是importBasics.js中引入。
+importBasics.js的代码如下所示:</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code>
+<span class="token keyword">import</span> VanButton <span class="token keyword">from</span><span class="token string">&quot;@/components/basics/VanButton.vue&quot;</span>
+<span class="token keyword">import</span> VanButtonLogo <span class="token keyword">from</span> <span class="token string">&quot;@/assets/basics/按钮.png&quot;</span>
+
+<span class="token keyword">import</span> VanCell <span class="token keyword">from</span><span class="token string">&quot;@/components/basics/VanCell.vue&quot;</span>
+<span class="token keyword">import</span> VanCellLogo <span class="token keyword">from</span> <span class="token string">&quot;@/assets/basics/单元格.png&quot;</span>
+
+<span class="token keyword">import</span> VanIcon <span class="token keyword">from</span><span class="token string">&quot;@/components/basics/VanIcon.vue&quot;</span>
+<span class="token keyword">import</span> VanIconLogo <span class="token keyword">from</span> <span class="token string">&quot;@/assets/basics/图标.png&quot;</span>
+
+<span class="token keyword">import</span> VanImage <span class="token keyword">from</span><span class="token string">&quot;@/components/basics/VanImage.vue&quot;</span>
+<span class="token keyword">import</span> VanImageLogo <span class="token keyword">from</span> <span class="token string">&quot;@/assets/basics/图片.png&quot;</span>
+
+
+
+
+<span class="token keyword">let</span> basics <span class="token operator">=</span> <span class="token punctuation">{</span>
+    components<span class="token operator">:</span> <span class="token punctuation">{</span>
+        VanButton<span class="token punctuation">,</span>
+        VanCell<span class="token punctuation">,</span>
+        VanIcon<span class="token punctuation">,</span>
+        VanImage
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span>
+            Logos<span class="token operator">:</span> <span class="token punctuation">{</span>
+                <span class="token string">&quot;VanButton&quot;</span><span class="token operator">:</span> VanButtonLogo<span class="token punctuation">,</span>
+                <span class="token string">&quot;VanCell&quot;</span><span class="token operator">:</span> VanCellLogo<span class="token punctuation">,</span>
+                <span class="token string">&quot;VanIcon&quot;</span><span class="token operator">:</span> VanIconLogo<span class="token punctuation">,</span>
+                <span class="token string">&quot;VanImage&quot;</span><span class="token operator">:</span> VanImageLogo
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+        
+   
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> basics
+</code></pre></div><p>参照上述结构即可引入组件。</p> <h2 id="扩展右侧属性面板类型"><a href="#扩展右侧属性面板类型" class="header-anchor">#</a> 扩展右侧属性面板类型</h2> <p>可能propsValues的type类型在vdesjs中并没有想要的，那么您可以自己扩展您需要的类型。</p> <ul><li>右侧面板代码在 compoents/sub/RightPanel.vue下，其中包含对组件的判断，如要扩展组件需要先添加。</li> <li>如果扩展的类型较为复杂，需要自定义子组件，则可放入compoents/pcomp下。</li></ul> <h2 id="编写代码生成模板"><a href="#编写代码生成模板" class="header-anchor">#</a> 编写代码生成模板</h2> <p>代码生成选择了handlerbars作为模板引擎，用于将json数据根据每个组件对应编写的模板代码转换成可使用的代码。代码生成模板放在handlebars/template下，并且加入新增模板需要在handlebars/index.js下新增代码。</p> <p>如需了解handlerbars语法可前去<a href="https://www.handlebarsjs.cn/" target="_blank" rel="noopener noreferrer">handlebars中文网<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>。</p> <p>这里展示编写vdesjs代码模板所必须的模板语法：</p> <ul><li>数据获取</li></ul> <div class="language-javascript extra-class"><pre class="language-javascript"><code>    <span class="token punctuation">{</span><span class="token punctuation">{</span>myItem<span class="token punctuation">.</span>propValues<span class="token punctuation">.</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>value<span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+    <span class="token comment">//</span>
+</code></pre></div><p>上述代码注意:  数据获取通过{{}}包围起来获取变量的值， 其中数组是通过.[index] 的方式来获取</p> <ul><li>循环</li></ul> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token punctuation">{</span><span class="token punctuation">{</span>#each myItem<span class="token punctuation">.</span>propValues<span class="token punctuation">.</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>value<span class="token punctuation">.</span>data<span class="token punctuation">}</span><span class="token punctuation">}</span>
+        <span class="token operator">&lt;</span>van<span class="token operator">-</span>grid<span class="token operator">-</span>item icon<span class="token operator">=</span><span class="token string">&quot;{{icon}}&quot;</span> text<span class="token operator">=</span><span class="token string">&quot;{{name}}&quot;</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token operator">/</span>each<span class="token punctuation">}</span><span class="token punctuation">}</span>
+
+</code></pre></div><p>上述代码注意： 注意在each中是有对应的上下文的，如果在each中想使用外部的上下文，可通过 ../ 来获取， 如</p> <div class="language- extra-class"><pre class="language-text"><code> {{../myItem.propValues.[1].value.num}}
+</code></pre></div><p>这样的形式。</p> <ul><li>判断</li></ul> <div class="language-javascript extra-class"><pre class="language-javascript"><code>  <span class="token punctuation">{</span><span class="token punctuation">{</span>#compare myItem<span class="token punctuation">.</span>propValues<span class="token punctuation">.</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>value<span class="token punctuation">.</span>chooseValue <span class="token string">'=='</span> <span class="token string">'multiple'</span><span class="token punctuation">}</span><span class="token punctuation">}</span>
+  <span class="token operator">&lt;</span>van<span class="token operator">-</span>cell title<span class="token operator">=</span><span class="token string">&quot;选择多个日期&quot;</span> <span class="token operator">:</span>value<span class="token operator">=</span><span class="token string">&quot;date{{myItem.id}}&quot;</span> @click<span class="token operator">=</span><span class="token string">&quot;show = true&quot;</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>van<span class="token operator">-</span>calendar
+      show<span class="token operator">-</span>confirm<span class="token operator">=</span><span class="token string">&quot;{{myItem.propValues.[1].value}}&quot;</span>
+      color<span class="token operator">=</span><span class="token string">&quot;{{myItem.propValues.[2].value}}&quot;</span>
+      v<span class="token operator">-</span>model<span class="token operator">=</span><span class="token string">&quot;show{{myItem.id}}&quot;</span>
+      type<span class="token operator">=</span><span class="token string">&quot;multiple&quot;</span>
+      @confirm<span class="token operator">=</span><span class="token string">&quot;onConfirmMultiple{{myItem.id}}&quot;</span>
+    <span class="token operator">/</span><span class="token operator">&gt;</span>
+  <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token operator">/</span>compare<span class="token punctuation">}</span><span class="token punctuation">}</span>
+</code></pre></div><p>上述代码注意: handlebars原始是不支持判断语法的，vdesjs中是通过自定义helper来扩展判断的。</p> <h3 id="特殊情形"><a href="#特殊情形" class="header-anchor">#</a> 特殊情形</h3> <p>一般代码生成通过上述语法编写即可。但有一些特殊情形：</p> <h4 id="需要生成v-model下的代码。需要在data下面去挂载变量。"><a href="#需要生成v-model下的代码。需要在data下面去挂载变量。" class="header-anchor">#</a> 需要生成v-model下的代码。需要在data下面去挂载变量。</h4> <ul><li>在propValues对应属性的项下需要添加 isModel: ture，代表其是Model属性，那么vdesjs会将其属性挂载进代码生成的data{}中，如果v-mdoel属性并不需要由右侧面板配置，那么type可以设置为null。在代码生成模板下即可这样编写</li></ul> <div class="language- extra-class"><pre class="language-text"><code>{{myItem.propValues.[0].key}}{{myItem.id}}
+</code></pre></div><p>其中加入myItem.id是为了防止变量名重复。</p> <h4 id="生成的代码包含methods"><a href="#生成的代码包含methods" class="header-anchor">#</a> 生成的代码包含methods</h4> <ul><li>如果生成的代码包含methods方法，那么需要单独编写methods模板，模板放入handlebars/template/methods中，具体编写可自己阅读vdesjs中此文件夹下的代码，并且需要在handlebars/index.js引入这个methods.</li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/guide/sxyl.html" class="prev">
+        实现原理
+      </a></span> <span class="next"><a href="/guide/dir.html">
+        目录结构
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.3899a33f.js" defer></script><script src="/assets/js/2.3b0dfc05.js" defer></script><script src="/assets/js/12.36aab5a9.js" defer></script>
+  </body>
+</html>

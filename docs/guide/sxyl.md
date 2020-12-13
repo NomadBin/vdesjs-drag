@@ -65,7 +65,7 @@ vdesjs的拖拽功能使用到了vuedraggble，vuedragable的实现是基于[sor
       </draggable>
 ```
 上述代码解析:
-* 中间面板中会判断是否是布局组件还是其他组件（因为布局组件相比较特殊，需要网每个列中放入draggable，来实现往布局中拖入组件）
+* 中间面板中会判断是否是布局组件还是其他组件（因为布局组件相比较特殊，需要往每个列中放入draggable，来实现往布局中拖入组件）
 
 
 ## json数据设计
@@ -132,19 +132,7 @@ vdesjs的拖拽功能使用到了vuedraggble，vuedragable的实现是基于[sor
 * componentName 设置组件的名称
 * propValues 设置右侧面板的可以配置属性。每个项中的type属性决定右侧面板的类型。
   
-### propsValues中的type类型
-|类型 |描述 | 
-|-|- |
-|text|文本框|
-|num|数值框|
-|select|选择框|
-|color|颜色选择器|
-|col|列配置项（为布局组件设置列的分配）|
-|iconList|图标选择|
-|imageStore|图片选择|
-|numUnit|用于宽度或者高度的选择，含有px、百分比、rem单位选择|
-|switch|开关切换|
-|table|数据列表（用户多资源列表配置）|
+
 
 ## 代码生成功能
 代码生成选择了handlerbars作为模板引擎，用于将json数据根据每个组件对应编写的模板代码转换成可使用的代码。
