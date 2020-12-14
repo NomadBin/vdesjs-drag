@@ -249,6 +249,9 @@ export default {
               },
             ],
           },
+          events: [
+
+          ],
         },
         {
           name: "板块",

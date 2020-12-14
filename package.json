@@ -20,7 +20,7 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "animate.css": "^4.1.1",
+    "animate.css": "^3.7.2",
     "bootstrap": "^3.3.7",
     "clipboard": "^2.0.6",
     "element-ui": "^2.13.0",

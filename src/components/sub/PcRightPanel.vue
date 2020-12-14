@@ -84,7 +84,6 @@
               <el-row>
                 <el-col :span="10">{{ item.label }}:</el-col>
                 <el-col :span="14">
-                  
                   <image-store
                     @complete="completeChoseImageStore($event, i)"
                   ></image-store>
@@ -153,7 +152,7 @@
           <p>拖动左侧组件来生成你的页面吧！</p>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="模板" name="template">
+      <el-tab-pane v-if="templatesFlag" label="模板" name="template">
         <ul class="tplList">
           <li v-for="(item, i) in currentData.templates.data" :key="i">
             <div class="box">
@@ -175,6 +174,10 @@
           </li>
         </ul>
       </el-tab-pane>
+      <el-tab-pane v-if="eventsFlag" label="事件" name="event">
+        事件列表
+        
+      </el-tab-pane>
     </el-tabs>
 
     <!-- 实时获取当前是否有数据，来决定右侧面板所显示的页面 -->
@@ -184,7 +187,7 @@
   </div>
 </template>
 <script>
-import Distance from '../pcomp/Distance.vue';
+import Distance from "../pcomp/Distance.vue";
 import IconList from "../pcomp/IconList.vue";
 import ImageStore from "../pcomp/ImageStore.vue";
 import MyTable from "../pcomp/MyTable.vue";
@@ -207,15 +210,24 @@ export default {
       let data = this.$store.getters.currentData;
       if (typeof data == "undefined") {
         this.flag = false;
-        return { propValues: [], templates: { data: [] } };
+        return { propValues: [] };
       } else {
         this.flag = true;
-        if (typeof data.templates == "undefined") {
-          data["templates"] = { data: [] };
-        }
       }
 
       return data;
+    },
+    eventsFlag() {
+      if (typeof this.currentData.events == "undefined") {
+        return false;
+      }
+      return true;
+    },
+    templatesFlag() {
+      if (typeof this.currentData.templates == "undefined") {
+        return false;
+      }
+      return true;
     },
   },
   methods: {
@@ -231,7 +243,6 @@ export default {
       this.currentData.cols.splice(i, 1);
     },
     removeThis: function () {
-      
       this.$store.commit("deleteMyItem");
     },
     completeChoseImageStore: function (obj, i) {
