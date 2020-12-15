@@ -174,9 +174,86 @@
           </li>
         </ul>
       </el-tab-pane>
-      <el-tab-pane v-if="eventsFlag" label="事件" name="event">
-        事件列表
-        
+      <el-tab-pane class="events" v-if="eventsFlag" label="事件" name="event">
+        <p>
+          <span>事件列表</span>
+          <el-button type="text" @click="eventsDialogVisibile = true"
+            >添加</el-button
+          >
+        </p>
+        <div class="list">
+          <div class="item" v-for="(item, i) in currentData.events" :key="i">
+            <span
+              >{{ item.triggerEventValue.label }} --
+              {{ item.targetObjValue.label }} --
+              {{ item.actionValue.label }}</span
+            >
+            <el-button @click="deleteEvent(i)" type="text">删除</el-button>
+          </div>
+        </div>
+        <el-dialog
+          title="添加事件"
+          :visible.sync="eventsDialogVisibile"
+          style="margin-left: 30vw"
+        >
+          <div>
+            <div class="el-row">
+              <div class="title el-col-4">触发事件</div>
+              <div class="value el-col-20">
+                <el-select v-model="triggerEventValue">
+                  <el-option
+                    v-for="(item, i) in triggerEventOptions"
+                    :key="i"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
+              </div>
+            </div>
+            <div class="el-row">
+              <div class="title el-col-4">目标对象</div>
+              <div class="value el-col-20">
+                <el-select v-model="targetObjValue" @change="setActionOptions">
+                  <el-option
+                    v-for="(item, i) in targetObjOptions"
+                    :key="i"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
+              </div>
+            </div>
+            <div class="el-row">
+              <div class="title el-col-4">动作</div>
+              <div class="value el-col-20">
+                <el-select v-model="actionValue">
+                  <el-option
+                    v-for="(item, i) in actionOptions"
+                    :key="i"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
+              </div>
+            </div>
+
+            <el-form label-width="100px">
+              <el-form-item
+                v-for="(item, i) in actionAndFormData[actionValue]"
+                :label="item.label"
+                :key="i"
+              >
+                <el-input v-model="item.value"></el-input>
+              </el-form-item>
+              {{ actionAndFormData }}
+            </el-form>
+          </div>
+
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="eventsDialogVisibile = false">取 消</el-button>
+            <el-button type="primary" @click="addEvent">添 加</el-button>
+          </span>
+        </el-dialog>
       </el-tab-pane>
     </el-tabs>
 
@@ -203,6 +280,82 @@ export default {
       num: 3,
       flag: false,
       activeName: "prop",
+      eventsDialogVisibile: false,
+      triggerEventValue: "click",
+      triggerEventOptions: [
+        {
+          value: "click",
+          label: "单击",
+        },
+        {
+          value: "dbclick",
+          label: "双击",
+        },
+        {
+          value: "mouseover",
+          label: "鼠标移入",
+        },
+        {
+          value: "mouseout",
+          label: "鼠标移出",
+        },
+        {
+          value: "load",
+          label: "完成加载",
+        },
+      ],
+      targetObjValue: "",
+      targetObjOptions: [
+        {
+          value: "currentObj",
+          label: "当前元素",
+        },
+        {
+          value: "document",
+          label: "整个文档",
+        },
+      ],
+      actionValue: "",
+      actionOptions: [],
+
+      targetObjAndAction: {
+        currentObj: [
+          {
+            value: "setProperty",
+            label: "设置属性",
+          },
+          {
+            value: "runAnimate",
+            label: "执行动画",
+          },
+        ],
+        document: [
+          {
+            value: "dialogNotice",
+            label: "提示框",
+          },
+        ],
+      },
+      actionAndFormData: {
+        setProperty: [
+          {
+            label: "宽度",
+            key: "width",
+            type: "text",
+            value: "100",
+          },
+          {
+            label: "长度",
+            key: "height",
+            type: "text",
+            value: "100",
+          },
+        ],
+      },
+      setPropertyDataFormData: {
+        width: "100",
+        height: "100",
+      },
     };
   },
   computed: {
@@ -231,6 +384,62 @@ export default {
     },
   },
   methods: {
+    deleteEvent: function(i) {
+      console.log("delete")
+      // this.currentData.events.splice(i, 1)
+      this.$store.commit("removeEvent", i)
+    },
+    addEvent: function () {
+      
+      var obj = {
+        triggerEventValue: this.getTriggerEventValueObj(this.triggerEventValue),
+        targetObjValue: this.getTargetObjValueObj(this.targetObjValue),
+        actionValue: this.getActionValueObj(this.actionValue),
+        data: this.actionAndFormData[this.actionValue]
+      }
+      console.log(JSON.stringify(obj))
+      this.$store.commit("addEvent", obj)
+
+      this.triggerEventValue = "";
+      this.targetObjValue = "";
+      this.actionValue = "";
+      this.eventsDialogVisibile = false;
+    },
+    getTriggerEventValueObj: function (val) {
+      for (let i = 0; i < this.triggerEventOptions.length; i++) {
+        const item = this.triggerEventOptions[i];
+        if (item.value == val) {
+          return item;
+        }
+      }
+      return {};
+    },
+    getTargetObjValueObj: function(val) {
+      for (let i = 0; i < this.targetObjOptions.length; i++) {
+        const item = this.targetObjOptions[i];
+        if (item.value == val) {
+          return item;
+        }
+      }
+      return {};
+
+    },
+    getActionValueObj: function(val) {
+      for (let i = 0; i < this.actionOptions.length; i++) {
+        const item = this.actionOptions[i];
+        if (item.value == val) {
+          return item;
+        }
+      }
+      return {};
+
+    },
+
+    setActionOptions: function (val) {
+      console.log(this.targetObjAndAction[val]);
+      this.actionOptions = this.targetObjAndAction[val];
+      this.actionValue = "";
+    },
     useTpl: function (i) {
       this.currentData.templates.chooseKey = this.currentData.templates.data[
         i
@@ -256,6 +465,22 @@ export default {
 };
 </script>
 <style scoped>
+.events > .list {
+  background-color: #f8f8f8;
+}
+.events > .list > .item {
+  padding: 2px 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.events > .list > .item > span {
+  cursor: pointer;
+  font-size: 14px;
+}
+.events > .list > .item > .el-button {
+  font-size: 14px;
+}
 .tplList > li {
   margin-bottom: 20px;
 }

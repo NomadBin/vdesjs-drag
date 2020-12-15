@@ -14,6 +14,11 @@ const store = new Vuex.Store({
         myItem:{
         
         },
+        // 存储所有dom
+        domList: {
+
+        },
+
         //全局id
         globalId: 0,
         currentSelectListIndex: 0,
@@ -57,6 +62,17 @@ const store = new Vuex.Store({
         // 初始化组件数据
         initList(state, payload) {
             state.list = payload
+        },
+
+        removeEvent(state, payload) {
+            state.myItem.events.splice(payload, 1);
+        },
+        addEvent(state, payload) {
+            state.myItem.events.push(payload)
+        },
+
+        updateDom(state, payload) {
+            state.domList[payload.name] = payload.domObj
         },
 
         updateMyItem(state, payload) {

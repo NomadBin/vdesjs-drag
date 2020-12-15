@@ -7,9 +7,9 @@
     }"
   >
     <ul
+      :ref="myItem.componentName + myItem.id"
       class="container-fluid imageText"
       v-if="myItem.templates.chooseKey == 'sxpl'"
-      ref="test"
     >
       <li
         v-for="(item, i) in myItem.propValues[dataIndex].value.data"
@@ -88,28 +88,40 @@ export default {
       return 100 / this.myItem.propValues[this.colNumIndex].value + "%";
     },
   },
+  watch: {
+    "myItem.events": function() {
+      console.log("changeEvent")
+    }
+  },
   mounted() {
     let that = this;
-    this.$refs["test"].addEventListener("click", function () {
-      console.log("begin");
+    // this.$refs["test"].addEventListener("click", function () {
+    //   console.log("begin");
 
-      that.$refs["test"].classList.add("animated");
-      that.$refs["test"].classList.add("pulse");
+    //   that.$refs["test"].classList.add("animated");
+    //   that.$refs["test"].classList.add("pulse");
 
-      that.$refs["test"].style.animationDuration = "2s";
-      that.$refs["test"].style.animationDelay = "0s";
+    //   that.$refs["test"].style.animationDuration = "2s";
+    //   that.$refs["test"].style.animationDelay = "0s";
 
-      setTimeout(function () {
-        that.$refs["test"].classList.remove("pulse");
-        console.log("end");
-      }, 2000);
-    });
-    this.$refs["test"].addEventListener("mousemove", function () {
-      // console.log("hello fff");
-      // that.$refs['test'].classList.add("animate__animated")
-      // that.$refs['test'].classList.remove("animate__bounce")
-    });
-    console.log();
+    //   setTimeout(function () {
+    //     that.$refs["test"].classList.remove("pulse");
+    //     console.log("end");
+    //   }, 2000);
+    // });
+    // this.$refs["test"].addEventListener("mousemove", function () {
+    //   // console.log("hello fff");
+    //   // that.$refs['test'].classList.add("animate__animated")
+    //   // that.$refs['test'].classList.remove("animate__bounce")
+    // });
+    // console.log();
+    console.log(this.$refs[this.myItem.componentName + this.myItem.id])
+    this.$store.commit("updateDom", {
+      "name": this.myItem.componentName + this.myItem.id,
+      "domObj": this.$refs[this.myItem.componentName + this.myItem.id]
+    })
+
+
   },
 };
 </script>

@@ -22,7 +22,7 @@
             <pc-layout :myItem="item"></pc-layout>
           </div>
           <div v-else-if="item.componentName == 'Plate'">
-            <plate  :myItem="item"></plate>
+            <plate :myItem="item"></plate>
           </div>
           <component
             @click.native="switchIndex(item)"
@@ -32,7 +32,6 @@
             :myItem="item"
           ></component>
         </div>
-
       </draggable>
     </div>
   </div>
@@ -60,6 +59,24 @@ export default {
       return this.$store.state.rightPanelClass.animateClass;
     },
   },
+  watch: {
+    list() {
+      this.$nextTick(function () {
+        {
+          var domList = {};
+          for (let i = 0; i < this.list.length; i++) {
+            const item = this.list[i];
+            // domList[item.componentName + item.id] =this.$refs[item.componentName + item.id]
+            // domList[item.componentName + item.id].style.animationDuration = "2s"
+
+            // this.$refs[item.componentName + item.id].style.animationDuration = "2s"
+
+          }
+          console.log(domList)
+        }
+      });
+    },
+  },
   data() {
     return {
       phoneIcon: phoneIcon,
@@ -74,11 +91,14 @@ export default {
         this.$store.commit("rightPanelFold");
       }
       this.$store.commit("updateMyItem", myItem);
-
     },
     test: function () {
       console.log("pcFrame test");
     },
+  },
+  mounted() {
+    // console.log("refs:" + JSON.stringify())
+    console.log(this.$store.state.domList['ImageText1'].style.backgroundColor = "blue")
   },
 };
 </script>
@@ -115,7 +135,7 @@ $pcHeight: 100%;
   bottom: 0;
   left: 0;
   right: 0;
-  
+
   // display:flex;
   // flex-wrap: wrap;
   // align-items: flex-start;
