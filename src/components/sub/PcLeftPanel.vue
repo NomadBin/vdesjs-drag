@@ -250,34 +250,7 @@ export default {
             ],
           },
           events: [
-            {
-              triggerEventValue: {
-                value: "click",
-                label: "单击",
-              },
-              targetObjValue: {
-                value: "currentObj",
-                label: "当前元素",
-              },
-              actionValue: {
-                value: "setProperty",
-                label: "设置属性",
-              },
-              data: [
-                {
-                  label: "宽度",
-                  key: "width",
-                  type: "text",
-                  value: "100",
-                },
-                {
-                  label: "长度",
-                  key: "height",
-                  type: "text",
-                  value: "100",
-                },
-              ],
-            },
+           
           ],
         },
         {

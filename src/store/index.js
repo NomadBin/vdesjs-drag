@@ -11,8 +11,8 @@ const store = new Vuex.Store({
         list: [],
 
         // 当前选择的对象（利用了浅拷贝原理）
-        myItem:{
-        
+        myItem: {
+
         },
         // 存储所有dom
         domList: {
@@ -51,11 +51,11 @@ const store = new Vuex.Store({
             return state.myItem;
         },
         currentMode: state => {
-          return state.mode
+            return state.mode
         },
-        currentList: (state,getters) => {
-          return state.list.filter(v => v.mode === getters.currentMode)
-        // return state.list;
+        currentList: (state, getters) => {
+            return state.list.filter(v => v.mode === getters.currentMode)
+            // return state.list;
         }
     },
     mutations: {
@@ -65,6 +65,8 @@ const store = new Vuex.Store({
         },
 
         removeEvent(state, payload) {
+            state.domList[state.myItem.events[payload].targentObjId].removeEventListener(state.myItem.events[payload].triggerEventValue.value, state.myItem.events[payload].myFunction)
+
             state.myItem.events.splice(payload, 1);
         },
         addEvent(state, payload) {
@@ -83,25 +85,25 @@ const store = new Vuex.Store({
             //     delete state.myItem[key]
             // }
             function deleteItem(list) {
-                for(var i=0; i< list.length; i++) {
-                    if(list[i].id == state.myItem.id) {
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].id == state.myItem.id) {
                         list.splice(i, 1)
                         state.myItem = {};
                         break;
                     }
-                    if(list[i].componentName == "PcLayout") {
-                        for(var j=0; j < list[i].cols.length; j++) {
+                    if (list[i].componentName == "PcLayout") {
+                        for (var j = 0; j < list[i].cols.length; j++) {
                             deleteItem(list[i].cols[j].list)
                         }
                     }
-                    if(list[i].componentName == "Plate") {
+                    if (list[i].componentName == "Plate") {
                         deleteItem(list[i].cols[0].list)
                     }
-    
+
                 }
             }
             deleteItem(state.list)
-           
+
         },
         //切换当前选择元素下标
         swithIndex(state, payload) {
@@ -139,6 +141,7 @@ const store = new Vuex.Store({
         //清空数据
         deleteAll(state) {
             state.list = [];
+            state.myItem = {};
             state.currentSelectListIndex = 0;
             state.currentColIndex = -1;
             state.currentColDataIndex = -1;

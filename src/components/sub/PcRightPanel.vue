@@ -243,7 +243,16 @@
                 :label="item.label"
                 :key="i"
               >
-                <el-input v-model="item.value"></el-input>
+                <el-input
+                  v-if="item.type == 'text'"
+                  v-model="item.value"
+                ></el-input>
+                <el-slider
+                  v-if="item.type == 'float'"
+                  v-model="item.value"
+                  :format-tooltip="formatTooltipFloat"
+                >
+                </el-slider>
               </el-form-item>
               {{ actionAndFormData }}
             </el-form>
@@ -325,6 +334,10 @@ export default {
             label: "设置属性",
           },
           {
+            value: "scale",
+            label: "缩放",
+          },
+          {
             value: "runAnimate",
             label: "执行动画",
           },
@@ -342,13 +355,27 @@ export default {
             label: "宽度",
             key: "width",
             type: "text",
-            value: "100",
+            value: "",
           },
           {
-            label: "长度",
+            label: "高度",
             key: "height",
             type: "text",
-            value: "100",
+            value: "",
+          },
+        ],
+        scale: [
+          {
+            label: "x轴缩放",
+            key: "xscale",
+            type: "float",
+            value: 10,
+          },
+          {
+            label: "y轴缩放",
+            key: "yscale",
+            type: "float",
+            value: 10,
           },
         ],
       },
@@ -370,6 +397,9 @@ export default {
 
       return data;
     },
+    domList() {
+      return this.$store.state.domList;
+    },
     eventsFlag() {
       if (typeof this.currentData.events == "undefined") {
         return false;
@@ -384,26 +414,65 @@ export default {
     },
   },
   methods: {
-    deleteEvent: function(i) {
-      console.log("delete")
+    formatTooltipFloat: function (val) {
+      return val / 10;
+    },
+    deleteEvent: function (i) {
+      console.log("delete");
       // this.currentData.events.splice(i, 1)
-      this.$store.commit("removeEvent", i)
+      this.$store.commit("removeEvent", i);
     },
     addEvent: function () {
-      
-      var obj = {
+      let that = this;
+      var data = this.deepClone(this.actionAndFormData[this.actionValue])
+      let obj = {
         triggerEventValue: this.getTriggerEventValueObj(this.triggerEventValue),
         targetObjValue: this.getTargetObjValueObj(this.targetObjValue),
         actionValue: this.getActionValueObj(this.actionValue),
-        data: this.actionAndFormData[this.actionValue]
-      }
-      console.log(JSON.stringify(obj))
-      this.$store.commit("addEvent", obj)
+        targentObjId: this.currentData.componentName + this.currentData.id,
+        data: data,
+        myFunction: function () {
+          console.log("run this:" + obj.triggerEventValue.value)
+          if (obj.actionValue.value == "scale") {
+            // 缩放动作
+            var x = obj.data[0].value / 10;
+            var y = obj.data[1].value / 10;
+            console.log(x + ":" + y);
+            that.domList[
+              obj.targentObjId
+            ].style.transform = `scale(${x}, ${y})`;
+            that.domList[obj.targentObjId].style.transition = "transform 2s";
+          }
+
+          // for (let i = 0; i < this.data.length; i++) {
+          //   const item = this.data[i];
+
+          // }
+        },
+      };
+      console.log(JSON.stringify(obj));
+      this.$store.commit("addEvent", obj);
+      this.domToAddEventListner(obj);
 
       this.triggerEventValue = "";
       this.targetObjValue = "";
       this.actionValue = "";
       this.eventsDialogVisibile = false;
+    },
+    deepClone(obj) {
+      var _obj = JSON.stringify(obj),
+        objClone = JSON.parse(_obj);
+      return objClone;
+    },
+    domToAddEventListner(obj) {
+      
+      if (obj.targetObjValue.value == "currentObj") {
+        this.domList[obj.targentObjId].addEventListener(
+          obj.triggerEventValue.value,
+          obj.myFunction
+          // obj.myFunction(obj.triggerEventValue, obj.targetObjValue, obj.actionValue, obj.targentObjId, obj.data)
+        );
+      }
     },
     getTriggerEventValueObj: function (val) {
       for (let i = 0; i < this.triggerEventOptions.length; i++) {
@@ -414,7 +483,7 @@ export default {
       }
       return {};
     },
-    getTargetObjValueObj: function(val) {
+    getTargetObjValueObj: function (val) {
       for (let i = 0; i < this.targetObjOptions.length; i++) {
         const item = this.targetObjOptions[i];
         if (item.value == val) {
@@ -422,9 +491,8 @@ export default {
         }
       }
       return {};
-
     },
-    getActionValueObj: function(val) {
+    getActionValueObj: function (val) {
       for (let i = 0; i < this.actionOptions.length; i++) {
         const item = this.actionOptions[i];
         if (item.value == val) {
@@ -432,7 +500,6 @@ export default {
         }
       }
       return {};
-
     },
 
     setActionOptions: function (val) {
