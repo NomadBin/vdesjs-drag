@@ -273,6 +273,7 @@
   </div>
 </template>
 <script>
+import event from "@/common/js/event"
 import Distance from "../pcomp/Distance.vue";
 import IconList from "../pcomp/IconList.vue";
 import ImageStore from "../pcomp/ImageStore.vue";
@@ -425,34 +426,33 @@ export default {
     addEvent: function () {
       let that = this;
       var data = this.deepClone(this.actionAndFormData[this.actionValue])
+      console.log(event.getVuexData())
       let obj = {
         triggerEventValue: this.getTriggerEventValueObj(this.triggerEventValue),
         targetObjValue: this.getTargetObjValueObj(this.targetObjValue),
         actionValue: this.getActionValueObj(this.actionValue),
         targentObjId: this.currentData.componentName + this.currentData.id,
         data: data,
-        myFunction: function () {
-          console.log("run this:" + obj.triggerEventValue.value)
-          if (obj.actionValue.value == "scale") {
-            // 缩放动作
-            var x = obj.data[0].value / 10;
-            var y = obj.data[1].value / 10;
-            console.log(x + ":" + y);
-            that.domList[
-              obj.targentObjId
-            ].style.transform = `scale(${x}, ${y})`;
-            that.domList[obj.targentObjId].style.transition = "transform 2s";
-          }
+        // myFunction: function () {
+        //   console.log("run this:" + obj.triggerEventValue.value)
+        //   if (obj.actionValue.value == "scale") {
+        //     // 缩放动作
+        //     var x = obj.data[0].value / 10;
+        //     var y = obj.data[1].value / 10;
+        //     console.log(x + ":" + y);
+        //     that.domList[
+        //       obj.targentObjId
+        //     ].style.transform = `scale(${x}, ${y})`;
+        //     that.domList[obj.targentObjId].style.transition = "transform 2s";
+        //   }
 
-          // for (let i = 0; i < this.data.length; i++) {
-          //   const item = this.data[i];
-
-          // }
-        },
+        // },
       };
+      obj = event.initMyFunction(obj);
       console.log(JSON.stringify(obj));
       this.$store.commit("addEvent", obj);
-      this.domToAddEventListner(obj);
+      event.domToAddEventListner(obj)
+      // this.domToAddEventListner(obj);
 
       this.triggerEventValue = "";
       this.targetObjValue = "";
