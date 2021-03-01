@@ -98,7 +98,7 @@ export default {
   },
   mounted() {
     // console.log("refs:" + JSON.stringify())
-    console.log(this.$store.state.domList['ImageText1'].style.backgroundColor = "blue")
+    console.log(this.$store.state.domList['ImageText1'].style.backgroundColor = "blue ")
   },
 };
 </script>
@@ -107,7 +107,7 @@ export default {
 <style lang="scss" scoped>
 @import "bootstrap/dist/css/bootstrap.min.css";
 $pcWidth: 100%;
-$pcHeight: 100%;
+$pcHeight: 98%;
 .icon {
   width: 30px;
   height: 30px;

@@ -426,27 +426,12 @@ export default {
     addEvent: function () {
       let that = this;
       var data = this.deepClone(this.actionAndFormData[this.actionValue])
-      console.log(event.getVuexData())
       let obj = {
         triggerEventValue: this.getTriggerEventValueObj(this.triggerEventValue),
         targetObjValue: this.getTargetObjValueObj(this.targetObjValue),
         actionValue: this.getActionValueObj(this.actionValue),
         targentObjId: this.currentData.componentName + this.currentData.id,
         data: data,
-        // myFunction: function () {
-        //   console.log("run this:" + obj.triggerEventValue.value)
-        //   if (obj.actionValue.value == "scale") {
-        //     // 缩放动作
-        //     var x = obj.data[0].value / 10;
-        //     var y = obj.data[1].value / 10;
-        //     console.log(x + ":" + y);
-        //     that.domList[
-        //       obj.targentObjId
-        //     ].style.transform = `scale(${x}, ${y})`;
-        //     that.domList[obj.targentObjId].style.transition = "transform 2s";
-        //   }
-
-        // },
       };
       obj = event.initMyFunction(obj);
       console.log(JSON.stringify(obj));
@@ -463,16 +448,6 @@ export default {
       var _obj = JSON.stringify(obj),
         objClone = JSON.parse(_obj);
       return objClone;
-    },
-    domToAddEventListner(obj) {
-      
-      if (obj.targetObjValue.value == "currentObj") {
-        this.domList[obj.targentObjId].addEventListener(
-          obj.triggerEventValue.value,
-          obj.myFunction
-          // obj.myFunction(obj.triggerEventValue, obj.targetObjValue, obj.actionValue, obj.targentObjId, obj.data)
-        );
-      }
     },
     getTriggerEventValueObj: function (val) {
       for (let i = 0; i < this.triggerEventOptions.length; i++) {

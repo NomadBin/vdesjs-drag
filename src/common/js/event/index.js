@@ -1,10 +1,6 @@
 import store from '@/store/index';
 
 let obj = {
-    getVuexData() {
-        console.log(store.state.list)
-        return store
-    },
     // 根据事件的json数据结构决定具体的myFunction
     initMyFunction(obj) {
         // 缩放动作
