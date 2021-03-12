@@ -1,7 +1,6 @@
 <template>
   <el-row class="ToolHeader" style="line-height: 30px">
-    <el-col :span="5"> &nbsp;</el-col>
-    <el-col :span="14">
+    <el-col>
       <el-link @click="deleteAll"
         >清空画布<i class="el-icon-delete"></i>
       </el-link>
@@ -13,7 +12,6 @@
       </el-link>
       <el-link @click="preview">预览<i class="el-icon-view"></i> </el-link>
     </el-col>
-    <el-col :span="5"> &nbsp;</el-col>
 
     <el-dialog title="" :visible.sync="jsonDialogVisible">
       <codemirror style="text-align: left !important;" :value="curJsonCode" :options="cmOptions" class="code">

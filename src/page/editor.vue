@@ -10,18 +10,9 @@
             <left-panel v-if="mode == 'h5'"></left-panel>
             <pc-left-panel v-if="mode == 'pc'"></pc-left-panel>
           </el-aside>
-          <el-main class="mainBlock">
-            <el-container>
-              <el-header height="30px">
-                <tool-header v-if="mode == 'h5'"></tool-header>
-                <pc-tool-header v-if="mode == 'pc'"></pc-tool-header>
-                <!-- <div style="line-height:30px">工具头部</div> -->
-              </el-header>
-              <el-main class="mainFrame">
-                <phone-frame v-if="mode == 'h5'"></phone-frame>
-                <pc-frame v-if="mode == 'pc'"></pc-frame>
-              </el-main>
-            </el-container>
+          <el-main class="mainFrame">
+            <phone-frame v-if="mode == 'h5'"></phone-frame>
+            <pc-frame v-if="mode == 'pc'"></pc-frame>
           </el-main>
 
           <el-aside class="rightAside">
@@ -55,8 +46,7 @@ import PhoneFrame from "@/components/sub/PhoneFrame.vue";
 import RightPanel from "@/components/sub/RightPanel.vue";
 import PcFrame from "../components/sub/pcFrame.vue";
 import PcLeftPanel from "../components/sub/PcLeftPanel.vue";
-import ToolHeader from "../components/sub/ToolHeader.vue";
-import PcToolHeader from "../components/sub/PcToolHeader.vue";
+
 import PcRightPanel from "../components/sub/PcRightPanel.vue";
 import Tips from "@/components/h5/Tips.vue";
 export default {
@@ -67,10 +57,8 @@ export default {
     RightPanel,
     PcFrame,
     PcLeftPanel,
-    ToolHeader,
-    PcToolHeader,
     PcRightPanel,
-    Tips
+    Tips,
   },
   name: "editor",
   data() {
@@ -106,14 +94,14 @@ body {
 }
 * {
   margin: 0;
-  
+
   /* -webkit-tap-highlight-color: transparent; */
   /* z-index: 0; */
 }
 .footerBlock {
   box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.12);
   /* 将光标改为透明色 */
-  caret-color: rgba(0,0,0,0);
+  caret-color: rgba(0, 0, 0, 0);
 }
 .mainBlock {
   overflow: hidden;
@@ -141,6 +129,8 @@ body {
   align-items: center;
   cursor: pointer;
   transition: all 0.5s ease-in-out 0s;
+  /* 将光标改为透明色 */
+  caret-color: rgba(0, 0, 0, 0);
 }
 .rightFold:hover {
   color: blue;
@@ -157,6 +147,8 @@ body {
   align-items: center;
   cursor: pointer;
   transition: all 0.5s ease-in-out 0s;
+  /* 将光标改为透明色 */
+  caret-color: rgba(0, 0, 0, 0);
 }
 .leftFold:hover {
   color: blue;
@@ -167,7 +159,7 @@ body {
   line-height: 60px;
   text-align: center;
   border-bottom: #c8c7cc solid 1px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12); */
 }
 .el-aside {
   color: #333;
