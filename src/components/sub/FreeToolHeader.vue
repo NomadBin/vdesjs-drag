@@ -1,6 +1,12 @@
 <template>
   <el-row class="pcToolHeader" style="line-height: 30px">
     <el-col>
+      <el-link @click="compose"
+        >组合组件<i class="el-icon-circle-plus-outline"></i>
+      </el-link>
+      <el-link @click="deleteAll"
+        >拆分组件<i class="el-icon-remove-outline"></i>
+      </el-link>
       <el-link @click="deleteAll"
         >清空画布<i class="el-icon-delete"></i>
       </el-link>
@@ -91,8 +97,12 @@ export default {
 
   components: {
     codemirror,
-  },
+  }, 
   methods: {
+    compose() {
+      // 组合组件
+      this.$store.commit('compose')
+    },
     deleteAll() {
       this.$confirm("确定清除画布?", "提示", {
         confirmButtonText: "确定",

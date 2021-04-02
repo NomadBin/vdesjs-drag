@@ -9,10 +9,12 @@
           <el-aside class="leftAside">
             <left-panel v-if="mode == 'h5'"></left-panel>
             <pc-left-panel v-if="mode == 'pc'"></pc-left-panel>
+            <free-left-panel v-if="mode == 'free'"></free-left-panel>
           </el-aside>
           <el-main class="mainFrame">
             <phone-frame v-if="mode == 'h5'"></phone-frame>
             <pc-frame v-if="mode == 'pc'"></pc-frame>
+            <free-frame v-if="mode == 'free'"></free-frame>
           </el-main>
 
           <el-aside class="rightAside">
@@ -49,6 +51,8 @@ import PcLeftPanel from "../components/sub/PcLeftPanel.vue";
 
 import PcRightPanel from "../components/sub/PcRightPanel.vue";
 import Tips from "@/components/h5/Tips.vue";
+import FreeLeftPanel from '../components/sub/FreeLeftPanel.vue';
+import FreeFrame from '../components/sub/freeFrame.vue';
 export default {
   components: {
     THeader,
@@ -59,6 +63,8 @@ export default {
     PcLeftPanel,
     PcRightPanel,
     Tips,
+    FreeLeftPanel,
+    FreeFrame,
   },
   name: "editor",
   data() {
@@ -83,7 +89,9 @@ export default {
       this.$store.commit("rightPanelFold");
     },
   },
-  created: function () {},
+  created: function () {
+
+  },
 };
 </script>
 

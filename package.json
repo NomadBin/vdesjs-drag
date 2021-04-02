@@ -28,6 +28,7 @@
     "handlebars": "^4.7.6",
     "jquery": "^3.5.1",
     "js-beautify": "^1.13.0",
+    "lodash": "^4.17.21",
     "popper.js": "^1.16.1",
     "vant": "^2.10.14",
     "vue": "^2.5.2",

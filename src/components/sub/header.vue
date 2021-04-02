@@ -10,13 +10,16 @@
         <div class="tool">
           <tool-header v-if="mode == 'h5'"></tool-header>
           <pc-tool-header v-if="mode == 'pc'"></pc-tool-header>
+          <free-tool-header v-if="mode == 'free'"></free-tool-header>
         </div>
       </el-col>
       <el-col :span="5">
         <div class="device">
+          <span>模式切换：</span>
           <el-select size="mini" v-model="deviceMode" @change="selectDevice">
             <el-option value="h5">h5</el-option>
             <el-option value="pc">pc响应式</el-option>
+             <el-option value="free">自由画布</el-option>
           </el-select>
         </div>
       </el-col>
@@ -42,11 +45,13 @@
 <script>
 import ToolHeader from "@/components/sub/ToolHeader.vue";
 import PcToolHeader from "@/components/sub/PcToolHeader.vue";
+import FreeToolHeader from './FreeToolHeader.vue';
 
 export default {
   components: {
     ToolHeader,
     PcToolHeader,
+    FreeToolHeader,
   },
   data() {
     return {

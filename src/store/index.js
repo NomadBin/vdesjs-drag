@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { $ } from '@/utils/utils'
+import decomposeComponent from '@/utils/decomposeComponent'
+import eventBus from '@/utils/eventBus'
 
 //挂载Vuex
 Vue.use(Vuex)
@@ -30,8 +33,24 @@ const store = new Vuex.Store({
             iconClass: "el-icon-arrow-right",
             foldClass: "rightFold"
         },
-        // 当前模式 h5、pc
-        mode: "h5"
+        // 当前模式 h5、pc、free
+        mode: "h5",
+        freeFrame: null,
+        canvasStyleData: { // 页面全局数据
+            width: 1200,
+            height: 740,
+            scale: 100,
+        },
+
+        areaData: { // 选中区域包含的组件以及区域位移信息
+            style: {
+                top: 0,
+                left: 0,
+                width: 0,
+                height: 0,
+            },
+            components: [],
+        },
     },
     getters: {
         // 当前选择的元素
@@ -56,12 +75,79 @@ const store = new Vuex.Store({
         currentList: (state, getters) => {
             return state.list.filter(v => v.mode === getters.currentMode)
             // return state.list;
-        }
+        },
     },
     mutations: {
+        compose({ list, areaData, freeFrame, globalId }) {
+
+            const components = []
+            areaData.components.forEach(component => {
+                if (component.componentName != 'Group') {
+                    components.push(component)
+                } else {
+                    // 如果要组合的组件中，已经存在组合数据， 则需要提前拆分
+                    const parentStyle = { ...component.mStyle }
+                    const subComponents = component.propValues
+                    const editorRect = freeFrame.getBoundingClientRect()
+
+                    subComponents.forEach(component => {
+                        decomposeComponent(component, editorRect, parentStyle)
+                        components.push(component)
+                    })
+                }
+
+            })
+            console.log("组合组件")
+            this.commit('batchDeleteComponent', areaData.components)
+            this.commit('listPusn', {
+                id: ++globalId,
+                componentName: 'Group',
+                mode: 'free',
+                mStyle: {
+                    ...areaData.style,
+                    "opacity": 1, 
+                    "rotate": 0,
+                },
+                propValues: components
+            })
+
+            eventBus.$emit('hideArea')
+
+            this.commit('setCurComponent', {
+                component: list[list.length - 1],
+                index: list.length - 1
+            })
+            areaData.components = []
+
+            console.log('画布数据长度：' + list.length)
+        },
+        setCurComponent(state, { component, index }) {
+            state.myItem = component
+            state.currentSelectListIndex = index
+
+        },
+        batchDeleteComponent({ list }, deleteData) {
+            deleteData.forEach(component => {
+                for (let i = 0, len = list.length; i < len; i++) {
+                    console.log(i)
+                    if (component.id == list[i].id) {
+                        list.splice(i, 1)
+                        break
+                    }
+                }
+            })
+        },
+        // 获取自由画布
+        getFreeFrame(state) {
+            console.log('getFreeFrame')
+            state.freeFrame = $("#freeFrame")
+        },
         // 初始化组件数据
         initList(state, payload) {
             state.list = payload
+        },
+        listPusn(state, payload) {
+            state.list.push(payload)
         },
 
         removeEvent(state, payload) {
@@ -79,6 +165,17 @@ const store = new Vuex.Store({
 
         updateMyItem(state, payload) {
             state.myItem = payload
+        },
+        updatemyItemStyle({ myItem }, { left, top, width, height, rotate }) {
+            if (left) myItem.mStyle.left = left
+            if (top) myItem.mStyle.top = top
+            if (width) myItem.mStyle.width = width
+            if (height) myItem.mStyle.height = height
+            if (rotate) myItem.mStyle.rotate = rotate
+
+        },
+        updateMyItemSingleStyle({ myItem }, { key, value }) {
+            myItem.mStyle[key] = value
         },
         deleteMyItem(state) {
             // for(let key in state.myItem) {
@@ -158,7 +255,11 @@ const store = new Vuex.Store({
         // 切换设备
         selectDevice(state, payload) {
             state.mode = payload
-        }
+        },
+        // 设置选中区域的组件数据
+        setAreaData(state, data) {
+            state.areaData = data
+        },
     }
 })
 

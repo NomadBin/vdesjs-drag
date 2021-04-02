@@ -17,12 +17,15 @@ import $ from 'jquery'
 
 import 'bootstrap/dist/js/bootstrap.min'
 
+import '@/assets/iconfont/iconfont.css'
+
 Vue.config.productionTip = false
 
 Vue.use(animated)
 Vue.use(ElementUI);
 Vue.use(Vant)
 Vue.use(VueCodeMirror)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
