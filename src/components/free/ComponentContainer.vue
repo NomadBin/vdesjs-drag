@@ -41,7 +41,7 @@ export default {
 
       obj.id = this.globalId;
       obj.mode = "free";
-     
+      obj.groupStyle = {}
 
       // console.log("startDrag:" + JSON.stringify(obj))
       e.dataTransfer.setData("item", JSON.stringify(obj));

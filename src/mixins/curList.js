@@ -5,10 +5,13 @@ export default {
     ...mapGetters({
       curList: "currentList",
       cMode: "currentMode",
-      currentData: "currentData"
+      currentData: "currentData",
+      hasRevocationSnaphot: "hasRevocationSnaphot",
+      hasForwardSnaphot: "hasForwardSnaphot"
     }),
     ...mapState({
-      "freeFrame": "freeFrame"
+      "freeFrame": "freeFrame",
+      areaData: "areaData"
     })
   }
 };

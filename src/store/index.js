@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { $ } from '@/utils/utils'
+import { $, deepCopy} from '@/utils/utils'
 import decomposeComponent from '@/utils/decomposeComponent'
 import eventBus from '@/utils/eventBus'
 
@@ -51,6 +51,8 @@ const store = new Vuex.Store({
             },
             components: [],
         },
+        snapshotData: [], // 编辑器快照数据
+        snapshotIndex: -1, // 快照索引
     },
     getters: {
         // 当前选择的元素
@@ -76,62 +78,123 @@ const store = new Vuex.Store({
             return state.list.filter(v => v.mode === getters.currentMode)
             // return state.list;
         },
+        // 是否能撤销快照记录
+        hasRevocationSnaphot: state=> {
+            if(state.snapshotIndex <= 0) {
+                return false
+            }
+            return true
+        },
+        // 是否能恢复快照记录
+        hasForwardSnaphot: state=> {
+            if(state.snapshotIndex == state.snapshotData.length - 1) {
+                return false
+            }
+            return true
+        }
     },
     mutations: {
-        compose({ list, areaData, freeFrame, globalId }) {
+        // 撤销
+        revocation(state) {
+            if (state.snapshotIndex > 0) {
+                state.snapshotIndex--
+                console.log(deepCopy(state.snapshotData[state.snapshotIndex]))
+                state.list = deepCopy(state.snapshotData[state.snapshotIndex])
+                // Vue.set(state, 'list', deepCopy(state.snapshotData[state.snapshotIndex]))
+            } 
+        },
+        // 恢复
+        forward(state) {
+            if (state.snapshotIndex < state.snapshotData.length - 1) {
+                state.snapshotIndex++
+                state.list = deepCopy(state.snapshotData[state.snapshotIndex])
+            }
+        },
+        // 记录快照
+        recordSnapshot(state) {
+            state.snapshotData[++state.snapshotIndex] = deepCopy(state.list)
+            // 在 undo 过程中，添加新的快照时，要将它后面的快照清理掉
+            if (state.snapshotIndex < state.snapshotData.length - 1) {
+                state.snapshotData = state.snapshotData.slice(0, state.snapshotIndex + 1)
+            }
+        },
+        compose(state) {
 
             const components = []
-            areaData.components.forEach(component => {
+            state.areaData.components.forEach(component => {
                 if (component.componentName != 'Group') {
                     components.push(component)
                 } else {
                     // 如果要组合的组件中，已经存在组合数据， 则需要提前拆分
                     const parentStyle = { ...component.mStyle }
                     const subComponents = component.propValues
-                    const editorRect = freeFrame.getBoundingClientRect()
+                    const editorRect = state.freeFrame.getBoundingClientRect()
 
                     subComponents.forEach(component => {
                         decomposeComponent(component, editorRect, parentStyle)
+                        console.log("component:" + JSON.stringify(component))
                         components.push(component)
                     })
+
+                    this.commit('batchDeleteComponent', component.propValues)
                 }
 
             })
             console.log("组合组件")
-            this.commit('batchDeleteComponent', areaData.components)
-            this.commit('listPusn', {
-                id: ++globalId,
+            this.commit('batchDeleteComponent', state.areaData.components)
+            state.globalId = state.globalId + 1
+            console.log('globalId' + state.globalId)
+            state.list.push({
+                id: state.globalId,
                 componentName: 'Group',
                 mode: 'free',
                 mStyle: {
-                    ...areaData.style,
-                    "opacity": 1, 
+                    ...state.areaData.style,
+                    "opacity": 1,
                     "rotate": 0,
                 },
-                propValues: components
+                propValues: components,
+                groupStyle: {},
             })
 
             eventBus.$emit('hideArea')
 
             this.commit('setCurComponent', {
-                component: list[list.length - 1],
-                index: list.length - 1
+                component: state.list[state.list.length - 1],
+                index: state.list.length - 1
             })
-            areaData.components = []
+            state.areaData.components = []
 
-            console.log('画布数据长度：' + list.length)
+            console.log('画布数据长度：' + state.list.length)
+        },
+        decompose(state) {
+            const parentStyle = { ...state.myItem.mStyle }
+            const compoents = state.myItem.propValues
+            const editorRect = state.freeFrame.getBoundingClientRect()
+            // this.commit('deleteMyItem')
+            for (let i = 0; i < state.list.length; i++) {
+                if (state.list[i].id == state.myItem.id) {
+                    state.list.splice(i, 1)
+                    state.myItem = {};
+                    break;
+                }
+            }
+            compoents.forEach(component => {
+                decomposeComponent(component, editorRect, parentStyle)
+                this.commit('listPusn', component)
+            })
         },
         setCurComponent(state, { component, index }) {
             state.myItem = component
             state.currentSelectListIndex = index
 
         },
-        batchDeleteComponent({ list }, deleteData) {
+        batchDeleteComponent(state, deleteData) {
             deleteData.forEach(component => {
-                for (let i = 0, len = list.length; i < len; i++) {
+                for (let i = 0, len = state.list.length; i < len; i++) {
                     console.log(i)
-                    if (component.id == list[i].id) {
-                        list.splice(i, 1)
+                    if (component.id == state.list[i].id) {
+                        state.list.splice(i, 1)
                         break
                     }
                 }
@@ -147,6 +210,7 @@ const store = new Vuex.Store({
             state.list = payload
         },
         listPusn(state, payload) {
+            console.log('listPushPaayload:' + JSON.stringify(payload))
             state.list.push(payload)
         },
 
@@ -260,6 +324,9 @@ const store = new Vuex.Store({
         setAreaData(state, data) {
             state.areaData = data
         },
+        cleanAreaData(state) {
+            state.areaData.components = []
+        }
     }
 })
 

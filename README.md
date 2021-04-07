@@ -93,7 +93,7 @@ vdesjs
 
 ## 参考文档 :notebook: :notebook:
 官方文档： http://china-bin.gitee.io/vdesjs/
-
+预览地址： http://china-bin.gitee.io/vdesjs/demo/#/
 
 ## 持续升级
 项目会持续维护升级，如您在使用中与到任何bug，或者关于本项目有任何好的建议都可以联系作者。

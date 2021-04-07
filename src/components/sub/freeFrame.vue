@@ -1,5 +1,5 @@
 <template>
-  <div class="phone-s" id="freeFrame">
+  <div class="phone-s" >
     <div class="phone">
       <div class="phone-top"></div>
       <div
@@ -7,14 +7,16 @@
         @drop="handleDrop"
         @dragover="handleDragover"
         @mousedown="handleMousedown"
+        id="freeFrame"
       >
+      <Grid></Grid>
         <shape
           :defaultStyle="item.mStyle"
           :style="getShapeStyle(item.mStyle)"
           :active="item === currentData"
           :myItem="item"
-          v-for="(item, i) in curList"
-          :key="i"
+          v-for="(item) in curList"
+          :key="item.id"
         >
           <component
             class="compoent"
@@ -44,11 +46,12 @@ import basicsMixin from "@/common/js/free/importBasics";
 import curList from "@/mixins/curList";
 import Shape from "@/components/free/Shape.vue";
 import Group from"@/components/free/Group.vue"
+import Grid from"@/components/free/Grid.vue"
 import { getStyle, getComponentRotatedStyle } from "@/utils/style";
 import MarkLine from "../free/MarkLine.vue";
 import Area from "../free/Area.vue";
 import eventBus from "@/utils/eventBus";
-
+import {$} from "@/utils/utils"
 export default {
   mixins: [basicsMixin, curList],
   components: {
@@ -57,6 +60,7 @@ export default {
     Group,
     MarkLine,
     Area,
+    Grid,
   },
 
   computed: {
@@ -159,6 +163,7 @@ export default {
       this.isShowArea = 0;
       this.width = 0;
       this.height = 0;
+      this.$store.commit('cleanAreaData')
     },
     createGroup() {
       // 获取选中区域的组件数据
@@ -250,10 +255,12 @@ export default {
         top: e.offsetY,
         rotate: 0,
         opacity: 1,
+        
       });
       console.log(item.mStyle);
 
       this.$store.commit("listPusn", item);
+      this.$store.commit('recordSnapshot')
     },
   },
 };

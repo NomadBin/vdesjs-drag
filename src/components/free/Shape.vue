@@ -20,7 +20,7 @@
 import curList from "@/mixins/curList";
 import { mod360 } from "@/utils/translate";
 import calculateComponentPositonAndSize from "@/utils/calculateComponentPositonAndSize";
-import eventBus from '@/utils/eventBus'
+import eventBus from "@/utils/eventBus";
 
 export default {
   mixins: [curList],
@@ -71,10 +71,9 @@ export default {
       return this.active;
     },
     handleMouseDownOnShape(e) {
-      e.preventDefault()
-      e.stopPropagation()
+      e.preventDefault();
+      e.stopPropagation();
 
-      
       if (this.animateClass == "myBounceOutRight") {
         // 右边面板由收缩状态变为展开状态
         this.$store.commit("rightPanelFold");
@@ -109,6 +108,8 @@ export default {
         eventBus.$emit("unmove");
         document.removeEventListener("mousemove", move);
         document.removeEventListener("mouseup", up);
+        
+        hasMove && this.$store.commit("recordSnapshot");
       };
 
       document.addEventListener("mousemove", move);
