@@ -53,6 +53,11 @@ const store = new Vuex.Store({
         },
         snapshotData: [], // 编辑器快照数据
         snapshotIndex: -1, // 快照索引
+        // 参考线
+        referenceLine: {
+            col: [],
+            row: []
+        }
     },
     getters: {
         // 当前选择的元素
@@ -94,6 +99,15 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
+        // 添加参考线
+        addReferenceLine(state, {type, position}) {
+            state.referenceLine[type].push(position)
+        },
+        // 移除参考线
+        removeReferenceLine(state, {type, index}) {
+            state.referenceLine[type].splice(index, 1)
+            
+        },
         // 撤销
         revocation(state) {
             if (state.snapshotIndex > 0) {

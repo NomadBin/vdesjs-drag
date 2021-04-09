@@ -9,7 +9,9 @@
         @mousedown="handleMousedown"
         id="freeFrame"
       >
+      <!-- 网格线 -->
       <Grid></Grid>
+      
         <shape
           :defaultStyle="item.mStyle"
           :style="getShapeStyle(item.mStyle)"
@@ -52,6 +54,7 @@ import MarkLine from "../free/MarkLine.vue";
 import Area from "../free/Area.vue";
 import eventBus from "@/utils/eventBus";
 import {$} from "@/utils/utils"
+
 export default {
   mixins: [basicsMixin, curList],
   components: {
@@ -61,6 +64,7 @@ export default {
     MarkLine,
     Area,
     Grid,
+   
   },
 
   computed: {
@@ -268,6 +272,7 @@ export default {
 <style lang="scss" scoped>
 $phoneWidth: 375px;
 $phoneHeight: 667px;
+
 // .phone-top {
 //   height: 10px;
 //   background-color: blue;

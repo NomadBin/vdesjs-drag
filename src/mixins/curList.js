@@ -11,7 +11,8 @@ export default {
     }),
     ...mapState({
       "freeFrame": "freeFrame",
-      areaData: "areaData"
+      areaData: "areaData",
+      referenceLine: "referenceLine",
     })
   }
 };

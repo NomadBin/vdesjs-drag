@@ -15,6 +15,8 @@
             <phone-frame v-if="mode == 'h5'"></phone-frame>
             <pc-frame v-if="mode == 'pc'"></pc-frame>
             <free-frame v-if="mode == 'free'"></free-frame>
+            <!-- 参考线 -->
+            <ruler v-if="mode == 'free'"></ruler>
           </el-main>
 
           <el-aside class="rightAside">
@@ -51,8 +53,10 @@ import PcLeftPanel from "../components/sub/PcLeftPanel.vue";
 
 import PcRightPanel from "../components/sub/PcRightPanel.vue";
 import Tips from "@/components/h5/Tips.vue";
-import FreeLeftPanel from '../components/sub/FreeLeftPanel.vue';
-import FreeFrame from '../components/sub/freeFrame.vue';
+import FreeLeftPanel from "../components/sub/FreeLeftPanel.vue";
+import FreeFrame from "../components/sub/freeFrame.vue";
+import Ruler from "@/components/free/Ruler.vue";
+
 export default {
   components: {
     THeader,
@@ -65,6 +69,7 @@ export default {
     Tips,
     FreeLeftPanel,
     FreeFrame,
+    Ruler,
   },
   name: "editor",
   data() {
@@ -89,9 +94,7 @@ export default {
       this.$store.commit("rightPanelFold");
     },
   },
-  created: function () {
-
-  },
+  created: function () {},
 };
 </script>
 
@@ -180,5 +183,6 @@ body {
 .mainFrame {
   overflow: hidden;
   height: calc(100vh - 85px);
+  position: relative;
 }
 </style>
