@@ -14,7 +14,7 @@
           <el-main class="mainFrame">
             <phone-frame v-if="mode == 'h5'"></phone-frame>
             <pc-frame v-if="mode == 'pc'"></pc-frame>
-            <free-frame v-if="mode == 'free'"></free-frame>
+            <free-frame v-show="mode == 'free'"></free-frame>
             <!-- 参考线 -->
             <ruler v-if="mode == 'free'"></ruler>
           </el-main>
@@ -27,6 +27,12 @@
               </div>
             </div>
             <div v-if="mode == 'pc'">
+              <pc-right-panel :class="animateClass"></pc-right-panel>
+              <div @click="fold" :class="foldClass">
+                <i :class="iconClass" />
+              </div>
+            </div>
+            <div v-if="mode == 'free'">
               <pc-right-panel :class="animateClass"></pc-right-panel>
               <div @click="fold" :class="foldClass">
                 <i :class="iconClass" />

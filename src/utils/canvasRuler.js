@@ -15,7 +15,7 @@ const ruler = {
         const initParams = {
             el: params.el, // id or node
             height: params.height || 60,
-            maxScale: params.maxScale || 200,
+            maxScale: params.maxScale || 500,
             startValue: params.startValue || 0,
             region: params.region || false,
             background: params.background || false,
@@ -98,17 +98,6 @@ const ruler = {
                 cxt.restore()
                 cxt.closePath()
             }
-            // 底部线条
-            // cxt.beginPath()
-            // cxt.save()
-            // cxt.strokeStyle = initParams.color ? initParams.color : '#bbb'
-            // cxt.lineWidth = 1
-            // cxt.lineCap = 'round'
-            // cxt.moveTo(0, initParams.height - 1)
-            // cxt.lineTo(winWidth, initParams.height - 1)
-            // cxt.stroke()
-            // cxt.restore()
-            // cxt.closePath()
         }
         if (window.devicePixelRatio) {
             canvas.style.transform = 'scale(' + 1 / window.devicePixelRatio + ')'
@@ -201,16 +190,7 @@ const ruler = {
                 cxt.restore()
                 cxt.closePath()
             }
-            // cxt.beginPath()
-            // cxt.save()
-            // cxt.strokeStyle = initParams.color ? initParams.color : '#bbb'
-            // cxt.lineWidth = 1
-            // cxt.lineCap = 'round'
-            // cxt.moveTo(initParams.width - 1, 0)
-            // cxt.lineTo(initParams.width - 1, winHeight)
-            // cxt.stroke()
-            // cxt.restore()
-            // cxt.closePath()
+
         }
         if (window.devicePixelRatio) {
             canvas.style.transform = 'scale(' + 1 / window.devicePixelRatio + ')'

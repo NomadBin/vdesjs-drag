@@ -7,13 +7,15 @@
       :class="line.includes('x') ? 'xline' : 'yline'"
       :ref="line"
       v-show="lineStatus[line] || false"
-    ></div>
+    >
+      <div class="tip"></div>
+    </div>
   </div>
 </template>
 <script>
 import curList from "@/mixins/curList";
 import { getComponentRotatedStyle } from "@/utils/style";
-import eventBus from '@/utils/eventBus'
+import eventBus from "@/utils/eventBus";
 export default {
   mixins: [curList],
   data() {
@@ -74,6 +76,7 @@ export default {
               line: "xt",
               dragShift: top,
               lineShift: top,
+              tip: this.caculateTopTip(curComponentStyle, componentStyle),
             },
             {
               isNearly: this.isNearly(curComponentStyle.bottom, top),
@@ -81,6 +84,7 @@ export default {
               line: "xt",
               dragShift: top - curComponentStyle.height,
               lineShift: top,
+              tip: this.caculateTopTip(curComponentStyle, componentStyle),
             },
             {
               // 组件与拖拽节点的中间是否对齐
@@ -92,6 +96,7 @@ export default {
               line: "xc",
               dragShift: top + componentHalfHeight - curComponentHalfHeight,
               lineShift: top + componentHalfHeight,
+              tip: this.caculateTopTip(curComponentStyle, componentStyle),
             },
             {
               isNearly: this.isNearly(curComponentStyle.top, bottom),
@@ -99,6 +104,7 @@ export default {
               line: "xb",
               dragShift: bottom,
               lineShift: bottom,
+              tip: this.caculateTopTip(curComponentStyle, componentStyle),
             },
             {
               isNearly: this.isNearly(curComponentStyle.bottom, bottom),
@@ -106,6 +112,7 @@ export default {
               line: "xb",
               dragShift: bottom - curComponentStyle.height,
               lineShift: bottom,
+              tip: this.caculateTopTip(curComponentStyle, componentStyle),
             },
           ],
           left: [
@@ -115,6 +122,8 @@ export default {
               line: "yl",
               dragShift: left,
               lineShift: left,
+              // tip: {value: '22', pos: 55}
+              tip: this.caculateLeftTip(curComponentStyle, componentStyle),
             },
             {
               isNearly: this.isNearly(curComponentStyle.right, left),
@@ -122,6 +131,7 @@ export default {
               line: "yl",
               dragShift: left - curComponentStyle.width,
               lineShift: left,
+              tip: this.caculateLeftTip(curComponentStyle, componentStyle),
             },
             {
               // 组件与拖拽节点的中间是否对齐
@@ -133,6 +143,7 @@ export default {
               line: "yc",
               dragShift: left + componentHalfwidth - curComponentHalfwidth,
               lineShift: left + componentHalfwidth,
+              tip: this.caculateLeftTip(curComponentStyle, componentStyle),
             },
             {
               isNearly: this.isNearly(curComponentStyle.left, right),
@@ -140,6 +151,7 @@ export default {
               line: "yr",
               dragShift: right,
               lineShift: right,
+              tip: this.caculateLeftTip(curComponentStyle, componentStyle),
             },
             {
               isNearly: this.isNearly(curComponentStyle.right, right),
@@ -147,6 +159,7 @@ export default {
               line: "yr",
               dragShift: right - curComponentStyle.width,
               lineShift: right,
+              tip: this.caculateLeftTip(curComponentStyle, componentStyle),
             },
           ],
         };
@@ -155,6 +168,7 @@ export default {
         Object.keys(conditions).forEach((key) => {
           conditions[key].forEach((condition) => {
             if (!condition.isNearly) return;
+            console.log("markline执行updateMyItemSingleStyle");
             this.$store.commit("updateMyItemSingleStyle", {
               key,
               value:
@@ -166,7 +180,17 @@ export default {
                     )
                   : condition.dragShift,
             });
-            console.log("lineNode:" + condition.lineNode);
+            console.log("lineNode:" + condition.lineNode.childNodes[0]);
+            condition.lineNode.childNodes[0].innerHTML = condition.tip.value;
+            if (key == 'top') {
+              condition.lineNode.childNodes[0].style["left"] =
+              condition.tip.pos + "px";
+            }
+             if (key == 'left') {
+              condition.lineNode.childNodes[0].style["top"] =
+              condition.tip.pos + "px";
+            }
+            
             condition.lineNode.style[key] = `${condition.lineShift}px`;
             needToShow.push(condition.line);
           });
@@ -177,6 +201,51 @@ export default {
           this.chooseTheTureLine(needToShow, isDownward, isRightward);
         }
       });
+    },
+    caculateTopTip(curComponentStyle, componentStyle) {
+      let retObj = { value: "0", pos: 0 };
+      let pos = 0;
+      let diffLeft = curComponentStyle.left - componentStyle.left;
+      if (diffLeft < 0) {
+        // 当前组件在对比组件左边
+        diffLeft = diffLeft + curComponentStyle.width
+        diffLeft = Math.abs(diffLeft)
+        pos = Math.round(curComponentStyle.right + diffLeft / 2)
+      } else {
+        // 当前组件在对比组件右边
+        diffLeft = diffLeft - componentStyle.width
+        pos = Math.round(componentStyle.right + diffLeft / 2)
+      }
+      retObj.value = diffLeft
+      retObj.pos = pos
+      return retObj
+    },
+    caculateLeftTip(curComponentStyle, componentStyle) {
+      console.log(
+        "caculateLeftTip-curComponentStyle:" + JSON.stringify(curComponentStyle)
+      );
+      console.log(
+        "caculateLeftTip-componentStyle:" + JSON.stringify(componentStyle)
+      );
+      let retObj = { value: "0", pos: 0 };
+      let pos = 0;
+      let diffTop = curComponentStyle.top - componentStyle.top;
+      if (diffTop < 0) {
+        // 当前选择的组件在对比组件的上方
+        diffTop = diffTop + curComponentStyle.height;
+        diffTop = Math.abs(diffTop);
+
+        pos = Math.round(curComponentStyle.bottom + diffTop / 2);
+      } else {
+        // 当前选择的组件在对比组件的下方
+        diffTop = diffTop - componentStyle.height;
+        pos = Math.round(componentStyle.bottom + diffTop / 2);
+      }
+
+      retObj.value = diffTop;
+      retObj.pos = pos;
+
+      return retObj;
     },
     isNearly(dragvalue, targetValue) {
       return Math.abs(dragvalue - targetValue) <= this.diff;
@@ -245,6 +314,12 @@ export default {
   background: #59c7f9;
   position: absolute;
   z-index: 1000;
+  .tip {
+    position: absolute;
+    background-color: white;
+    color: red;
+    font-size: 13px;
+  }
 }
 .xline {
   width: 100%;

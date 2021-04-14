@@ -41,13 +41,13 @@ export default {
       angleToCursor: [
         // 每个范围角度对应的光标
         { start: 338, end: 23, cursor: "nw" },
-        { start: 23, end: 58, cursor: "n" },
+        { start: 23, end: 68, cursor: "n" },
         { start: 68, end: 113, cursor: "ne" },
         { start: 113, end: 158, cursor: "e" },
         { start: 158, end: 203, cursor: "se" },
         { start: 203, end: 248, cursor: "s" },
-        { start: 248, end: 298, cursor: "sw" },
-        { start: 298, end: 338, cursor: "w" },
+        { start: 248, end: 293, cursor: "sw" },
+        { start: 293, end: 338, cursor: "w" },
       ],
       cursors: {},
     };
@@ -213,6 +213,7 @@ export default {
       // 如果元素没有移动，则不保存快照
       let hasMove = false;
       const move = (moveEvent) => {
+        console.log('执行move开始')
         hasMove = true;
         const curX = moveEvent.clientX;
         const curY = moveEvent.clientY;
@@ -226,9 +227,11 @@ export default {
       };
 
       const up = () => {
+        console.log('执行up开始')
         document.removeEventListener("mousemove", move);
         document.removeEventListener("mouseup", up);
         this.cursors = this.getCursor(); // 根据旋转角度获取光标位置
+        console.log('执行up结束')
       };
 
       document.addEventListener("mousemove", move);
@@ -282,6 +285,7 @@ export default {
         const angle = mod360(initialAngle[point] + rotate);
         const len = angleToCursor.length;
         while (true) {
+          console.log('循环:' + lastMatchIndex)
           lastMatchIndex = (lastMatchIndex + 1) % len;
           const angleLimit = angleToCursor[lastMatchIndex];
           if (angle < 23 || angle >= 338) {

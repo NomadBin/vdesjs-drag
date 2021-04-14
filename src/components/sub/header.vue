@@ -66,7 +66,14 @@ export default {
   methods: {
     selectDevice(val) {
       console.log(val);
-      this.$store.commit("selectDevice", val);
+      if (this.$store.state.list.length != 0) {
+        this.$message('画布中有数据不能进行模式的切换，否则由于 v-if标签会产生缓存，导致出bug');
+        console.log('画布中有数据不能进行模式的切换，否则由于 v-if标签会产生缓存，导致出bug')
+        return false;
+      } else {
+        this.$store.commit("selectDevice", val);
+      }
+      
     },
   },
 };

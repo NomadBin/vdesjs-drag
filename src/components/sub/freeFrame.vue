@@ -299,6 +299,7 @@ $phoneHeight: 667px;
   position: relative;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 30px;
 }
 .phone {
   width: $phoneWidth;

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { $, deepCopy} from '@/utils/utils'
+import { $, deepCopy } from '@/utils/utils'
 import decomposeComponent from '@/utils/decomposeComponent'
 import eventBus from '@/utils/eventBus'
 
@@ -57,6 +57,11 @@ const store = new Vuex.Store({
         referenceLine: {
             col: [],
             row: []
+        },
+        // 单属性缓存
+        singeStyleCahe: {
+            left: -1,
+            top: -1
         }
     },
     getters: {
@@ -84,15 +89,15 @@ const store = new Vuex.Store({
             // return state.list;
         },
         // 是否能撤销快照记录
-        hasRevocationSnaphot: state=> {
-            if(state.snapshotIndex <= 0) {
+        hasRevocationSnaphot: state => {
+            if (state.snapshotIndex <= 0) {
                 return false
             }
             return true
         },
         // 是否能恢复快照记录
-        hasForwardSnaphot: state=> {
-            if(state.snapshotIndex == state.snapshotData.length - 1) {
+        hasForwardSnaphot: state => {
+            if (state.snapshotIndex == state.snapshotData.length - 1) {
                 return false
             }
             return true
@@ -100,13 +105,13 @@ const store = new Vuex.Store({
     },
     mutations: {
         // 添加参考线
-        addReferenceLine(state, {type, position}) {
+        addReferenceLine(state, { type, position }) {
             state.referenceLine[type].push(position)
         },
         // 移除参考线
-        removeReferenceLine(state, {type, index}) {
+        removeReferenceLine(state, { type, index }) {
             state.referenceLine[type].splice(index, 1)
-            
+
         },
         // 撤销
         revocation(state) {
@@ -115,7 +120,7 @@ const store = new Vuex.Store({
                 console.log(deepCopy(state.snapshotData[state.snapshotIndex]))
                 state.list = deepCopy(state.snapshotData[state.snapshotIndex])
                 // Vue.set(state, 'list', deepCopy(state.snapshotData[state.snapshotIndex]))
-            } 
+            }
         },
         // 恢复
         forward(state) {
@@ -244,16 +249,31 @@ const store = new Vuex.Store({
         updateMyItem(state, payload) {
             state.myItem = payload
         },
-        updatemyItemStyle({ myItem }, { left, top, width, height, rotate }) {
-            if (left) myItem.mStyle.left = left
-            if (top) myItem.mStyle.top = top
-            if (width) myItem.mStyle.width = width
-            if (height) myItem.mStyle.height = height
-            if (rotate) myItem.mStyle.rotate = rotate
+        updatemyItemStyle(state, { left, top, width, height, rotate }) {
+            if (left) state.myItem.mStyle.left = left
+            if (top) state.myItem.mStyle.top = top
+            if (width) state.myItem.mStyle.width = width
+            if (height) state.myItem.mStyle.height = height
+            if (rotate) state.myItem.mStyle.rotate = rotate
+
+
 
         },
-        updateMyItemSingleStyle({ myItem }, { key, value }) {
-            myItem.mStyle[key] = value
+        updateMyItemSingleStyle(state, { key, value }) {
+            console.log('updateMyItemSingleStyle:' + key + ":" + value)
+            // if (state.singeStyleCahe[key] != value) {
+            //     state.myItem.mStyle[key] = value
+            //     state.singeStyleCahe[key] = value
+            //     setTimeout(() => {
+            //         state.singeStyleCahe = {
+            //             left: -1,
+            //             top: -1
+            //         }
+            //     }, 1000);
+            // }
+
+            state.myItem.mStyle[key] = value
+
         },
         deleteMyItem(state) {
             // for(let key in state.myItem) {
@@ -320,6 +340,8 @@ const store = new Vuex.Store({
             state.currentSelectListIndex = 0;
             state.currentColIndex = -1;
             state.currentColDataIndex = -1;
+            state.referenceLine.row = []
+            state.referenceLine.col = []
 
         },
         globalIdSet(state, payload) {

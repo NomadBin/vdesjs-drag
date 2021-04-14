@@ -65,15 +65,21 @@
 <script>
 import curList from "@/mixins/curList";
 import ruler from "@/utils/canvasRuler";
+import eventBus from "@/utils/eventBus";
+import { getComponentRotatedStyle } from "@/utils/style";
 
 const LEFT_SIDE_WIDTH = 300; // 左侧边栏的宽度
 const TOP_SIDE_HEIGHT = 60; // 顶部工具栏的高度
-const TOP_RULER_HEIGHT = 21; // 顶部标尺高度
+const TOP_RULER_HEIGHT = 20; // 顶部标尺高度
+const LEFT_RULE_WIDHT = 20; //左边标尺宽度
 
+const ROW_START_GAP = TOP_RULER_HEIGHT; // 顶部行标尺开始绘制位置
+const COL_START_GAP = 30 + ROW_START_GAP; //左边列标尺开始绘制位置
 export default {
   mixins: [curList],
   data() {
     return {
+      diff: 3, // 相距diff像素自动吸附
       referenceLineOpened: true,
       topMoving: false,
       leftMoving: false,
@@ -92,7 +98,7 @@ export default {
       return this.columnX - TOP_RULER_HEIGHT;
     },
     rowYInRuler() {
-      return this.rowY - 50;
+      return this.rowY - COL_START_GAP;
     },
     rowElPositionFix() {
       return {
@@ -103,51 +109,129 @@ export default {
   mounted() {
     const topRuler = this.$refs.topRuler;
     const leftRuler = this.$refs.leftRuler;
+    this.initRow(topRuler);
+    this.initColumn(leftRuler);
     let that = this;
-    let rowObj = ruler.initRow({
-      el: topRuler,
-      height: TOP_RULER_HEIGHT,
-      color: "#959595",
-      background: "#f8f8f8",
-      startGap: TOP_RULER_HEIGHT - 1,
-    });
-    that.maxColumX = rowObj.width;
-
-    let colObj = ruler.initColumn({
-      el: leftRuler,
-      width: TOP_RULER_HEIGHT,
-      color: "#959595",
-      background: "#f8f8f8",
-      startGap: 50 - 1,
-      maxScale: 501,
-    });
-    that.maxRowY = colObj.height;
-
     window.onresize = function () {
       console.log("window.onresize");
+      that.initRow(topRuler);
+      that.initColumn(leftRuler);
+    };
+
+    eventBus.$on("move", (isDownward, isRightward) => {
+      this.alignRuler();
+    });
+  },
+  methods: {
+    isNearly(dragvalue, targetValue) {
+      return Math.abs(dragvalue - targetValue) <= this.diff;
+    },
+    // 对齐标尺
+    alignRuler() {
+      const curComponentStyle = getComponentRotatedStyle(
+        this.currentData.mStyle
+      );
+      // 获取画布位移信息
+      const editorRectInfo = this.freeFrame.getBoundingClientRect();
+      console.log("editorRectInfo:" + JSON.stringify(editorRectInfo));
+
+      // 画布的坐标与标尺的坐标之间的差值
+      const diffPoint = {
+        x: editorRectInfo.left - LEFT_SIDE_WIDTH,
+        y: editorRectInfo.top - TOP_SIDE_HEIGHT,
+      };
+      console.log("diffPoint:" + JSON.stringify(diffPoint));
+      console.log('curComponentStyle:' + JSON.stringify(curComponentStyle))
+      const { rotate } = this.currentData.mStyle;
+       const curComponentHalfwidth = curComponentStyle.width / 2;
+      const curComponentHalfHeight = curComponentStyle.height / 2;
+      
+      this.referenceLine.col.forEach((item) => {
+        console.log("画布x:" + (item - diffPoint.x));
+        // 当前标尺线所在的画布x坐标
+        const lineX = item - diffPoint.x;
+        // 左边对齐竖标线
+        if (this.isNearly(curComponentStyle.left, lineX)) {
+          this.$store.commit("updateMyItemSingleStyle", {
+            key: "left",
+            value: rotate != 0 ? this.translatecurComponentShift('left', lineX, curComponentStyle) : lineX,
+          });
+        }
+        // 右边对齐竖标线
+        if (this.isNearly(curComponentStyle.right, lineX)) {
+          console.log('右边标线对齐')
+          this.$store.commit("updateMyItemSingleStyle", {
+            key: "left",
+            value: rotate != 0 ? this.translatecurComponentShift('left', lineX - curComponentStyle.width, curComponentStyle) : lineX - curComponentStyle.width,
+          });
+        }
+         // 中间对齐竖标线
+        if (this.isNearly(curComponentStyle.left + curComponentHalfwidth, lineX)) {
+          this.$store.commit("updateMyItemSingleStyle", {
+            key: "left",
+            value: rotate != 0 ? this.translatecurComponentShift('left', lineX - curComponentHalfwidth, curComponentStyle) : lineX - curComponentHalfwidth, 
+          });
+        }
+
+      });
+      this.referenceLine.row.forEach((item) => {
+        console.log("画布y:" + (item - diffPoint.y));
+
+        // 当前标尺所在的画布y坐标
+        const lineY = item - diffPoint.y;
+        // 顶部对齐横标线
+        if (this.isNearly(curComponentStyle.top, lineY)) {
+          this.$store.commit("updateMyItemSingleStyle", {
+            key: "top",
+            value: rotate != 0 ? this.translatecurComponentShift('top', lineY, curComponentStyle) : lineY,
+          });
+        }
+
+        // 中间对齐横标线
+        if (this.isNearly(curComponentStyle.top + curComponentHalfHeight, lineY)) {
+          this.$store.commit("updateMyItemSingleStyle", {
+            key: "top",
+            value: rotate != 0 ? this.translatecurComponentShift('top', lineY - curComponentHalfHeight, curComponentStyle) : lineY - curComponentHalfHeight,
+          });
+        }
+
+         // 底部对齐横标线
+        if (this.isNearly(curComponentStyle.bottom, lineY)) {
+          this.$store.commit("updateMyItemSingleStyle", {
+            key: "top",
+            value: rotate != 0 ? this.translatecurComponentShift('top', lineY - curComponentStyle.height, curComponentStyle) : lineY - curComponentStyle.height,
+          });
+        }
+
+      });
+    },
+    translatecurComponentShift(key, line, curComponentStyle) {
+      const { width, height } = this.currentData.mStyle;
+      if (key == "top") {
+        return Math.round(line - (height - curComponentStyle.height) / 2);
+      }
+      return Math.round(line - (width - curComponentStyle.width) / 2);
+    },
+    initRow(topRuler) {
       let rowObj = ruler.initRow({
         el: topRuler,
         height: TOP_RULER_HEIGHT,
         color: "#959595",
         background: "#f8f8f8",
-        startGap: TOP_RULER_HEIGHT - 1,
+        startGap: ROW_START_GAP,
       });
-      that.maxColumX = rowObj.width;
-      console.log(rowObj.width);
-
+      this.maxColumX = rowObj.width;
+    },
+    initColumn(leftRuler) {
       let colObj = ruler.initColumn({
         el: leftRuler,
-        width: TOP_RULER_HEIGHT,
+        width: LEFT_RULE_WIDHT,
         color: "#959595",
         background: "#f8f8f8",
-        startGap: 50 - 1,
-        maxScale: 501,
+        startGap: COL_START_GAP,
       });
-      that.maxRowY = colObj.height;
-      console.log(colObj.height);
-    };
-  },
-  methods: {
+      this.maxRowY = colObj.height;
+    },
     removeReferenceLine(obj) {
       this.$store.commit("removeReferenceLine", obj);
     },
@@ -213,7 +297,6 @@ export default {
           } else {
             this.addRow();
           }
-          
         }
         this.rowHandleMoveReady = false;
         this.leftMouseLeave();
