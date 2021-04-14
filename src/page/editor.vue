@@ -33,7 +33,7 @@
               </div>
             </div>
             <div v-if="mode == 'free'">
-              <pc-right-panel :class="animateClass"></pc-right-panel>
+              <free-right-panel :class="animateClass"></free-right-panel>
               <div @click="fold" :class="foldClass">
                 <i :class="iconClass" />
               </div>
@@ -61,6 +61,8 @@ import PcRightPanel from "../components/sub/PcRightPanel.vue";
 import Tips from "@/components/h5/Tips.vue";
 import FreeLeftPanel from "../components/sub/FreeLeftPanel.vue";
 import FreeFrame from "../components/sub/freeFrame.vue";
+import FreeRightPanel from "../components/sub/FreeRightPanel.vue";
+
 import Ruler from "@/components/free/Ruler.vue";
 
 export default {
@@ -74,6 +76,7 @@ export default {
     PcRightPanel,
     Tips,
     FreeLeftPanel,
+    FreeRightPanel,
     FreeFrame,
     Ruler,
   },
