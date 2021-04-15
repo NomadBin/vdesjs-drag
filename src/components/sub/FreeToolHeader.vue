@@ -75,7 +75,7 @@ import Clipboard from "clipboard";
 import { codemirror } from "vue-codemirror";
 import "codemirror/theme/ambiance-mobile.css"; // 这里引入的是主题样式，根据设置的theme的主题引入，一定要引入！！
 import "codemirror/mode/htmlmixed/htmlmixed"; // 这里引入的模式的js，根据设置的mode引入，一定要引入！！
-import handlebars from "@/handlebars/pcIndex.js";
+import handlebars from "@/handlebars/freeIndex.js";
 import { saveAs } from "file-saver";
 
 import curList from "@/mixins/curList";
@@ -154,7 +154,7 @@ export default {
     },
     generateCode() {
       this.codeDialogVisible = true;
-      var curHtmlCode = handlebars.generateHtmlCode(this.curList);
+      var curHtmlCode = handlebars.generateVueCode(this.curList);
       curHtmlCode = beautify_html(curHtmlCode);
       this.curHtmlCode = curHtmlCode;
 
@@ -225,11 +225,11 @@ export default {
 
     preview() {
       let routeData = this.$router.resolve({
-        path: "/pcPreview",
-        query: { id: 2 },
+        path: "/freePreview",
+        query: { id: 3},
       });
 
-      localStorage.setItem(2, JSON.stringify(this.curList));
+      localStorage.setItem(3, JSON.stringify(this.curList));
 
       window.open(routeData.href, "_blank");
     },

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import editor from '@/page/editor'
 import phonePreview from '@/page/phonePreview'
 import pcPreview from '@/page/pcPreview'
+import freePreview from '@/page/freePreview'
 import test from '@/page/test'
 
 Vue.use(Router)
@@ -23,6 +24,11 @@ export default new Router({
       path: '/pcPreview',
       name: 'pcPreview',
       component: pcPreview
+    },
+    {
+      path: '/freePreview',
+      name: 'freePreview',
+      component: freePreview
     },
 
     {

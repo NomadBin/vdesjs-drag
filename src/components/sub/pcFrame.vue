@@ -98,7 +98,7 @@ export default {
   },
   mounted() {
     // console.log("refs:" + JSON.stringify())
-    console.log(this.$store.state.domList['ImageText1'].style.backgroundColor = "blue ")
+    // console.log(this.$store.state.domList['ImageText1'].style.backgroundColor = "blue ")
   },
 };
 </script>

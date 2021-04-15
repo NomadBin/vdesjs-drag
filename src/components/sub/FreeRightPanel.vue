@@ -21,6 +21,24 @@
               ></el-input
             ></el-col>
           </el-row>
+          <el-row>
+            <el-col :span="10">宽度:</el-col>
+            <el-col :span="14"
+              ><el-input
+                v-model="currentData.mStyle.width"
+                placeholder=""
+              ></el-input
+            ></el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="10">高度:</el-col>
+            <el-col :span="14"
+              ><el-input
+                v-model="currentData.mStyle.height"
+                placeholder=""
+              ></el-input
+            ></el-col>
+          </el-row>
 
           <div v-for="(item, i) in currentData.propValues" :key="i">
             <div v-if="item.type == 'text'">
@@ -411,7 +429,7 @@ export default {
       console.log(data);
       if (typeof data.id == "undefined") {
         this.flag = false;
-        return { propValues: [], mStyle: {left: 0, top: 0} };
+        return { propValues: [] };
       } else {
         this.flag = true;
       }

@@ -9,6 +9,7 @@
       v-show="lineStatus[line] || false"
     >
       <div class="tip"></div>
+      <div class="subLine"></div>
     </div>
   </div>
 </template>
@@ -180,17 +181,28 @@ export default {
                     )
                   : condition.dragShift,
             });
-            console.log("lineNode:" + condition.lineNode.childNodes[0]);
-            condition.lineNode.childNodes[0].innerHTML = condition.tip.value;
-            if (key == 'top') {
-              condition.lineNode.childNodes[0].style["left"] =
-              condition.tip.pos + "px";
+            // console.log("lineNode:" + condition.lineNode.children[0]);
+            condition.lineNode.children[0].innerHTML = condition.tip.value;
+            if (key == "top") {
+              condition.lineNode.children[0].style["left"] =
+                condition.tip.pos + "px";
+
+              let subLine = condition.lineNode.children[1];
+              console.log(subLine);
+              subLine.style.width = condition.tip.subLine.unit + "px";
+              subLine.style.marginLeft = condition.tip.subLine.start + "px";
             }
-             if (key == 'left') {
-              condition.lineNode.childNodes[0].style["top"] =
-              condition.tip.pos + "px";
+            if (key == "left") {
+              console.log("condition:" + JSON.stringify(condition));
+              condition.lineNode.children[0].style["top"] =
+                condition.tip.pos + "px";
+
+              let subLine = condition.lineNode.children[1];
+              console.log(subLine);
+              subLine.style.height = condition.tip.subLine.unit + "px";
+              subLine.style.marginTop = condition.tip.subLine.start + "px";
             }
-            
+
             condition.lineNode.style[key] = `${condition.lineShift}px`;
             needToShow.push(condition.line);
           });
@@ -206,19 +218,26 @@ export default {
       let retObj = { value: "0", pos: 0 };
       let pos = 0;
       let diffLeft = curComponentStyle.left - componentStyle.left;
+      let subLine = { start: 0, unit: 0 };
       if (diffLeft < 0) {
         // 当前组件在对比组件左边
-        diffLeft = diffLeft + curComponentStyle.width
-        diffLeft = Math.abs(diffLeft)
-        pos = Math.round(curComponentStyle.right + diffLeft / 2)
+        diffLeft = diffLeft + curComponentStyle.width;
+        diffLeft = Math.abs(diffLeft);
+        pos = Math.round(curComponentStyle.right + diffLeft / 2);
+        subLine.start = curComponentStyle.right;
+        subLine.unit = diffLeft;
       } else {
         // 当前组件在对比组件右边
-        diffLeft = diffLeft - componentStyle.width
-        pos = Math.round(componentStyle.right + diffLeft / 2)
+        diffLeft = diffLeft - componentStyle.width;
+        pos = Math.round(componentStyle.right + diffLeft / 2);
+        subLine.start = componentStyle.start;
+        subLine.unit = diffLeft;
       }
-      retObj.value = diffLeft
-      retObj.pos = pos
-      return retObj
+      diffLeft = Math.round(diffLeft);
+      retObj.value = diffLeft;
+      retObj.pos = pos;
+      retObj.subLine = subLine;
+      return retObj;
     },
     caculateLeftTip(curComponentStyle, componentStyle) {
       console.log(
@@ -227,23 +246,31 @@ export default {
       console.log(
         "caculateLeftTip-componentStyle:" + JSON.stringify(componentStyle)
       );
-      let retObj = { value: "0", pos: 0 };
+      let retObj = { value: "0", pos: 0, subLine: {} };
+      let subLine = { start: 0, unit: 200 };
       let pos = 0;
       let diffTop = curComponentStyle.top - componentStyle.top;
       if (diffTop < 0) {
         // 当前选择的组件在对比组件的上方
         diffTop = diffTop + curComponentStyle.height;
         diffTop = Math.abs(diffTop);
-
         pos = Math.round(curComponentStyle.bottom + diffTop / 2);
+
+        subLine.start = curComponentStyle.bottom;
+        subLine.unit = diffTop;
       } else {
         // 当前选择的组件在对比组件的下方
         diffTop = diffTop - componentStyle.height;
         pos = Math.round(componentStyle.bottom + diffTop / 2);
+
+        subLine.start = componentStyle.bottom;
+        subLine.unit = diffTop;
       }
 
+      diffTop = Math.round(diffTop);
       retObj.value = diffTop;
       retObj.pos = pos;
+      retObj.subLine = subLine;
 
       return retObj;
     },
@@ -324,9 +351,21 @@ export default {
 .xline {
   width: 100%;
   height: 1px;
+  .subLine {
+    background: red;
+    width: 0px;
+    height: 1px;
+    margin-left: 0px;
+  }
 }
 .yline {
   width: 1px;
   height: 100%;
+  .subLine {
+    background: red;
+    width: 1px;
+    height: 0px;
+    margin-top: 0px;
+  }
 }
 </style>

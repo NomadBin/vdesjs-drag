@@ -1,0 +1,19 @@
+<script>
+    export default {
+        data() {
+            return {
+                {{#each data}} 
+                "{{{@key}}}": {{{this}}},
+                {{/each}}
+
+            }
+        },
+        methods: {
+            {{#each methdos}} 
+                {{{this}}}
+            {{/each}}
+
+        }
+        
+    }
+</script>
