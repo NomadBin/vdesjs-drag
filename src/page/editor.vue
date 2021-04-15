@@ -107,7 +107,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 #app,
 body {
   overflow: hidden;
